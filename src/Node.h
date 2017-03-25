@@ -4,6 +4,7 @@
 
 #include <iostream>
 #include <string>
+#include <cmath>
 
 using namespace std;
 
@@ -17,6 +18,7 @@ public:
 	string getName() const;
 	pair<float, float> getCoordinates() const;
 	float getHeight() const;
+	float getDistance(const Node & nd) const;
 	bool operator ==(const Node & nd);
 };
 

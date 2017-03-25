@@ -18,6 +18,10 @@ float Node::getHeight() const{
 	return height;
 }
 
+float Node::getDistance(const Node & nd) const{
+	return sqrt(pow(nd.getCoordinates().first - coordinates.first, 2) + pow(nd.getCoordinates().second - coordinates.second, 2) + pow(nd.getHeight() - height,2));
+}
+
 bool Node::operator ==(const Node & nd){
 	if(coordinates == nd.getCoordinates() && height == nd.getHeight())
 		return true;
