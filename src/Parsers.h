@@ -44,6 +44,7 @@ void readStreets(Graph<Local> &map, vector<Road> &roads){
 
 	string line, data;
 	int roadId, local1Id, local2Id;
+	bool exists;
 
 	ifstream roadsFile("files/C.txt");		//TODO mudar para receber ficheiro com a regiao a analizar
 
@@ -59,8 +60,18 @@ void readStreets(Graph<Local> &map, vector<Road> &roads){
 			Local l1 = map.getLocal(local1Id);
 			Local l2 = map.getLocal(local2Id);
 			map.addEdge(l1, l2, l1.getDistance(l2));
-			Road r(roadId, &l1, &l1);
-			roads.push_back(r);
+
+			//TODO road tem um vetor de locais: alterar codigo em baixo para ir adicionando os locais e alterar a parte dos dois sentidos e comprimento da road
+
+			exists = false;
+			for(unsigned int i = 0; i < roads.size(); i++){
+				if(roads.at(i).getId() == roadId)
+					exists = true;
+			}
+			if(exists == false){
+				Road r(roadId, &l1, &l1);
+				roads.push_back(r);
+			}
 		}
 	}
 	else
