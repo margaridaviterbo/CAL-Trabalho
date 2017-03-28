@@ -9,7 +9,6 @@
 using namespace std;
 
 
-//TODO tentar descobrir como sao os ficheiros do open street map para ir la criar localizaçoes e fazer parder para os ficheiros txt com a info dessas localizaçoes e por no grafo
 //TODO depois começar a ver as opçoes que tenho de ter no menu e como usar a informaçao guardada no grafo
 
 
@@ -18,8 +17,9 @@ int main(){
 	Graph<Local> map;
 
 	readLocals(map);
-
 	readStreets(map);
+	readRoadsDirections(map);
+
 	cout << "Welcome to this BikeSharing Platform!";
 	displayMainMenu();
 

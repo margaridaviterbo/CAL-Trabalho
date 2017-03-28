@@ -6,6 +6,7 @@
 
 #include <vector>
 #include <queue>
+#include "Local.h"
 using namespace std;
 
 template <class T> class Edge;
@@ -70,6 +71,7 @@ public:
 	bool addEdge(const T &sourc, const T &dest, double w);
 	bool removeVertex(const T &in);
 	Vertex<T>* getVertex(const T &in);
+	Local getLocal(int id);
 	bool removeEdge(const T &sourc, const T &dest);
 	vector<T> dfs() const;
 	vector<T> bfs(Vertex<T> *v) const;
@@ -126,6 +128,17 @@ Vertex<T>* Graph<T>::getVertex(const T &in){
 		if ((*it)->info == in) {
 			Vertex<T> *v= *it;
 			return v;
+		}
+	}
+}
+
+template <class T>
+Local Graph<T>::getLocal(int id){
+	typename vector<Vertex<T>*>::iterator it= vertexSet.begin();
+	typename vector<Vertex<T>*>::iterator ite= vertexSet.end();
+	for (; it!=ite; it++) {
+		if (((*it)->info).getId() == id) {
+			return (*it)->info;
 		}
 	}
 }
