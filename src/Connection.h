@@ -1,5 +1,5 @@
-/*#ifndef ROAD_H
-#define ROAD_H
+#ifndef CONNECTION_H
+#define CONNECTION_H
 
 
 #include <iostream>
@@ -8,23 +8,21 @@
 
 using namespace std;
 
-class Road{
+class Connection{
 private:
-	int id;
-	string name;
+	int roadId;
+	string roadName;
 	Local *local1, *local2;
 	float length;
-	bool twoWays = false;
 public:
-	Road(int id, Local* local1, Local* local2);
+	Connection(int id, Local* local1, Local* local2);
 	void setName(string name);
-	void setTwoWays();
-	int getId();
+	int getRoadId();
 	Local* getLocal1();
 	Local* getLocal2();
 	float getLength();
 };
 
 
-#endif ROAD_H	/* ROAD_H */
-*/
+#endif CONNECTION_H	/* CONNECTION_H */
+

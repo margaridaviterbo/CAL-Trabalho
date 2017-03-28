@@ -5,7 +5,7 @@
 #include "Parsers.h"
 #include <vector>
 #include "Local.h"
-#include "Road.h"
+//#include "Road.h"
 using namespace std;
 
 
@@ -15,11 +15,11 @@ using namespace std;
 int main(){
 
 	Graph<Local> map;
-	vector<Road> roads;
+	//vector<Road> roads;
 
 	readLocals(map);
-	readStreets(map, roads);
-	readRoadsDirections(map, roads);
+	readStreets(map);
+	readRoadsDirections(map);
 
 	cout << "Welcome to this BikeSharing Platform!";
 	displayMainMenu();
