@@ -15,8 +15,11 @@ using namespace std;
 
 int main(){
 
-	readLocals();
-	readStreets();
+	Graph<Local> map;
+
+	readLocals(map);
+
+	readStreets(map);
 	cout << "Welcome to this BikeSharing Platform!";
 	displayMainMenu();
 

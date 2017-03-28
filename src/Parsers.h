@@ -7,10 +7,12 @@
 #include <sstream>
 #include <string>
 #include <cstdlib>
+#include "Local.h"
+#include "Graph.h"
 
 using namespace std;
 
-void readLocals(){
+void readLocals(Graph<Local> &map){
 	string line, data;
 	int id;
 	float lat, longi;
@@ -21,13 +23,15 @@ void readLocals(){
 		while(getline(localsFile, line)){
 			stringstream ss(line);
 			getline(ss, data, ';');
-			id = (int)data;
+			id = atoi(data.c_str());
 			getline(ss, data, ';');
-			lat = (float)data;
+			lat = atof(data.c_str());
 			getline(ss, data, ';');
-			longi = (float)data;
+			longi = atof(data.c_str());
 			height = rand() % 1001;
-			Node()
+			pair<float, float> coord(lat, longi);
+			Local local(id, coord, height);
+			map.addVertex(local);
 		}
 	}
 	else
@@ -35,7 +39,7 @@ void readLocals(){
 
 }
 
-void readStreets(){
+void readStreets(Graph<Local> &map){
 
 }
 
