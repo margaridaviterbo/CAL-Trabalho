@@ -8,6 +8,7 @@
 #include <string>
 #include <cstdlib>
 #include "Local.h"
+#include "Road.h"
 #include "Graph.h"
 
 using namespace std;
@@ -39,7 +40,7 @@ void readLocals(Graph<Local> &map){
 
 }
 
-void readStreets(Graph<Local> &map){
+void readStreets(Graph<Local> &map, vector<Road> &roads){
 
 	string line, data;
 	int roadId, local1Id, local2Id;
@@ -58,6 +59,8 @@ void readStreets(Graph<Local> &map){
 			Local l1 = map.getLocal(local1Id);
 			Local l2 = map.getLocal(local2Id);
 			map.addEdge(l1, l2, l1.getDistance(l2));
+			Road r(roadId, l1, l1);
+			roads.push_back(r);
 		}
 	}
 	else
