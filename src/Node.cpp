@@ -27,5 +27,8 @@ bool Node::operator ==(const Node & nd){
 		return true;
 
 	return false;
+}
 
+void Node::print(){
+	cout << name << ": lat(" << coordinates.first << "); long(" << coordinates.second << "); height(" << height << ")\n";
 }

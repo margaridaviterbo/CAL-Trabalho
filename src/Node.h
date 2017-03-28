@@ -20,6 +20,7 @@ public:
 	float getHeight() const;
 	float getDistance(const Node & nd) const;
 	bool operator ==(const Node & nd);
+	void print();
 };
 
 
