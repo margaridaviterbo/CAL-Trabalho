@@ -19,7 +19,7 @@ int main(){
 
 	readLocals(map);
 	readStreets(map, roads);
-	readRoadsDirections(map);
+	readRoadsDirections(map, roads);
 
 	cout << "Welcome to this BikeSharing Platform!";
 	displayMainMenu();

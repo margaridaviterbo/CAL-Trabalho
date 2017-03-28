@@ -12,14 +12,17 @@ class Road{
 private:
 	int id;
 	string name;
-	Local local1, local2;
+	Local *local1, *local2;
 	float length;
 	bool twoWays = false;
 public:
-	Road(int id, Local local1, Local local2);
+	Road(int id, Local* local1, Local* local2);
 	void setName(string name);
 	void setTwoWays();
 	int getId();
+	Local* getLocal1();
+	Local* getLocal2();
+	float getLength();
 };
 
 
