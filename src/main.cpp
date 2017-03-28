@@ -3,10 +3,11 @@
 #include "Graph.h"
 #include "Node.h"
 #include "MenusManager.h"
+#include <vector>
 using namespace std;
 
 
-//TODO depois de grafo estar a funcionar direitinho vou tentar descobrir como sao os ficheiros do open street map para ir la criar localizaçoes e fazer parder para os ficheiros txt com a info dessas localizaçoes e por no grafo
+//TODO tentar descobrir como sao os ficheiros do open street map para ir la criar localizaçoes e fazer parder para os ficheiros txt com a info dessas localizaçoes e por no grafo
 //TODO depois começar a ver as opçoes que tenho de ter no menu e como usar a informaçao guardada no grafo
 
 
@@ -25,13 +26,14 @@ int main(){
 	graph.addVertex(node1);
 	graph.addVertex(node2);
 	graph.addVertex(node3);
-	cout << endl << graph.getNumVertex();
+	cout << endl << graph.getNumVertex() << endl;
 
-	graph.addEdge(node1, node2, node1.getDistance(node2));
-	graph.addEdge(node2, node3, node2.getDistance(node3));
-	vector<Node> v;
-	graph.dfs(/*passar vertice - getsetvertex e percorrer até encontrar o vertice ou criar funçao em graph que devolva o vertex*/, v);
-	//TODO imprimir caminho para testar se está tudo a funcionar
+	graph.addEdge(node1, node3, node1.getDistance(node3));
+	graph.addEdge(node3, node2, node3.getDistance(node2));
+	vector<Node> v = graph.dfs();
+	for (unsigned int i = 0; i < v.size(); i++){
+		v.at(i).print();
+	}
 	graph.removeVertex(node1);
 	cout << endl << graph.getNumVertex();
 
