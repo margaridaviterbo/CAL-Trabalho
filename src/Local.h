@@ -10,9 +10,9 @@ using namespace std;
 
 class Local{
 private:
-	int id;		//TODO as ruas é que vao ter os nomes
+	int id;
 	pair<float, float> coordinates;		//latitude, longitude
-	int height;	//vai ser um numero aleatorio
+	int height;
 public:
 	Local(int id, pair<float, float> coord, int height);
 	int getId() const;

@@ -8,6 +8,7 @@
 #include <string>
 #include <cstdlib>
 #include "Local.h"
+#include "Road.h"
 #include "Graph.h"
 
 using namespace std;
@@ -17,7 +18,7 @@ void readLocals(Graph<Local> &map){
 	int id;
 	float lat, longi;
 	int height;
-	ifstream localsFile("files/A.txt");
+	ifstream localsFile("files/A.txt");		//TODO mudar para receber ficheiro com a regiao a analizar
 
 	if(localsFile.is_open()){
 		while(getline(localsFile, line)){
@@ -35,12 +36,38 @@ void readLocals(Graph<Local> &map){
 		}
 	}
 	else
-		cout << "Could not open A.txt!\n";
+		cout << "Could not open A.txt!\n";	//TODO mudar mensagem para especificar ficheiro direito
 
 }
 
-void readStreets(Graph<Local> &map){
+void readStreets(Graph<Local> &map, vector<Road> &roads){
 
+	string line, data;
+	int roadId, local1Id, local2Id;
+
+	ifstream roadsFile("files/C.txt");		//TODO mudar para receber ficheiro com a regiao a analizar
+
+	if(roadsFile.is_open()){
+		while(getline(roadsFile, line)){
+			stringstream ss(line);
+			getline(ss, data, ';');
+			roadId = atoi(data.c_str());	//TODO criair classe rua para eventualmente usar isto e por aqui
+			getline(ss, data, ';');
+			local1Id = atoi(data.c_str());
+			getline(ss, data, ';');
+			local2Id = atoi(data.c_str());
+			Local l1 = map.getLocal(local1Id);
+			Local l2 = map.getLocal(local2Id);
+			map.addEdge(l1, l2, l1.getDistance(l2));
+			Road r(roadId, l1, l1);
+			roads.push_back(r);
+		}
+	}
+	else
+		cout << "Could not open C.txt!\n";	//TODO mudar mensagem para especificar ficheiro direito
 }
 
+void readRoadsDirections(Graph<Local> &map){
+
+}
 #endif PARSERS_H	/* PARSERS_H */
