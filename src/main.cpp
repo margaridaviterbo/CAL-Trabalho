@@ -1,9 +1,11 @@
 #include <iostream>
 
 #include "Graph.h"
-#include "Node.h"
 #include "MenusManager.h"
+#include "Parsers.h"
 #include <vector>
+
+#include "Local.h"
 using namespace std;
 
 
@@ -12,30 +14,39 @@ using namespace std;
 
 
 int main(){
+
+	readLocals();
+	readStreets();
 	cout << "Welcome to this BikeSharing Platform!";
 	displayMainMenu();
 
-	pair<float, float> coord1(1, 2);
-	Node node1("no1", coord1, 1.5);
-	pair<float, float> coord2(2, 2);
-	Node node2("no2", coord2, 1.5);
-	pair<float, float> coord3(3, 6);
-	Node node3("no3", coord3, 3);
-	Graph<Node> graph;
 
-	graph.addVertex(node1);
-	graph.addVertex(node2);
-	graph.addVertex(node3);
+	// teste de graph
+
+	pair<float, float> coord1(1, 2);
+	Local Local1(1, coord1, 1);
+	pair<float, float> coord2(2, 2);
+	Local Local2(2, coord2, 1);
+	pair<float, float> coord3(3, 6);
+	Local Local3(3, coord3, 3);
+	Graph<Local> graph;
+
+	graph.addVertex(Local1);
+	graph.addVertex(Local2);
+	graph.addVertex(Local3);
 	cout << endl << graph.getNumVertex() << endl;
 
-	graph.addEdge(node1, node3, node1.getDistance(node3));
-	graph.addEdge(node3, node2, node3.getDistance(node2));
-	vector<Node> v = graph.dfs();
+	graph.addEdge(Local1, Local3, Local1.getDistance(Local3));
+	graph.addEdge(Local3, Local2, Local3.getDistance(Local2));
+	vector<Local> v = graph.dfs();
 	for (unsigned int i = 0; i < v.size(); i++){
 		v.at(i).print();
 	}
-	graph.removeVertex(node1);
+	graph.removeVertex(Local1);
 	cout << endl << graph.getNumVertex();
+
+	//fim do teste do parser
+
 
 	return 0;
 }
