@@ -1,4 +1,4 @@
-#include "Connection.h"
+/*#include "Connection.h"
 
 Connection::Connection(int roadId, Local* local1, Local* local2){
 	this->roadId = roadId;
@@ -27,3 +27,4 @@ float Connection::getLength(){
 	return length;
 }
 
+*/

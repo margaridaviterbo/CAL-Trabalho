@@ -1,4 +1,4 @@
-#ifndef CONNECTION_H
+/*#ifndef CONNECTION_H
 #define CONNECTION_H
 
 
@@ -16,7 +16,7 @@ private:
 	float length;
 public:
 	Connection(int id, Local* local1, Local* local2);
-	void setName(string name);
+	void setRoadName(string name);
 	int getRoadId();
 	Local* getLocal1();
 	Local* getLocal2();
@@ -25,4 +25,4 @@ public:
 
 
 #endif CONNECTION_H	/* CONNECTION_H */
-
+*/
