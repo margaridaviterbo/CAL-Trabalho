@@ -15,11 +15,15 @@ using namespace std;
 int main(){
 
 	Graph<Local> map;
-	//vector<Road> roads;
 
 	readLocals(map);
 	readStreets(map);
 	readRoadsDirections(map);
+
+	vector<Local> v1 = map.dfs();
+		for (unsigned int i = 0; i < v1.size(); i++){
+			v1.at(i).print();
+		}
 
 	cout << "Welcome to this BikeSharing Platform!";
 	displayMainMenu();

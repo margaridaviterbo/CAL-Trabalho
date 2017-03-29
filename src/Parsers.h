@@ -8,8 +8,6 @@
 #include <string>
 #include <cstdlib>
 #include "Local.h"
-//#include "Road.h"
-#include "Connection.h"
 #include "Graph.h"
 
 using namespace std;
@@ -62,25 +60,17 @@ void readStreets(Graph<Local> &map){
 			Local l2 = map.getLocal(local2Id);
 			map.addEdge(l1, l2, l1.getDistance(l2));
 
-
-
-			exists = false;
-			for(unsigned int i = 0; i < roads.size(); i++){
-				if(roads.at(i).getId() == roadId)
-					exists = true;
-			}
-			if(exists == false){
-				Road r(roadId, &l1, &l1);
-				roads.push_back(r);
-			}
+			//TODO por guardar ruas a funcionar
+			/*if(l1.getRoads().find(roadId))
+				l1.getRoads().insert(pair<int, string> (roadId, ""));*/
 		}
 	}
 	else
 		cout << "Could not open C.txt!\n";	//TODO mudar mensagem para especificar ficheiro direito
 }
 
-void readRoadsDirections(Graph<Local> &map, vector<Road> &roads){
-	string line, data;
+void readRoadsDirections(Graph<Local> &map){
+	/*string line, data;
 	int roadId;
 	string roadName;
 
@@ -95,9 +85,11 @@ void readRoadsDirections(Graph<Local> &map, vector<Road> &roads){
 			roadName = atoi(data.c_str());
 			getline(ss, data, '\n');
 
-			for(unsigned int i = 0; i < roads.size(); i++){
-				if(roads.at(i).getId() == roadId){
-					roads.at(i).setName(roadName);
+			map.getLocalBy1
+
+			for(unsigned int i = 0; i < connections.size(); i++){
+				if(connections.at(i)->getRoadId() == roadId){
+					connections.at(i)->setName(roadName);
 					if(data == "True"){
 						roads.at(i).setTwoWays();
 						map.addEdge(*(roads.at(i).getLocal2()), *(roads.at(i).getLocal1()), roads.at(i).getLength());
@@ -108,6 +100,8 @@ void readRoadsDirections(Graph<Local> &map, vector<Road> &roads){
 	}
 	else
 		cout << "Could not open B.txt!\n";	//TODO mudar mensagem para especificar ficheiro direito
+
+*/
 
 }
 #endif PARSERS_H	/* PARSERS_H */
