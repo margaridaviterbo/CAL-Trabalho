@@ -7,10 +7,10 @@
 #include <vector>
 #include <queue>
 #include <algorithm>
-#include "Local.h"	//TODO TÁ MAL
+#include <limits.h>
 using namespace std;
 
-const int INT_INFINITY = 1000000;
+const int INT_INFINITY = INT_MAX;
 
 template <class T> class Edge;
 template <class T> class Graph;
@@ -87,7 +87,7 @@ public:
 	bool addEdge(const T &sourc, const T &dest, double w);
 	bool removeVertex(const T &in);
 	Vertex<T>* getVertex(const T &in);
-	Local getLocal(int id);	//TODO tá mal
+	T getLocal(int id);
 	bool removeEdge(const T &sourc, const T &dest);
 	vector<T> dfs() const;
 	vector<T> bfs(Vertex<T> *v) const;
@@ -151,7 +151,7 @@ Vertex<T>* Graph<T>::getVertex(const T &in){
 }
 
 template <class T>
-Local Graph<T>::getLocal(int id){
+T Graph<T>::getLocal(int id){
 	typename vector<Vertex<T>*>::iterator it= vertexSet.begin();
 	typename vector<Vertex<T>*>::iterator ite= vertexSet.end();
 	for (; it!=ite; it++) {

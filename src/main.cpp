@@ -49,7 +49,8 @@ int main(){
 	graph.addEdge(Local1, Local2, Local1.getDistance(Local2));
 	graph.addEdge(Local1, Local3, Local1.getDistance(Local3));
 	graph.addEdge(Local2, Local4, Local2.getDistance(Local4));
-	graph.addEdge(Local3, Local4, Local3.getDistance(Local4));
+	graph.addEdge(Local2, Local3, Local2.getDistance(Local3));
+	graph.addEdge(Local3, Local2, Local3.getDistance(Local2));
 	cout << "d1,2,4=" << Local1.getDistance(Local2) + Local2.getDistance(Local4) << endl;
 	cout << "d1,3,4=" << Local1.getDistance(Local3) + Local3.getDistance(Local4) << endl;
 	vector<Local> v = graph.dfs();
