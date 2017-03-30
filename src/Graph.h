@@ -6,8 +6,11 @@
 
 #include <vector>
 #include <queue>
-#include "Local.h"
+#include <algorithm>
+#include "Local.h"	//TODO TÁ MAL
 using namespace std;
+
+const int INT_INFINITY = 1000000;
 
 template <class T> class Edge;
 template <class T> class Graph;
@@ -17,13 +20,22 @@ class Vertex {
 	T info;
 	vector<Edge<T>  > adj;
 	bool visited;
+	bool processed;
+	double dist;
 	void addEdge(Vertex<T> *dest, double w);
 	bool removeEdgeTo(Vertex<T> *d);
 public:
 	Vertex(T in);
 	friend class Graph<T>;
+	double getDist() const;
+	T getInfo();
+	Vertex* prev;
 };
 
+template<class T>
+T Vertex<T>::getInfo(){
+	return info;
+}
 
 template <class T>
 bool Vertex<T>::removeEdgeTo(Vertex<T> *d) {
@@ -42,6 +54,10 @@ bool Vertex<T>::removeEdgeTo(Vertex<T> *d) {
 template <class T>
 Vertex<T>::Vertex(T in): info(in), visited(false){}
 
+template <class T>
+double Vertex<T>::getDist() const {
+	return this->dist;
+}
 
 template <class T>
 void Vertex<T>::addEdge(Vertex<T> *dest, double w) {
@@ -71,13 +87,15 @@ public:
 	bool addEdge(const T &sourc, const T &dest, double w);
 	bool removeVertex(const T &in);
 	Vertex<T>* getVertex(const T &in);
-	Local getLocal(int id);
+	Local getLocal(int id);	//TODO tá mal
 	bool removeEdge(const T &sourc, const T &dest);
 	vector<T> dfs() const;
 	vector<T> bfs(Vertex<T> *v) const;
 	int maxNewChildren(Vertex<T> *v, T &inf) const;
 	vector<Vertex<T> * > getVertexSet() const;
 	int getNumVertex() const;
+	void dijkstraShortestPath(const T &s);
+	vector<T> getPath(Vertex<T> *dest);
 };
 
 template <class T>
@@ -266,6 +284,71 @@ int Graph<T>::maxNewChildren(Vertex<T> *v, T &inf) const {
 	return maxChildren;
 }
 
+template <class T>
+struct vertex_greater_than {
+    bool operator()(Vertex<T> * a, Vertex<T> * b) const {
+        return a->getDist() > b->getDist();
+    }
+};
+
+template<class T>
+void Graph<T>::dijkstraShortestPath(const T &s) {
+
+	for(unsigned int i = 0; i < vertexSet.size(); i++) {
+		vertexSet[i]->prev = NULL;
+		vertexSet[i]->dist = INT_INFINITY;
+		vertexSet[i]->processed = false;
+	}
+
+	Vertex<T>* v = getVertex(s);
+	v->dist = 0;
+
+	vector< Vertex<T>* > visitedVertexes;
+	visitedVertexes.push_back(v);
+
+	make_heap(visitedVertexes.begin(), visitedVertexes.end());
+
+
+	while( !visitedVertexes.empty() ) {
+
+		v = visitedVertexes.front();
+		pop_heap(visitedVertexes.begin(), visitedVertexes.end());
+		visitedVertexes.pop_back();
+
+		for(unsigned int i = 0; i < v->adj.size(); i++) {
+			Vertex<T>* w = v->adj[i].dest;
+
+			if(v->dist + v->adj[i].weight < w->dist ) {
+
+				w->dist = v->dist + v->adj[i].weight;
+				w->prev = v;
+
+				if(!w->processed)
+				{
+					w->processed = true;
+					visitedVertexes.push_back(w);
+				}
+
+				make_heap(visitedVertexes.begin(),visitedVertexes.end(),vertex_greater_than<T>());
+			}
+		}
+	}
+}
+
+
+template<class T>
+vector<T> Graph<T>::getPath(Vertex<T> *dest){
+	vector<T> path;
+	path.push_back(dest->info);
+
+	while(dest->prev != NULL){
+		dest = dest->prev;
+		path.push_back(dest->info);
+	}
+
+	reverse(path.begin(), path.end());
+	return path;
+}
 
 
 #endif /* GRAPH_H_ */

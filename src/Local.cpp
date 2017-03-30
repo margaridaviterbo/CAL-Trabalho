@@ -18,7 +18,7 @@ int Local::getHeight() const{
 	return height;
 }
 
-float Local::getDistance(const Local & nd) const{
+float Local::getDistance(const Local nd) const{
 	return sqrt(pow(nd.getCoordinates().first - coordinates.first, 2) + pow(nd.getCoordinates().second - coordinates.second, 2) + pow(nd.getHeight() - height,2));
 }
 
