@@ -20,10 +20,12 @@ public:
 	int getId() const;
 	pair<float, float> getCoordinates() const;
 	int getHeight() const;
-	float getDistance(const Local & nd) const;
+	float getDistance(const Local nd) const;
 	map<int, string> getRoads();
 	bool operator ==(const Local & nd);
 	void print();
+
+	bool isDeliveryPoint=false;		//TODO para apagar
 };
 
 
