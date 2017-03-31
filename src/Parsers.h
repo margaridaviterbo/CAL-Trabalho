@@ -7,6 +7,7 @@
 #include <sstream>
 #include <string>
 #include <cstdlib>
+#include <iterator>
 #include "Local.h"
 #include "Graph.h"
 
@@ -72,6 +73,7 @@ void readRoadsDirections(Graph<Local> &mapa){
 	string line, data;
 	int roadId;
 	string roadName;
+	bool connection;
 
 	ifstream directionsFile("files/B.txt");		//TODO mudar para receber ficheiro com a regiao a analizar
 
@@ -88,16 +90,28 @@ void readRoadsDirections(Graph<Local> &mapa){
 				map<int, string>::iterator it = mapa.getVertexSet().at(i)->getInfo().getRoads().begin();
 				map<int, string>::iterator it_e = mapa.getVertexSet().at(i)->getInfo().getRoads().end();
 				while(it != it_e){
-					if(it->first == roadId)
-						it->second = roadName;
-					it++;
+					cout << "aqui";
+					/*if(it->first == roadId)
+						it->second = roadName;*/
+					++it;
 				}
 
-				if(data == "True"){		//percorrer vetor adjacentes de cada vertex e de forem ambos da rua roadId verificar que tem duas ligaçoes
-					roads.at(i).setTwoWays();
-					map.addEdge(*(roads.at(i).getLocal2()), *(roads.at(i).getLocal1()), roads.at(i).getLength());
-				}
-
+				/*if(data == "True"){
+					vector<Edge<Local> > adjacents_origin = mapa.getVertexSet().at(i)->getAdj();
+					for(size_t j=0; j < adjacents_origin.size(); j++){
+						Local node_adj = adjacents_origin.at(j).getDest()->getInfo();
+						if(node_adj.getRoads().find(roadId) != node_adj.getRoads().end()){
+							connection = false;
+							vector<Edge<Local> > adjacents_dest = mapa.getVertexSet().at(i)->getAdj().at(j).getDest()->getAdj();
+							for(size_t k=0; k < adjacents_dest.size(); k++){
+								if(adjacents_dest.at(k).getDest() == mapa.getVertexSet().at(i))
+									connection = true;
+							}
+							if(connection == false)
+								mapa.addEdge(node_adj, mapa.getVertexSet().at(i)->getInfo(), adjacents_origin.at(j).getWeight());
+						}
+					}
+				}*/
 			}
 		}
 	}
