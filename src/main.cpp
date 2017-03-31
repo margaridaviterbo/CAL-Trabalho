@@ -5,7 +5,7 @@
 #include "Parsers.h"
 #include <vector>
 #include "Local.h"
-//#include "Road.h"
+#include "graphviewer.h"
 using namespace std;
 
 
@@ -36,15 +36,13 @@ int main(){
 	pair<float, float> coord4(0, 4);
 	Local Local4(4, coord4, 0);
 	Local4.isDeliveryPoint=true;
-	//pair<float, float> coord5(0, 6);
-	//Local Local5(5, coord5, 0);
+
 	Graph<Local> graph;
 
 	graph.addVertex(Local1);
 	graph.addVertex(Local2);
 	graph.addVertex(Local3);
 	graph.addVertex(Local4);
-	//graph.addVertex(Local5);
 
 	graph.addEdge(Local1, Local2, Local1.getDistance(Local2));
 	graph.addEdge(Local1, Local3, Local1.getDistance(Local3));
@@ -58,6 +56,7 @@ int main(){
 		v.at(i).print();
 	}
 
+	//teste da search
 
 	graph.dijkstraShortestPath(Local1);		////TODO fazer funçao para encontrar menor usando o dijktras
 	int min = 123871;
@@ -79,11 +78,41 @@ int main(){
 	}
 
 
+	//teste do graphviwer		//TODO fazer funçao para desenhar grafo "personalizado" como eu quero
 
+	GraphViewer *gv = new GraphViewer(600, 600, true);
 
+		gv->setBackground("background.jpg");
 
-	//fim do teste do parser
+		gv->createWindow(600, 600);
 
+		gv->defineEdgeDashed(true);
+		gv->defineVertexColor("blue");
+		gv->defineEdgeColor("black");
+
+		gv->addNode(1);
+		gv->addNode(2);
+		gv->addEdge(0, 1, 2, EdgeType::DIRECTED);
+		gv->addNode(3);
+		gv->addEdge(1, 1, 3, EdgeType::DIRECTED);
+		gv->addNode(4);
+		gv->addEdge(2, 2, 4, EdgeType::DIRECTED);
+		gv->addEdge(3, 2, 3, EdgeType::DIRECTED);
+		gv->addEdge(4, 3, 2, EdgeType::DIRECTED);
+		//gv->defineEdgeCurved(false);
+
+		gv->setVertexLabel(1, "Isto e O PRIMEIRO NO");
+		gv->setEdgeLabel(1, "Isto e a segunda aresta");
+
+		gv->setVertexColor(2, "green");
+		gv->setEdgeColor(1, "yellow");
+
+		gv->setVertexSize(2, 40);
+		gv->setVertexIcon(0, "icon.gif");
+
+		gv->setEdgeDashed(1, false);
+
+		Sleep(10000);
 
 	return 0;
 }

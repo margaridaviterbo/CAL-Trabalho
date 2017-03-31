@@ -5,6 +5,7 @@ void myerror(string msg) {
   exit(-1);
 }
 
+
 Connection::Connection(short port) {
 #ifdef linux
   struct sockaddr_in echoServAddr; /* Echo server address */
