@@ -89,15 +89,14 @@ void readRoadsDirections(Graph<Local> &mapa){
 			for(size_t i = 0; i < mapa.getVertexSet().size(); i++){
 				map<int, string>::iterator it = mapa.getVertexSet().at(i)->getInfo().getRoads().begin();
 				map<int, string>::iterator it_e = mapa.getVertexSet().at(i)->getInfo().getRoads().end();
-				while(it != it_e){	//TODO resolver erro neste loop acho
-					cout << "aqui";
-					/*if(it->first == roadId)
-						it->second = roadName;*/
+				while(it != it_e){	//TODO resolver erro neste loop acho QUANDO RESOLVER DAR COMMIT A DIZER QUE RESOLVI
+					if(it->first == roadId)
+						it->second = roadName;
 					++it;
 				}
 
 				//TODO verificar se os sentidos estao a ser postos direito
-				/*if(data == "True"){
+				if(data == "True"){
 					vector<Edge<Local> > adjacents_origin = mapa.getVertexSet().at(i)->getAdj();
 					for(size_t j=0; j < adjacents_origin.size(); j++){
 						Local node_adj = adjacents_origin.at(j).getDest()->getInfo();
@@ -112,7 +111,7 @@ void readRoadsDirections(Graph<Local> &mapa){
 								mapa.addEdge(node_adj, mapa.getVertexSet().at(i)->getInfo(), adjacents_origin.at(j).getWeight());
 						}
 					}
-				}*/
+				}
 			}
 		}
 	}

@@ -66,16 +66,14 @@ int main(){
 		if(graph.getVertexSet().at(j)->getInfo().getSharingPoint() != NULL && graph.getVertexSet().at(j)->getDist() < min){
 			min=graph.getVertexSet().at(j)->getDist();
 			id=graph.getVertexSet().at(j)->getInfo().getId();
+			count << "Nunca vai ser imprimido" << endl;
 			break;
 		}
 	}
 
-	cout << id << endl << min;
-
-
-	for(size_t i=0; i < graph.getPath(graph.getVertexSet().at(j)).size(); i++) {	//TODO fazer funçao para imprimir caminho
+	/*for(size_t i=0; i < graph.getPath(graph.getVertexSet().at(j)).size(); i++) {	//TODO fazer funçao para imprimir caminho
 		cout << graph.getPath(graph.getVertexSet().at(j)).at(i).getId() << " - ";
-	}
+	} */
 
 
 	//teste do graphviwer		//TODO fazer funçao para desenhar grafo "personalizado" como eu quero
