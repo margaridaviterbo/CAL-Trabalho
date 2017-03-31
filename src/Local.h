@@ -25,7 +25,7 @@ public:
 	bool operator ==(const Local & nd);
 	void print();
 
-	bool isDeliveryPoint=false;		//TODO para apagar
+	bool isDeliveryPoint=false;		//TODO para apagar a arranjar forma mais correta
 };
 
 
