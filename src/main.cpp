@@ -35,7 +35,7 @@ int main(){
 	Local Local3(3, coord3, 0);
 	pair<float, float> coord4(0, 4);
 	Local Local4(4, coord4, 0);
-	Local4.isDeliveryPoint=true;
+	//Local4.setSharingPoint();		TODO dar lhe um sharing point se quiser testr isto direito
 
 	Graph<Local> graph;
 
@@ -63,7 +63,7 @@ int main(){
 	int id = -1;
 	size_t j;
 	for(j = 0; j < graph.getVertexSet().size(); j++){
-		if(graph.getVertexSet().at(j)->getInfo().isDeliveryPoint == true && graph.getVertexSet().at(j)->getDist() < min){
+		if(graph.getVertexSet().at(j)->getInfo().getSharingPoint() != NULL && graph.getVertexSet().at(j)->getDist() < min){
 			min=graph.getVertexSet().at(j)->getDist();
 			id=graph.getVertexSet().at(j)->getInfo().getId();
 			break;
