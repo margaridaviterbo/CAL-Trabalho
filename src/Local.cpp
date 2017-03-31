@@ -26,6 +26,14 @@ map<int, string> Local::getRoads(){
 	return roads;
 }
 
+SharingPoint* Local::getSharingPoint(){
+	return sharingPoint;
+}
+
+void Local::setSharingPoint(SharingPoint* sp){
+	sharingPoint = sp;
+}
+
 bool Local::operator ==(const Local & nd){
 	if(coordinates == nd.getCoordinates() && height == nd.getHeight())
 		return true;

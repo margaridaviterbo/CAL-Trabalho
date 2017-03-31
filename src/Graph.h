@@ -29,12 +29,18 @@ public:
 	friend class Graph<T>;
 	double getDist() const;
 	T getInfo();
+	vector<Edge<T> > getAdj();
 	Vertex* prev;
 };
 
 template<class T>
 T Vertex<T>::getInfo(){
 	return info;
+}
+
+template<class T>
+vector<Edge<T>  > Vertex<T>::getAdj(){
+	return adj;
 }
 
 template <class T>
@@ -71,12 +77,24 @@ class Edge {
 	double weight;
 public:
 	Edge(Vertex<T> *d, double w);
+	double getWeight();
+	Vertex<T>* getDest();
 	friend class Graph<T>;
 	friend class Vertex<T>;
 };
 
 template <class T>
 Edge<T>::Edge(Vertex<T> *d, double w): dest(d), weight(w){}
+
+template <class T>
+double Edge<T>::getWeight(){
+	return weight;
+}
+
+template <class T>
+Vertex<T>* Edge<T>::getDest(){
+	return dest;
+}
 
 template <class T>
 class Graph {
