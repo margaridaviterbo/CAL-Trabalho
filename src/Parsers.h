@@ -60,17 +60,16 @@ void readStreets(Graph<Local> &map){
 			Local l2 = map.getLocal(local2Id);
 			map.addEdge(l1, l2, l1.getDistance(l2));
 
-			//TODO por guardar ruas a funcionar
-			/*if(l1.getRoads().find(roadId))
-				l1.getRoads().insert(pair<int, string> (roadId, ""));*/
+			if(l1.getRoads().find(roadId) == l1.getRoads().end())
+				l1.getRoads().insert(pair<int, string> (roadId, ""));
 		}
 	}
 	else
 		cout << "Could not open C.txt!\n";	//TODO mudar mensagem para especificar ficheiro direito
 }
 
-void readRoadsDirections(Graph<Local> &map){
-	/*string line, data;
+void readRoadsDirections(Graph<Local> &mapa){
+	string line, data;
 	int roadId;
 	string roadName;
 
@@ -85,23 +84,25 @@ void readRoadsDirections(Graph<Local> &map){
 			roadName = atoi(data.c_str());
 			getline(ss, data, '\n');
 
-			map.getLocalBy1
-
-			for(unsigned int i = 0; i < connections.size(); i++){
-				if(connections.at(i)->getRoadId() == roadId){
-					connections.at(i)->setName(roadName);
-					if(data == "True"){
-						roads.at(i).setTwoWays();
-						map.addEdge(*(roads.at(i).getLocal2()), *(roads.at(i).getLocal1()), roads.at(i).getLength());
-					}
+			for(size_t i = 0; i < mapa.getVertexSet().size(); i++){
+				map<int, string>::iterator it = mapa.getVertexSet().at(i)->getInfo().getRoads().begin();
+				map<int, string>::iterator it_e = mapa.getVertexSet().at(i)->getInfo().getRoads().end();
+				while(it != it_e){
+					if(it->first == roadId)
+						it->second = roadName;
+					it++;
 				}
+
+				if(data == "True"){		//percorrer vetor adjacentes de cada vertex e de forem ambos da rua roadId verificar que tem duas ligaçoes
+					roads.at(i).setTwoWays();
+					map.addEdge(*(roads.at(i).getLocal2()), *(roads.at(i).getLocal1()), roads.at(i).getLength());
+				}
+
 			}
 		}
 	}
 	else
 		cout << "Could not open B.txt!\n";	//TODO mudar mensagem para especificar ficheiro direito
-
-*/
 
 }
 #endif PARSERS_H	/* PARSERS_H */
