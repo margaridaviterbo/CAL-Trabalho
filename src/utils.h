@@ -6,8 +6,18 @@
 #include "Graph.h"
 #include "Local.h"
 #include "graphviewer.h"
+#include "math.h"
 
 using namespace std;
+
+#define MIN_LAT 41.20
+#define MAX_LAT 41.25
+#define MIN_LON -8.59
+#define MAX_LON -8.63
+#define WIN_WIDTH 3000
+#define WIN_HEIGHT 3000
+
+const double PI  =3.141592653589793238463;
 
 void printMap(Graph<Local> &map){
 
@@ -15,9 +25,13 @@ void printMap(Graph<Local> &map){
 	//TODO definir com formas, icons, texto, cores diferentes nós especiais
 
 	int idEdge = 0;
-	GraphViewer gv(600, 600, true);
+	GraphViewer gv(600, 600, false);
 	gv.setBackground("background.jpg"); //TODO por no background print do bocado do mapa original correspondente às infos do ficheiro
 	gv.createWindow(600, 600);
+
+	float lonDiff = MAX_LON - MIN_LON;
+	float latDiff = MAX_LAT - MIN_LAT;
+
 	gv.defineEdgeDashed(true);
 	gv.defineVertexColor("blue");
 	gv.defineEdgeColor("black");
@@ -25,7 +39,11 @@ void printMap(Graph<Local> &map){
 
 	vector<Vertex<Local>* > vertexes = map.getVertexSet();
 	for(size_t i = 0; i < vertexes.size(); i++){
-		gv.addNode(vertexes.at(i)->getInfo().getId());
+		int x = (int)((MAX_LON - vertexes.at(i)->getInfo().getCoordinates().second)/(lonDiff) * WIN_WIDTH);
+		int y = (int)((MAX_LAT - vertexes.at(i)->getInfo().getCoordinates().first)/(latDiff) * WIN_HEIGHT);
+		cout << " x: " << x << endl;
+		cout << " y: " << y << endl;
+		gv.addNode(vertexes.at(i)->getInfo().getId(), x - 600, y - 600);
 	}
 
 	for(size_t i = 0; i < vertexes.size(); i++){
@@ -51,7 +69,7 @@ void printMap(Graph<Local> &map){
 
 	gv.setEdgeDashed(1, false);*/
 
-	Sleep(5000);
+	Sleep(20000);
 }
 
 #endif UTILS_H	/* UTILS_H */

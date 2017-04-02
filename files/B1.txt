@@ -1,0 +1,30 @@
+26697169;Avenida Altino Coelho;False
+26697170;Rua de São Romão;False
+26697175;Rua de São Romão;False
+66012055;Rua Nova da Lage;False
+114301308;Rua Padre Arnaldo Rebelo;True
+128006485;Rua de São Tomé e Princípe;True
+138657434;Rua Fernando Pessoa;True
+138657594;Rua Rodrigo Pedro;True
+138657701;Rua de Moçambique;True
+138657706;;True
+212371343;Rua da Lage;True
+298496961;Rua de António Joaquim da Silva;True
+298875920;Rua da Índia;True
+298992611;Rua de Macau;True
+298992741;Praceta de Macau;True
+298998619;Rua Altino Coelho;False
+298998620;Rua Altino Coelho;False
+298998621;Rua Altino Coelho;False
+298998622;Rua São Romão;False
+298998625;Rua de São Romão;False
+298998626;Rua de São Romão;False
+298998627;Rua de São Romão;True
+311502833;;True
+311502835;;True
+419968702;;True
+419968704;;True
+419968705;;True
+419968706;;True
+419968708;;True
+419968712;;True
