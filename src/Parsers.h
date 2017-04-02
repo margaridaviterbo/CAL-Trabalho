@@ -40,7 +40,7 @@ void readLocals(Graph<Local> &map){
 
 }
 
-void readStreets(Graph<Local> &map){
+void readStreets(Graph<Local> &mapa){
 
 	string line, data;
 	int roadId, local1Id, local2Id;
@@ -57,12 +57,17 @@ void readStreets(Graph<Local> &map){
 			local1Id = atoi(data.c_str());
 			getline(ss, data, ';');
 			local2Id = atoi(data.c_str());
-			Local l1 = map.getLocal(local1Id);
-			Local l2 = map.getLocal(local2Id);
-			map.addEdge(l1, l2, l1.getDistance(l2));
+			Local *l1 = mapa.getLocal(local1Id);
+			Local *l2 = mapa.getLocal(local2Id);
+			mapa.addEdge(*(l1), *(l2), l1->getDistance(*l2));
 
-			if(l1.getRoads().find(roadId) == l1.getRoads().end())
-				l1.getRoads().insert(pair<int, string> (roadId, ""));
+
+			if(l1->getRoads().count(roadId) == 0) {
+				l1->addRoad(pair<int, string>(roadId, ""));
+			}
+			if(l2->getRoads().count(roadId) == 0){
+				l2->addRoad(pair<int, string>(roadId, ""));
+			}
 		}
 	}
 	else
@@ -83,17 +88,14 @@ void readRoadsDirections(Graph<Local> &mapa){
 			getline(ss, data, ';');
 			roadId = atoi(data.c_str());
 			getline(ss, data, ';');
-			roadName = atoi(data.c_str());
+			roadName = data;
+			cout << "ROADNAME=" << roadName << endl;
 			getline(ss, data, '\n');
 
-			for(size_t i = 0; i < mapa.getVertexSet().size(); i++){
-				map<int, string>::iterator it = mapa.getVertexSet().at(i)->getInfo().getRoads().begin();
-				map<int, string>::iterator it_e = mapa.getVertexSet().at(i)->getInfo().getRoads().end();
-				while(it != it_e){	//TODO resolver erro neste loop acho QUANDO RESOLVER DAR COMMIT A DIZER QUE RESOLVI
-					if(it->first == roadId)
-						it->second = roadName;
-					++it;
-				}
+			for (size_t i = 0; i < mapa.getVertexSet().size(); i++){
+				int localId = mapa.getVertexSet().at(i)->getInfo().getId();
+				Local *l1 = mapa.getLocal(localId);
+				l1->setRoadName(roadId, roadName);
 
 				//TODO verificar se os sentidos estao a ser postos direito
 				if(data == "True"){
