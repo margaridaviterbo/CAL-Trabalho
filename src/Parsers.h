@@ -96,7 +96,6 @@ void readRoadsDirections(Graph<Local> &mapa){
 				Local *l1 = mapa.getLocal(localId);
 				l1->setRoadName(roadId, roadName);
 
-				//TODO verificar se os sentidos estao a ser postos direito
 				if(data == "True"){
 					vector<Edge<Local> > adjacents_origin = mapa.getVertexSet().at(i)->getAdj();
 					for(size_t j=0; j < adjacents_origin.size(); j++){
