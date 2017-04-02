@@ -6,11 +6,15 @@
 #include <vector>
 #include "Local.h"
 #include "graphviewer.h"
+#include "utils.h"
 using namespace std;
 
 
 //TODO depois começar a ver as opçoes que tenho de ter no menu e como usar a informaçao guardada no grafo
 
+//TODO estes descontos vao simplesmente ser anunciados ao user, se o sharing point tiver ambos os descontos o desconto total é a soma dos dois
+#define HEIGHT_DISCOUNT 0.35
+#define SUBURBS_DISCOUNT 0.25
 
 int main(){
 
@@ -19,7 +23,7 @@ int main(){
 	readLocals(map);
 	readStreets(map);
 	readRoadsDirections(map);
-
+	setRegionSharingPoints(map);
 
 	cout << "Welcome to this BikeSharing Platform!";
 	displayMainMenu(map);
@@ -58,7 +62,7 @@ int main(){
 
 	//teste da search
 
-	graph.dijkstraShortestPath(Local1);		////TODO fazer funçao para encontrar menor usando o dijktras
+	graph.dijkstraShortestPath(Local1);		////TODO fazer funçao para encontrar menor caminho usando o dijktras e acrescentando verificaçao se tem lugares disponiveis
 	int min = 123871;
 	int id = -1;
 	size_t j;

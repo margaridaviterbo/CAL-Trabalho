@@ -21,7 +21,7 @@ const double PI  =3.141592653589793238463;
 
 void printMap(Graph<Local> &map){
 
-	//TODO eventualmente por o mapa nao dynamic e definir eu as coordenadas dos pontos x,y de acordo com latitude e longitude
+	//TODO melhorar coordenadas x,y
 	//TODO definir com formas, icons, texto, cores diferentes nós especiais
 
 	int idEdge = 0;
@@ -41,8 +41,6 @@ void printMap(Graph<Local> &map){
 	for(size_t i = 0; i < vertexes.size(); i++){
 		int x = (int)((MAX_LON - vertexes.at(i)->getInfo().getCoordinates().second)/(lonDiff) * WIN_WIDTH);
 		int y = (int)((MAX_LAT - vertexes.at(i)->getInfo().getCoordinates().first)/(latDiff) * WIN_HEIGHT);
-		cout << " x: " << x << endl;
-		cout << " y: " << y << endl;
 		gv.addNode(vertexes.at(i)->getInfo().getId(), x - 600, y - 600);
 	}
 
@@ -70,6 +68,10 @@ void printMap(Graph<Local> &map){
 	gv.setEdgeDashed(1, false);*/
 
 	Sleep(20000);
+}
+
+void setRegionSharingPoints(Graph<Local> &map){
+	//TODO ver numero de nodes que tenho para calcular numero de sharing point que quero distribuir (uma determinada percentagem desses nodes) de forma random pelos locals que tenho
 }
 
 #endif UTILS_H	/* UTILS_H */
