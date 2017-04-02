@@ -105,7 +105,7 @@ public:
 	bool addEdge(const T &sourc, const T &dest, double w);
 	bool removeVertex(const T &in);
 	Vertex<T>* getVertex(const T &in);
-	T* getLocal(int id);
+	T* getLocal(long long id);
 	bool removeEdge(const T &sourc, const T &dest);
 	vector<T> dfs() const;
 	vector<T> bfs(Vertex<T> *v) const;
@@ -169,7 +169,7 @@ Vertex<T>* Graph<T>::getVertex(const T &in){
 }
 
 template <class T>
-T* Graph<T>::getLocal(int id){
+T* Graph<T>::getLocal(long long id){
 	typename vector<Vertex<T>*>::iterator it= vertexSet.begin();
 	typename vector<Vertex<T>*>::iterator ite= vertexSet.end();
 	for (; it!=ite; it++) {

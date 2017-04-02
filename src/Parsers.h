@@ -10,12 +10,13 @@
 #include <iterator>
 #include "Local.h"
 #include "Graph.h"
+#include "graphviewer.h"
 
 using namespace std;
 
 void readLocals(Graph<Local> &map){
 	string line, data;
-	int id;
+	long long id;
 	float lat, longi;
 	int height;
 	ifstream localsFile("files/A.txt");		//TODO mudar para receber ficheiro com a regiao a analizar
@@ -24,7 +25,7 @@ void readLocals(Graph<Local> &map){
 		while(getline(localsFile, line)){
 			stringstream ss(line);
 			getline(ss, data, ';');
-			id = atoi(data.c_str());
+			id = atoll(data.c_str());
 			getline(ss, data, ';');
 			lat = atof(data.c_str());
 			getline(ss, data, ';');
@@ -43,7 +44,7 @@ void readLocals(Graph<Local> &map){
 void readStreets(Graph<Local> &mapa){
 
 	string line, data;
-	int roadId, local1Id, local2Id;
+	long long roadId, local1Id, local2Id;
 	bool exists;
 
 	ifstream roadsFile("files/C.txt");		//TODO mudar para receber ficheiro com a regiao a analizar
@@ -52,15 +53,14 @@ void readStreets(Graph<Local> &mapa){
 		while(getline(roadsFile, line)){
 			stringstream ss(line);
 			getline(ss, data, ';');
-			roadId = atoi(data.c_str());
+			roadId = atoll(data.c_str());
 			getline(ss, data, ';');
-			local1Id = atoi(data.c_str());
+			local1Id = atoll(data.c_str());
 			getline(ss, data, ';');
-			local2Id = atoi(data.c_str());
+			local2Id = atoll(data.c_str());
 			Local *l1 = mapa.getLocal(local1Id);
 			Local *l2 = mapa.getLocal(local2Id);
 			mapa.addEdge(*(l1), *(l2), l1->getDistance(*l2));
-
 
 			if(l1->getRoads().count(roadId) == 0) {
 				l1->addRoad(pair<int, string>(roadId, ""));
@@ -76,7 +76,7 @@ void readStreets(Graph<Local> &mapa){
 
 void readRoadsDirections(Graph<Local> &mapa){
 	string line, data;
-	int roadId;
+	long long roadId;
 	string roadName;
 	bool connection;
 
@@ -86,10 +86,9 @@ void readRoadsDirections(Graph<Local> &mapa){
 		while(getline(directionsFile, line)){
 			stringstream ss(line);
 			getline(ss, data, ';');
-			roadId = atoi(data.c_str());
+			roadId = atoll(data.c_str());
 			getline(ss, data, ';');
 			roadName = data;
-			cout << "ROADNAME=" << roadName << endl;
 			getline(ss, data, '\n');
 
 			for (size_t i = 0; i < mapa.getVertexSet().size(); i++){

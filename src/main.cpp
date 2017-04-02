@@ -22,7 +22,7 @@ int main(){
 
 
 	cout << "Welcome to this BikeSharing Platform!";
-	displayMainMenu();
+	displayMainMenu(map);
 
 
 	// teste de graph
@@ -75,41 +75,7 @@ int main(){
 	} */
 
 
-	//teste do graphviwer		//TODO fazer funçao para desenhar grafo "personalizado" como eu quero
 
-	GraphViewer *gv = new GraphViewer(600, 600, true);
-
-		gv->setBackground("background.jpg");
-
-		gv->createWindow(600, 600);
-
-		gv->defineEdgeDashed(true);
-		gv->defineVertexColor("blue");
-		gv->defineEdgeColor("black");
-
-		gv->addNode(1);
-		gv->addNode(2);
-		gv->addEdge(0, 1, 2, EdgeType::DIRECTED);
-		gv->addNode(3);
-		gv->addEdge(1, 1, 3, EdgeType::DIRECTED);
-		gv->addNode(4);
-		gv->addEdge(2, 2, 4, EdgeType::DIRECTED);
-		gv->addEdge(3, 2, 3, EdgeType::DIRECTED);
-		gv->addEdge(4, 3, 2, EdgeType::DIRECTED);
-		//gv->defineEdgeCurved(false);
-
-		gv->setVertexLabel(1, "Isto e O PRIMEIRO NO");
-		gv->setEdgeLabel(1, "Isto e a segunda aresta");
-
-		gv->setVertexColor(2, "green");
-		gv->setEdgeColor(1, "yellow");
-
-		gv->setVertexSize(2, 40);
-		gv->setVertexIcon(0, "icon.gif");
-
-		gv->setEdgeDashed(1, false);
-
-		Sleep(10000);
 
 	return 0;
 }

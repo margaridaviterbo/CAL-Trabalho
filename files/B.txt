@@ -1,2 +1,2 @@
-26944761;Rua José Rodrigues da Silva Júnior;False
+26944761;Rua José Rodrigues da Silva Júnior;True
 26944764;Travessa José Rodrigues da Silva Júnior;False

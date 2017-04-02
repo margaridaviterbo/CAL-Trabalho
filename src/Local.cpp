@@ -1,12 +1,12 @@
 #include "Local.h"
 
-Local::Local(int id, pair<float, float> coord, int height){
+Local::Local(long long id, pair<float, float> coord, int height){
 	this->id = id;
 	this->coordinates = coord;
 	this->height = height;
 }
 
-int Local::getId() const{
+long long Local::getId() const{
 	return id;
 }
 
@@ -22,7 +22,7 @@ float Local::getDistance(const Local nd) const{
 	return sqrt(pow(nd.getCoordinates().first - coordinates.first, 2) + pow(nd.getCoordinates().second - coordinates.second, 2) + pow(nd.getHeight() - height,2));
 }
 
-map<int, string> Local::getRoads(){
+map<long long, string> Local::getRoads(){
 	return roads;
 }
 
@@ -45,12 +45,12 @@ void Local::print(){
 	cout << id << ": lat(" << coordinates.first << "); long(" << coordinates.second << "); height(" << height << ")\n";
 }
 
-void Local::addRoad(pair<int, string> road) {
+void Local::addRoad(pair<long long, string> road) {
 	roads.insert(road);
 }
 
-bool Local::setRoadName(int roadId, string roadName){
-	map<int, string>::iterator it;
+bool Local::setRoadName(long long roadId, string roadName){
+	map<long long, string>::iterator it;
 	it = roads.find(roadId);
 	if(it != roads.end()) {
 		it->second = roadName;

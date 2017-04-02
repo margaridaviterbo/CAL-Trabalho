@@ -3,11 +3,14 @@
 
 
 #include <iostream>
+#include "utils.h"
+#include "Graph.h"
+#include "graphviewer.h"
 
 using namespace std;
 
-void displayMainMenu(){
-	cout << "Windows!";
+void displayMainMenu(Graph<Local> &map){
+	printMap(map);
 }
 
 #endif MENUSMANAGER	/* MENUSMANAGER */
