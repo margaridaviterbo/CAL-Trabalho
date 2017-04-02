@@ -14,7 +14,7 @@
 
 using namespace std;
 
-void readLocals(Graph<Local> &map, GraphViewer &gv){
+void readLocals(Graph<Local> &map){
 	string line, data;
 	long long id;
 	float lat, longi;
@@ -34,7 +34,6 @@ void readLocals(Graph<Local> &map, GraphViewer &gv){
 			pair<float, float> coord(lat, longi);
 			Local local(id, coord, height);
 			map.addVertex(local);
-			gv.addNode(id);
 		}
 	}
 	else
@@ -42,7 +41,7 @@ void readLocals(Graph<Local> &map, GraphViewer &gv){
 
 }
 
-void readStreets(Graph<Local> &mapa, GraphViewer &gv){
+void readStreets(Graph<Local> &mapa){
 
 	string line, data;
 	long long roadId, local1Id, local2Id;
@@ -62,8 +61,6 @@ void readStreets(Graph<Local> &mapa, GraphViewer &gv){
 			Local *l1 = mapa.getLocal(local1Id);
 			Local *l2 = mapa.getLocal(local2Id);
 			mapa.addEdge(*(l1), *(l2), l1->getDistance(*l2));
-			gv.addEdge(EdgeType::idEdge, local1Id, local2Id, EdgeType::DIRECTED);
-			EdgeType::idEdge++;
 
 			if(l1->getRoads().count(roadId) == 0) {
 				l1->addRoad(pair<int, string>(roadId, ""));
@@ -77,7 +74,7 @@ void readStreets(Graph<Local> &mapa, GraphViewer &gv){
 		cout << "Could not open C.txt!\n";	//TODO mudar mensagem para especificar ficheiro direito
 }
 
-void readRoadsDirections(Graph<Local> &mapa, GraphViewer &gv){
+void readRoadsDirections(Graph<Local> &mapa){
 	string line, data;
 	long long roadId;
 	string roadName;
@@ -100,7 +97,7 @@ void readRoadsDirections(Graph<Local> &mapa, GraphViewer &gv){
 				l1->setRoadName(roadId, roadName);
 
 				//TODO verificar se os sentidos estao a ser postos direito
-				/*if(data == "True"){
+				if(data == "True"){
 					vector<Edge<Local> > adjacents_origin = mapa.getVertexSet().at(i)->getAdj();
 					for(size_t j=0; j < adjacents_origin.size(); j++){
 						Local node_adj = adjacents_origin.at(j).getDest()->getInfo();
@@ -113,11 +110,9 @@ void readRoadsDirections(Graph<Local> &mapa, GraphViewer &gv){
 							}
 							if(connection == false)
 								mapa.addEdge(node_adj, mapa.getVertexSet().at(i)->getInfo(), adjacents_origin.at(j).getWeight());
-								gv.addEdge(EdgeType::idEdge, node_adj.getId(), mapa.getVertexSet().at(i)->getInfo().getId(), EdgeType::DIRECTED);
-								EdgeType::idEdge++;
 						}
 					}
-				}*/
+				}
 			}
 		}
 	}

@@ -15,21 +15,14 @@ using namespace std;
 int main(){
 
 	Graph<Local> map;
-	GraphViewer gv(600, 600, true);
 
-	gv.setBackground("background.jpg");
-	gv.createWindow(600, 600);
-	gv.defineEdgeDashed(true);
-	gv.defineVertexColor("blue");
-	gv.defineEdgeColor("black");
-
-	readLocals(map, gv);
-	readStreets(map, gv);
-	//readRoadsDirections(map, gv);
+	readLocals(map);
+	readStreets(map);
+	readRoadsDirections(map);
 
 
 	cout << "Welcome to this BikeSharing Platform!";
-	displayMainMenu(map, gv);
+	displayMainMenu(map);
 
 
 	// teste de graph

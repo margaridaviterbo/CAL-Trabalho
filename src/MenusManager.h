@@ -9,8 +9,8 @@
 
 using namespace std;
 
-void displayMainMenu(Graph<Local> &map, GraphViewer &gv){
-	printMap(map, gv);
+void displayMainMenu(Graph<Local> &map){
+	printMap(map);
 }
 
 #endif MENUSMANAGER	/* MENUSMANAGER */
