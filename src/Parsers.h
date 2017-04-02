@@ -10,12 +10,13 @@
 #include <iterator>
 #include "Local.h"
 #include "Graph.h"
+#include "graphviewer.h"
 
 using namespace std;
 
-void readLocals(Graph<Local> &map){
+void readLocals(Graph<Local> &map, GraphViewer &gv){
 	string line, data;
-	int id;
+	long long id;
 	float lat, longi;
 	int height;
 	ifstream localsFile("files/A.txt");		//TODO mudar para receber ficheiro com a regiao a analizar
@@ -24,7 +25,7 @@ void readLocals(Graph<Local> &map){
 		while(getline(localsFile, line)){
 			stringstream ss(line);
 			getline(ss, data, ';');
-			id = atoi(data.c_str());
+			id = atoll(data.c_str());
 			getline(ss, data, ';');
 			lat = atof(data.c_str());
 			getline(ss, data, ';');
@@ -33,6 +34,7 @@ void readLocals(Graph<Local> &map){
 			pair<float, float> coord(lat, longi);
 			Local local(id, coord, height);
 			map.addVertex(local);
+			gv.addNode(id);
 		}
 	}
 	else
@@ -40,10 +42,10 @@ void readLocals(Graph<Local> &map){
 
 }
 
-void readStreets(Graph<Local> &mapa){
+void readStreets(Graph<Local> &mapa, GraphViewer &gv){
 
 	string line, data;
-	int roadId, local1Id, local2Id;
+	long long roadId, local1Id, local2Id;
 	bool exists;
 
 	ifstream roadsFile("files/C.txt");		//TODO mudar para receber ficheiro com a regiao a analizar
@@ -52,15 +54,16 @@ void readStreets(Graph<Local> &mapa){
 		while(getline(roadsFile, line)){
 			stringstream ss(line);
 			getline(ss, data, ';');
-			roadId = atoi(data.c_str());
+			roadId = atoll(data.c_str());
 			getline(ss, data, ';');
-			local1Id = atoi(data.c_str());
+			local1Id = atoll(data.c_str());
 			getline(ss, data, ';');
-			local2Id = atoi(data.c_str());
+			local2Id = atoll(data.c_str());
 			Local *l1 = mapa.getLocal(local1Id);
 			Local *l2 = mapa.getLocal(local2Id);
 			mapa.addEdge(*(l1), *(l2), l1->getDistance(*l2));
-
+			gv.addEdge(EdgeType::idEdge, local1Id, local2Id, EdgeType::DIRECTED);
+			EdgeType::idEdge++;
 
 			if(l1->getRoads().count(roadId) == 0) {
 				l1->addRoad(pair<int, string>(roadId, ""));
@@ -74,9 +77,9 @@ void readStreets(Graph<Local> &mapa){
 		cout << "Could not open C.txt!\n";	//TODO mudar mensagem para especificar ficheiro direito
 }
 
-void readRoadsDirections(Graph<Local> &mapa){
+void readRoadsDirections(Graph<Local> &mapa, GraphViewer &gv){
 	string line, data;
-	int roadId;
+	long long roadId;
 	string roadName;
 	bool connection;
 
@@ -86,10 +89,9 @@ void readRoadsDirections(Graph<Local> &mapa){
 		while(getline(directionsFile, line)){
 			stringstream ss(line);
 			getline(ss, data, ';');
-			roadId = atoi(data.c_str());
+			roadId = atoll(data.c_str());
 			getline(ss, data, ';');
 			roadName = data;
-			cout << "ROADNAME=" << roadName << endl;
 			getline(ss, data, '\n');
 
 			for (size_t i = 0; i < mapa.getVertexSet().size(); i++){
@@ -98,7 +100,7 @@ void readRoadsDirections(Graph<Local> &mapa){
 				l1->setRoadName(roadId, roadName);
 
 				//TODO verificar se os sentidos estao a ser postos direito
-				if(data == "True"){
+				/*if(data == "True"){
 					vector<Edge<Local> > adjacents_origin = mapa.getVertexSet().at(i)->getAdj();
 					for(size_t j=0; j < adjacents_origin.size(); j++){
 						Local node_adj = adjacents_origin.at(j).getDest()->getInfo();
@@ -111,9 +113,11 @@ void readRoadsDirections(Graph<Local> &mapa){
 							}
 							if(connection == false)
 								mapa.addEdge(node_adj, mapa.getVertexSet().at(i)->getInfo(), adjacents_origin.at(j).getWeight());
+								gv.addEdge(EdgeType::idEdge, node_adj.getId(), mapa.getVertexSet().at(i)->getInfo().getId(), EdgeType::DIRECTED);
+								EdgeType::idEdge++;
 						}
 					}
-				}
+				}*/
 			}
 		}
 	}
