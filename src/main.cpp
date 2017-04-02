@@ -66,7 +66,6 @@ int main(){
 		if(graph.getVertexSet().at(j)->getInfo().getSharingPoint() != NULL && graph.getVertexSet().at(j)->getDist() < min){
 			min=graph.getVertexSet().at(j)->getDist();
 			id=graph.getVertexSet().at(j)->getInfo().getId();
-			count << "Nunca vai ser imprimido" << endl;
 			break;
 		}
 	}

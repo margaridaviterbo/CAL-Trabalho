@@ -28,6 +28,8 @@ public:
 	bool operator ==(const Local & nd);
 	void print();
 	void setSharingPoint(SharingPoint* sp);
+	void addRoad(pair<int, string> road);
+	bool setRoadName(int roadId, string roadName);
 };
 
 

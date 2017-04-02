@@ -44,3 +44,17 @@ bool Local::operator ==(const Local & nd){
 void Local::print(){
 	cout << id << ": lat(" << coordinates.first << "); long(" << coordinates.second << "); height(" << height << ")\n";
 }
+
+void Local::addRoad(pair<int, string> road) {
+	roads.insert(road);
+}
+
+bool Local::setRoadName(int roadId, string roadName){
+	map<int, string>::iterator it;
+	it = roads.find(roadId);
+	if(it != roads.end()) {
+		it->second = roadName;
+		return true;
+	}
+	return false;
+}
