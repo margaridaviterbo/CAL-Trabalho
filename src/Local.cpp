@@ -40,13 +40,13 @@ float Local::getWeight(const Local nd, searchOptions op) const{
 		return sqrt(pow(nd.getCoordinates().first - coordinates.first, 2) + pow(nd.getCoordinates().second - coordinates.second, 2) + pow(nd.getHeight() - height,2));
 
 	case DIST_DISCOUNT:
-		return abs(nd.getDiffDistCenter() - diffDistCenter);
+		return 1/(abs(nd.getDiffDistCenter() - diffDistCenter));
 
 	case HEIGHT_DISCOUNT:
-		return abs(nd.getDiffHeightCenter() - diffHeightCenter);
+		return 1/(abs(nd.getDiffHeightCenter() - diffHeightCenter));
 
 	case BIGGEST_DISCOUNT:
-		return sqrt(pow(nd.getDiffDistCenter() - getDiffDistCenter(), 2) + pow(nd.getDiffHeightCenter() - diffHeightCenter, 2));
+		return 1/(sqrt(pow(nd.getDiffDistCenter() - getDiffDistCenter(), 2) + pow(nd.getDiffHeightCenter() - diffHeightCenter, 2)));
 
 	}
 }
@@ -103,11 +103,13 @@ void Local::addRoad(pair<long long, string> road) {
 }
 
 bool Local::setRoadName(long long roadId, string roadName){
-	map<long long, string>::iterator it;
-	it = roads.find(roadId);
-	if(it != roads.end()) {
+	cout << roads.size() /*<< "  " << roads.count(roadId)*/ << endl;
+	//map<long long, string>::iterator it;
+	//int i = roads.count(roadId);
+	//it = roads.find(roadId);
+	/*if(it != roads.end()) {
 		it->second = roadName;
 		return true;
-	}
+	}*/
 	return false;
 }

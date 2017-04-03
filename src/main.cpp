@@ -13,19 +13,15 @@ using namespace std;
 
 int main(){
 
-	/**
-	 * TODO isto vai ser chamado só quando o user escolher o criterio para se construir o grafo com os pesos de acorda com a suas prioridades
-	 */
+	//TODO isto vai ser chamado só quando o user escolher o criterio para se construir o grafo com os pesos de acorda com a suas prioridades
 	Graph<Local> map;
 	readLocals(map);
 	readStreets(map, SHORTEST_DIST);
 	readRoadsDirections(map);
-	vector<int> sharingPoints = setRegionSharingPoints(map);	//TODO isto vai ser atribuido apenas quando o programa for iniciado e depois é usado sempre o mesmo vetor de sharing points (var global??) para todas as iteraçoes do grafo
+	/*vector<int> sharingPoints = setRegionSharingPoints(map);	//TODO isto vai ser atribuido apenas quando o programa for iniciado e depois é usado sempre o mesmo vetor de sharing points (var global??) para todas as iteraçoes do grafo
 
 
-	/**
-	 * TODO isto vai ser primeiro
-	 */
+	//TODO isto vai ser primeiro
 	cout << "Welcome to this BikeSharing Platform!";
 	displayMainMenu(map);
 
@@ -68,19 +64,19 @@ int main(){
 	int id = -1;
 	size_t j;
 	for(j = 0; j < graph.getVertexSet().size(); j++){
-		if(graph.getVertexSet().at(j)->getInfo().getSharingPoint().first && graph.getVertexSet().at(j)->getDist() < min){
+		if(graph.getVertexSet().at(j)->getInfo().getSharingPoint().first && graph.getVertexSet().at(j)->getInfo().getSharingPoint().second > 0 && graph.getVertexSet().at(j)->getDist() < min){
 			min=graph.getVertexSet().at(j)->getDist();
 			id=graph.getVertexSet().at(j)->getInfo().getId();
 			break;
 		}
 	}
 
-	/*for(size_t i=0; i < graph.getPath(graph.getVertexSet().at(j)).size(); i++) {	//TODO fazer funçao para imprimir caminho
-		cout << graph.getPath(graph.getVertexSet().at(j)).at(i).getId() << " - ";
-	} */
+	//for(size_t i=0; i < graph.getPath(graph.getVertexSet().at(j)).size(); i++) {	//TODO fazer funçao para imprimir caminho
+		//cout << graph.getPath(graph.getVertexSet().at(j)).at(i).getId() << " - ";
+	//}
 
 
-
+*/
 
 	return 0;
 }
