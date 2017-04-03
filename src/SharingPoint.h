@@ -1,4 +1,4 @@
-#ifndef SHARINGPOINT_H
+/*#ifndef SHARINGPOINT_H
 #define SHARINGPOINT_H
 
 
@@ -23,4 +23,5 @@ public:
 };
 
 
-#endif SHARINGPOINT_H	/* SHARINGPOINT_H */
+#endif SHARINGPOINT_H	*/ /* SHARINGPOINT_H */
+

@@ -41,7 +41,7 @@ void readLocals(Graph<Local> &map){
 
 }
 
-void readStreets(Graph<Local> &mapa){
+void readStreets(Graph<Local> &mapa, searchOptions op){
 
 	string line, data;
 	long long roadId, local1Id, local2Id;
@@ -60,13 +60,13 @@ void readStreets(Graph<Local> &mapa){
 			local2Id = atoll(data.c_str());
 			Local *l1 = mapa.getLocal(local1Id);
 			Local *l2 = mapa.getLocal(local2Id);
-			mapa.addEdge(*(l1), *(l2), l1->getDistance(*l2));
+			mapa.addEdge(*(l1), *(l2), l1->getWeight(*l2, op));
 
 			if(l1->getRoads().count(roadId) == 0) {
-				l1->addRoad(pair<int, string>(roadId, ""));
+				l1->addRoad(pair<long long, string>(roadId, ""));
 			}
 			if(l2->getRoads().count(roadId) == 0){
-				l2->addRoad(pair<int, string>(roadId, ""));
+				l2->addRoad(pair<long long, string>(roadId, ""));
 			}
 		}
 	}
@@ -91,14 +91,16 @@ void readRoadsDirections(Graph<Local> &mapa){
 			roadName = data;
 			getline(ss, data, '\n');
 
+			cout << "NUMERO DE VERTICES DO MAPA: " << mapa.getVertexSet().size() << endl <<endl;
+
 			for (size_t i = 0; i < mapa.getVertexSet().size(); i++){
 				int localId = mapa.getVertexSet().at(i)->getInfo().getId();
 				Local *l1 = mapa.getLocal(localId);
 				l1->setRoadName(roadId, roadName);
 
-				if(data == "True"){
+				/*if(data == "True"){
 					vector<Edge<Local> > adjacents_origin = mapa.getVertexSet().at(i)->getAdj();
-					for(size_t j=0; j < adjacents_origin.size(); j++){
+					/*for(size_t j=0; j < adjacents_origin.size(); j++){
 						Local node_adj = adjacents_origin.at(j).getDest()->getInfo();
 						if(node_adj.getRoads().find(roadId) != node_adj.getRoads().end()){
 							connection = false;
@@ -111,7 +113,7 @@ void readRoadsDirections(Graph<Local> &mapa){
 								mapa.addEdge(node_adj, mapa.getVertexSet().at(i)->getInfo(), adjacents_origin.at(j).getWeight());
 						}
 					}
-				}
+				}*/
 			}
 		}
 	}

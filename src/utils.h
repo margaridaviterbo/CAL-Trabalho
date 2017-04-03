@@ -70,8 +70,35 @@ void printMap(Graph<Local> &map){
 	Sleep(20000);
 }
 
-void setRegionSharingPoints(Graph<Local> &map){
-	//TODO ver numero de nodes que tenho para calcular numero de sharing point que quero distribuir (uma determinada percentagem desses nodes) de forma random pelos locals que tenho
+vector<int> setRegionSharingPoints(Graph<Local> &map){
+
+	int numLocals = map.getNumVertex();
+	size_t numSharingPoints = (int)(0.1*numLocals);
+	vector<int> sp;
+	int pos;
+	bool b = false;
+
+	for(int i = 0; i < numLocals; i++){
+		sp.push_back(0);
+	}
+
+	for(; numSharingPoints > 0; numSharingPoints--){
+		do{
+			pos = rand() % numLocals;
+			b = false;
+			if(sp.at(pos) == 0)
+				sp.at(pos) = 1;
+			else
+				b = true;
+		}while(b == true);
+	}
+
+	return sp;
+}
+
+void setCityCenter(Graph<Local> &map){
+	//TODO now
+	//seleciona o no centro e atribui a todos as nos a sua distancia e altura em relaçao ao centro
 }
 
 #endif UTILS_H	/* UTILS_H */
