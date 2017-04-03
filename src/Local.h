@@ -16,18 +16,18 @@ private:
 	pair<float, float> coordinates;		//latitude, longitude
 	int height;
 	map<long long, string> roads;		//idRoad, roadName
-	SharingPoint* sharingPoint = NULL;
+	pair<bool, int> sharingPoint = pair<bool, int>(false, 0);	// is/is not sharingpoint, spots available
 public:
 	Local(long long id, pair<float, float> coord, int height);
 	long long getId() const;
 	pair<float, float> getCoordinates() const;
 	int getHeight() const;
-	float getDistance(const Local nd) const;
-	SharingPoint* getSharingPoint();
+	float getWeight(const Local nd, int option) const;
+	pair<bool, int> getSharingPoint();
 	map<long long, string> getRoads();
 	bool operator ==(const Local & nd);
 	void print();
-	void setSharingPoint(SharingPoint* sp);
+	void setSharingPoint(pair<bool, int> sp);
 	void addRoad(pair<long long, string> road);
 	bool setRoadName(long long roadId, string roadName);
 };

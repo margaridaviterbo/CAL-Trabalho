@@ -1,4 +1,4 @@
-#include "SharingPoint.h"
+/*#include "SharingPoint.h"
 
 SharingPoint::SharingPoint(){
 	numFreeSpots = rand () % 6;
@@ -27,3 +27,4 @@ void SharingPoint::setHeightDiscount(){
 void SharingPoint::setSuburbsDiscount(){
 	suburbsDiscount = true;
 }
+*/

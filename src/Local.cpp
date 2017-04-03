@@ -18,19 +18,21 @@ int Local::getHeight() const{
 	return height;
 }
 
-float Local::getDistance(const Local nd) const{
-	return sqrt(pow(nd.getCoordinates().first - coordinates.first, 2) + pow(nd.getCoordinates().second - coordinates.second, 2) + pow(nd.getHeight() - height,2));
+float Local::getWeight(const Local nd, int option) const{
+	//enum de options
+	//switch case para definir cada weight
+	//distantia com x,y,h: sqrt(pow(nd.getCoordinates().first - coordinates.first, 2) + pow(nd.getCoordinates().second - coordinates.second, 2) + pow(nd.getHeight() - height,2));
 }
 
 map<long long, string> Local::getRoads(){
 	return roads;
 }
 
-SharingPoint* Local::getSharingPoint(){
+pair<bool, int> Local::getSharingPoint(){
 	return sharingPoint;
 }
 
-void Local::setSharingPoint(SharingPoint* sp){
+void Local::setSharingPoint(pair<bool, int> sp){
 	sharingPoint = sp;
 }
 

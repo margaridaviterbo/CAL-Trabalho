@@ -12,19 +12,21 @@ using namespace std;
 
 //TODO depois começar a ver as opçoes que tenho de ter no menu e como usar a informaçao guardada no grafo
 
-//TODO estes descontos vao simplesmente ser anunciados ao user, se o sharing point tiver ambos os descontos o desconto total é a soma dos dois
-#define HEIGHT_DISCOUNT 0.35
-#define SUBURBS_DISCOUNT 0.25
-
 int main(){
 
+	/**
+	 * TODO isto vai ser chamado só quando o user escolher o criterio para se construir o grafo com os pesos de acorda com a suas prioridades
+	 */
 	Graph<Local> map;
-
 	readLocals(map);
-	readStreets(map);
+	readStreets(map, 1);
 	readRoadsDirections(map);
-	setRegionSharingPoints(map);
+	vector<int> sharingPoints = setRegionSharingPoints(map);	//TODO isto vai ser atribuido apenas quando o programa for iniciado e depois é usado sempre o mesmo vetor de sharing points (var global??) para todas as iteraçoes do grafo
 
+
+	/**
+	 * TODO isto vai ser primeiro
+	 */
 	cout << "Welcome to this BikeSharing Platform!";
 	displayMainMenu(map);
 
@@ -48,13 +50,13 @@ int main(){
 	graph.addVertex(Local3);
 	graph.addVertex(Local4);
 
-	graph.addEdge(Local1, Local2, Local1.getDistance(Local2));
-	graph.addEdge(Local1, Local3, Local1.getDistance(Local3));
-	graph.addEdge(Local2, Local4, Local2.getDistance(Local4));
-	graph.addEdge(Local2, Local3, Local2.getDistance(Local3));
-	graph.addEdge(Local3, Local2, Local3.getDistance(Local2));
-	cout << "d1,2,4=" << Local1.getDistance(Local2) + Local2.getDistance(Local4) << endl;
-	cout << "d1,3,4=" << Local1.getDistance(Local3) + Local3.getDistance(Local4) << endl;
+	graph.addEdge(Local1, Local2, Local1.getWeight(Local2, 1));
+	graph.addEdge(Local1, Local3, Local1.getWeight(Local3, 1));
+	graph.addEdge(Local2, Local4, Local2.getWeight(Local4, 1));
+	graph.addEdge(Local2, Local3, Local2.getWeight(Local3, 1));
+	graph.addEdge(Local3, Local2, Local3.getWeight(Local2, 1));
+	cout << "d1,2,4=" << Local1.getWeight(Local2, 1) + Local2.getWeight(Local4, 1) << endl;
+	cout << "d1,3,4=" << Local1.getWeight(Local3, 1) + Local3.getWeight(Local4, 1) << endl;
 	vector<Local> v = graph.dfs();
 	for (unsigned int i = 0; i < v.size(); i++){
 		v.at(i).print();
@@ -67,7 +69,7 @@ int main(){
 	int id = -1;
 	size_t j;
 	for(j = 0; j < graph.getVertexSet().size(); j++){
-		if(graph.getVertexSet().at(j)->getInfo().getSharingPoint() != NULL && graph.getVertexSet().at(j)->getDist() < min){
+		if(graph.getVertexSet().at(j)->getInfo().getSharingPoint().first && graph.getVertexSet().at(j)->getDist() < min){
 			min=graph.getVertexSet().at(j)->getDist();
 			id=graph.getVertexSet().at(j)->getInfo().getId();
 			break;
