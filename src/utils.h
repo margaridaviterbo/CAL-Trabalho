@@ -96,4 +96,9 @@ vector<int> setRegionSharingPoints(Graph<Local> &map){
 	return sp;
 }
 
+void setCityCenter(Graph<Local> &map){
+	TODO now
+	//seleciona o no centro e atribui a todos as nos a sua distancia e altura em relaçao ao centro
+}
+
 #endif UTILS_H	/* UTILS_H */

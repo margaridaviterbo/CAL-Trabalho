@@ -41,7 +41,7 @@ void readLocals(Graph<Local> &map){
 
 }
 
-void readStreets(Graph<Local> &mapa, int option){
+void readStreets(Graph<Local> &mapa, searchOptions op){
 
 	string line, data;
 	long long roadId, local1Id, local2Id;
@@ -60,7 +60,7 @@ void readStreets(Graph<Local> &mapa, int option){
 			local2Id = atoll(data.c_str());
 			Local *l1 = mapa.getLocal(local1Id);
 			Local *l2 = mapa.getLocal(local2Id);
-			mapa.addEdge(*(l1), *(l2), l1->getWeight(*l2, option));
+			mapa.addEdge(*(l1), *(l2), l1->getWeight(*l2, op));
 
 			if(l1->getRoads().count(roadId) == 0) {
 				l1->addRoad(pair<int, string>(roadId, ""));

@@ -9,7 +9,6 @@
 #include "utils.h"
 using namespace std;
 
-
 //TODO depois começar a ver as opçoes que tenho de ter no menu e como usar a informaçao guardada no grafo
 
 int main(){
@@ -19,7 +18,7 @@ int main(){
 	 */
 	Graph<Local> map;
 	readLocals(map);
-	readStreets(map, 1);
+	readStreets(map, SHORTEST_DIST);
 	readRoadsDirections(map);
 	vector<int> sharingPoints = setRegionSharingPoints(map);	//TODO isto vai ser atribuido apenas quando o programa for iniciado e depois é usado sempre o mesmo vetor de sharing points (var global??) para todas as iteraçoes do grafo
 
@@ -50,13 +49,13 @@ int main(){
 	graph.addVertex(Local3);
 	graph.addVertex(Local4);
 
-	graph.addEdge(Local1, Local2, Local1.getWeight(Local2, 1));
-	graph.addEdge(Local1, Local3, Local1.getWeight(Local3, 1));
-	graph.addEdge(Local2, Local4, Local2.getWeight(Local4, 1));
-	graph.addEdge(Local2, Local3, Local2.getWeight(Local3, 1));
-	graph.addEdge(Local3, Local2, Local3.getWeight(Local2, 1));
-	cout << "d1,2,4=" << Local1.getWeight(Local2, 1) + Local2.getWeight(Local4, 1) << endl;
-	cout << "d1,3,4=" << Local1.getWeight(Local3, 1) + Local3.getWeight(Local4, 1) << endl;
+	graph.addEdge(Local1, Local2, Local1.getWeight(Local2, SHORTEST_DIST));
+	graph.addEdge(Local1, Local3, Local1.getWeight(Local3, SHORTEST_DIST));
+	graph.addEdge(Local2, Local4, Local2.getWeight(Local4, SHORTEST_DIST));
+	graph.addEdge(Local2, Local3, Local2.getWeight(Local3, SHORTEST_DIST));
+	graph.addEdge(Local3, Local2, Local3.getWeight(Local2, SHORTEST_DIST));
+	cout << "d1,2,4=" << Local1.getWeight(Local2, SHORTEST_DIST) + Local2.getWeight(Local4, SHORTEST_DIST) << endl;
+	cout << "d1,3,4=" << Local1.getWeight(Local3, SHORTEST_DIST) + Local3.getWeight(Local4, SHORTEST_DIST) << endl;
 	vector<Local> v = graph.dfs();
 	for (unsigned int i = 0; i < v.size(); i++){
 		v.at(i).print();
