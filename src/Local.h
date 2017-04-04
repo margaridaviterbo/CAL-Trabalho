@@ -6,7 +6,6 @@
 #include <string>
 #include <cmath>
 #include <map>
-#include "SharingPoint.h"
 
 using namespace std;
 
@@ -24,6 +23,7 @@ private:
 	bool userLocation = false;
 	bool cityCenter = false;
 public:
+	Local(){};
 	Local(long long id, pair<float, float> coord, int height);
 	long long getId() const;
 	pair<float, float> getCoordinates() const;

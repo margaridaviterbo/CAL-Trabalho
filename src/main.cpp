@@ -18,8 +18,8 @@ int main(){
 	readLocals(map);
 	readStreets(map, SHORTEST_DIST);
 	readRoadsDirections(map);
-	/*vector<int> sharingPoints = setRegionSharingPoints(map);	//TODO isto vai ser atribuido apenas quando o programa for iniciado e depois é usado sempre o mesmo vetor de sharing points (var global??) para todas as iteraçoes do grafo
-
+	vector<int> sharingPoints = setRegionSharingPoints(map);	//TODO isto e o vetor debaixo vai ser atribuido apenas quando o programa for iniciado e depois é usado sempre o mesmo vetor de sharing points (var global??) para todas as iteraçoes do grafo
+	vector<int> heights = setHeights(map);
 
 	//TODO isto vai ser primeiro
 	cout << "Welcome to this BikeSharing Platform!";
@@ -76,7 +76,7 @@ int main(){
 	//}
 
 
-*/
+
 
 	return 0;
 }

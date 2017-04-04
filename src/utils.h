@@ -96,9 +96,63 @@ vector<int> setRegionSharingPoints(Graph<Local> &map){
 	return sp;
 }
 
+vector<int> setHeights(Graph<Local> &map){
+
+	int numLocals = map.getNumVertex();
+	vector<int> heights;
+	int h;
+
+	for(int i = 0; i < numLocals; i++){
+		h = (rand() % 11) / 100;
+		heights.push_back(h);
+	}
+
+	return heights;
+}
+
 void setCityCenter(Graph<Local> &map){
-	//TODO now
-	//seleciona o no centro e atribui a todos as nos a sua distancia e altura em relaçao ao centro
+
+	vector<double> latitudes;
+	vector<double> longitudes;
+	vector<double> diffLatitudes;
+	vector<double> diffLongitudes;
+	vector<double> diffTotal;
+	double sumLat = 0;
+	double sumLon = 0;
+
+	for(size_t i; i < map.getVertexSet().size(); i++){
+		latitudes.push_back(map.getVertexSet().at(i)->getInfo().getCoordinates().first);
+		longitudes.push_back(map.getVertexSet().at(i)->getInfo().getCoordinates().second);
+		sumLat = sumLat + map.getVertexSet().at(i)->getInfo().getCoordinates().first;
+		sumLon = sumLon + map.getVertexSet().at(i)->getInfo().getCoordinates().second;
+	}
+
+	double medLat = sumLat/latitudes.size();
+	double medLon = sumLon/longitudes.size();
+
+	for(size_t i; i < map.getVertexSet().size(); i++){
+		diffLatitudes.push_back(abs(map.getVertexSet().at(i)->getInfo().getCoordinates().first - medLat));
+		diffLongitudes.push_back(abs(map.getVertexSet().at(i)->getInfo().getCoordinates().second - medLon));
+		diffTotal.push_back(diffLatitudes.at(i) + diffLongitudes.at(i));
+	}
+
+	vector<double>::iterator it = min_element(diffTotal.begin(), diffTotal.end());
+	size_t i;
+	for(i = 0; i < diffTotal.size(); i++){
+		if(diffTotal.at(i) == *(it))
+			break;
+	}
+
+	Local lC = map.getVertexSet().at(i)->getInfo();
+	map.getVertexSet().at(i)->getInfo().setCityCenter();
+
+	for(size_t i = 0; i < map.getVertexSet().size(); i++){
+		map.getVertexSet().at(i)->getInfo().setDiffDistCenter(map.getVertexSet().at(i)->getInfo().getWeight(lC, SHORTEST_DIST));
+		map.getVertexSet().at(i)->getInfo().setDiffHeightCenter(map.getVertexSet().at(i)->getInfo().getWeight(lC, SHORTEST_HEIGHT));
+	}
+
+
+
 }
 
 #endif UTILS_H	/* UTILS_H */
