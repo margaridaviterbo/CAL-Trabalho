@@ -111,58 +111,48 @@ vector<int> setHeights(Graph<Local> &map){
 }
 
 void setCityCenter(Graph<Local> &map){
-	//seleciona o no centro e TODO atribui a todos as nos a sua distancia e altura em relaçao ao centro
-	Local* cityCenter1 = new Local();
-	Local* cityCenter2 = new Local();
+
 	vector<double> latitudes;
 	vector<double> longitudes;
+	vector<double> diffLatitudes;
+	vector<double> diffLongitudes;
+	vector<double> diffTotal;
+	double sumLat = 0;
+	double sumLon = 0;
 
 	for(size_t i; i < map.getVertexSet().size(); i++){
 		latitudes.push_back(map.getVertexSet().at(i)->getInfo().getCoordinates().first);
 		longitudes.push_back(map.getVertexSet().at(i)->getInfo().getCoordinates().second);
+		sumLat = sumLat + map.getVertexSet().at(i)->getInfo().getCoordinates().first;
+		sumLon = sumLon + map.getVertexSet().at(i)->getInfo().getCoordinates().second;
 	}
 
-	sort(latitudes.begin(), latitudes.end());
-	sort(longitudes.begin(), longitudes.end());
+	double medLat = sumLat/latitudes.size();
+	double medLon = sumLon/longitudes.size();
 
-	int med = (int)latitudes.size()/2;
+	for(size_t i; i < map.getVertexSet().size(); i++){
+		diffLatitudes.push_back(abs(map.getVertexSet().at(i)->getInfo().getCoordinates().first - medLat));
+		diffLongitudes.push_back(abs(map.getVertexSet().at(i)->getInfo().getCoordinates().second - medLon));
+		diffTotal.push_back(diffLatitudes.at(i) + diffLongitudes.at(i));
+	}
 
-	int i = 0;
-	int k = med;
-	bool found = false;
-	do{
-		if(map.getLocal(latitudes.at(k))->getCoordinates().second == longitudes.at(k)
-				|| map.getLocal(latitudes.at(k))->getCoordinates().second == longitudes.at(k-1)
-				|| map.getLocal(latitudes.at(k))->getCoordinates().second == longitudes.at(k+1)){
-			cityCenter1 = map.getLocal(latitudes.at(k));
-			found = true;
-		}
-		else if(map.getLocal(latitudes.at(k-1))->getCoordinates().second == longitudes.at(k)){
-			cityCenter1 = map.getLocal(latitudes.at(k-1));
-			found = true;
-		}
-		else if(map.getLocal(latitudes.at(k+1))->getCoordinates().second == longitudes.at(k)){
-			cityCenter1 = map.getLocal(latitudes.at(k+1));
-			found = true;
+	vector<double>::iterator it = min_element(diffTotal.begin(), diffTotal.end());
+	size_t i;
+	for(i = 0; i < diffTotal.size(); i++){
+		if(diffTotal.at(i) == *(it))
+			break;
+	}
 
-		}
-		k++;
-	}while(found == false && k < latitudes.size() - 1);
+	Local lC = map.getVertexSet().at(i)->getInfo();
+	map.getVertexSet().at(i)->getInfo().setCityCenter();
+
+	for(size_t i = 0; i < map.getVertexSet().size(); i++){
+		map.getVertexSet().at(i)->getInfo().setDiffDistCenter(map.getVertexSet().at(i)->getInfo().getWeight(lC, SHORTEST_DIST));
+		map.getVertexSet().at(i)->getInfo().setDiffHeightCenter(map.getVertexSet().at(i)->getInfo().getWeight(lC, SHORTEST_HEIGHT));
+	}
 
 
-	int j = 0;
-	k = med-1;
-	found = false;
-	do{
-//copiar o de cima
-		k--;
-	}while(found == false && k > 0);
 
-	//casos se chegar aos extremos
-
-	//ver qual qhile tem menos iteraçoes
-	//selecionar qual dos citycenters
-	//alterar propriedade do node
 }
 
 #endif UTILS_H	/* UTILS_H */

@@ -6,7 +6,6 @@
 #include <string>
 #include <cmath>
 #include <map>
-#include "SharingPoint.h"
 
 using namespace std;
 
