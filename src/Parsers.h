@@ -30,7 +30,7 @@ void readLocals(Graph<Local> &map){
 			lat = atof(data.c_str());
 			getline(ss, data, ';');
 			longi = atof(data.c_str());
-			height = rand() % 1001;
+			height = rand() % 1001;		//TODO altura vai ser para ir buscar ao vetor de heights caso nao seja a primeira vez que o grafo é desenhado, se for a primeira vez é par inicializar o vetor e atribuir os valores a height(tal como vai acontecer com os sharing points
 			pair<float, float> coord(lat, longi);
 			Local local(id, coord, height);
 			map.addVertex(local);
@@ -91,16 +91,14 @@ void readRoadsDirections(Graph<Local> &mapa){
 			roadName = data;
 			getline(ss, data, '\n');
 
-			cout << "NUMERO DE VERTICES DO MAPA: " << mapa.getVertexSet().size() << endl <<endl;
-
 			for (size_t i = 0; i < mapa.getVertexSet().size(); i++){
-				int localId = mapa.getVertexSet().at(i)->getInfo().getId();
+				long long localId = mapa.getVertexSet().at(i)->getInfo().getId();
 				Local *l1 = mapa.getLocal(localId);
 				l1->setRoadName(roadId, roadName);
 
-				/*if(data == "True"){
+				if(data == "True"){
 					vector<Edge<Local> > adjacents_origin = mapa.getVertexSet().at(i)->getAdj();
-					/*for(size_t j=0; j < adjacents_origin.size(); j++){
+					for(size_t j=0; j < adjacents_origin.size(); j++){
 						Local node_adj = adjacents_origin.at(j).getDest()->getInfo();
 						if(node_adj.getRoads().find(roadId) != node_adj.getRoads().end()){
 							connection = false;
@@ -113,7 +111,7 @@ void readRoadsDirections(Graph<Local> &mapa){
 								mapa.addEdge(node_adj, mapa.getVertexSet().at(i)->getInfo(), adjacents_origin.at(j).getWeight());
 						}
 					}
-				}*/
+				}
 			}
 		}
 	}

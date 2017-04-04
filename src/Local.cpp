@@ -103,13 +103,11 @@ void Local::addRoad(pair<long long, string> road) {
 }
 
 bool Local::setRoadName(long long roadId, string roadName){
-	cout << roads.size() /*<< "  " << roads.count(roadId)*/ << endl;
-	//map<long long, string>::iterator it;
-	//int i = roads.count(roadId);
-	//it = roads.find(roadId);
-	/*if(it != roads.end()) {
+	map<long long, string>::iterator it;
+	it = roads.find(roadId);
+	if(it != roads.end()) {
 		it->second = roadName;
 		return true;
-	}*/
+	}
 	return false;
 }

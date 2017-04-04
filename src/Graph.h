@@ -106,6 +106,7 @@ public:
 	bool removeVertex(const T &in);
 	Vertex<T>* getVertex(const T &in);
 	T* getLocal(long long id);
+	T* getLocal(double lat);
 	bool removeEdge(const T &sourc, const T &dest);
 	vector<T> dfs() const;
 	vector<T> bfs(Vertex<T> *v) const;
@@ -179,6 +180,17 @@ T* Graph<T>::getLocal(long long id){
 	}
 }
 
+template <class T>
+T* Graph<T>::getLocal(double lat){
+	typename vector<Vertex<T>*>::iterator it= vertexSet.begin();
+	typename vector<Vertex<T>*>::iterator ite= vertexSet.end();
+	for (; it!=ite; it++) {
+		if (((*it)->info).getCoordinates().first == lat) {
+			return &((*it)->info);
+		}
+	}
+	return NULL;
+}
 
 template <class T>
 bool Graph<T>::addEdge(const T &sourc, const T &dest, double w) {
@@ -304,9 +316,9 @@ int Graph<T>::maxNewChildren(Vertex<T> *v, T &inf) const {
 
 template <class T>
 struct vertex_greater_than {
-    bool operator()(Vertex<T> * a, Vertex<T> * b) const {
-        return a->getDist() > b->getDist();
-    }
+	bool operator()(Vertex<T> * a, Vertex<T> * b) const {
+		return a->getDist() > b->getDist();
+	}
 };
 
 template<class T>

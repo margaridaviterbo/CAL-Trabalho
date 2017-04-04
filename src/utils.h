@@ -96,9 +96,73 @@ vector<int> setRegionSharingPoints(Graph<Local> &map){
 	return sp;
 }
 
+vector<int> setHeights(Graph<Local> &map){
+
+	int numLocals = map.getNumVertex();
+	vector<int> heights;
+	int h;
+
+	for(int i = 0; i < numLocals; i++){
+		h = (rand() % 11) / 100;
+		heights.push_back(h);
+	}
+
+	return heights;
+}
+
 void setCityCenter(Graph<Local> &map){
-	//TODO now
-	//seleciona o no centro e atribui a todos as nos a sua distancia e altura em relaçao ao centro
+	//seleciona o no centro e TODO atribui a todos as nos a sua distancia e altura em relaçao ao centro
+	Local* cityCenter1 = new Local();
+	Local* cityCenter2 = new Local();
+	vector<double> latitudes;
+	vector<double> longitudes;
+
+	for(size_t i; i < map.getVertexSet().size(); i++){
+		latitudes.push_back(map.getVertexSet().at(i)->getInfo().getCoordinates().first);
+		longitudes.push_back(map.getVertexSet().at(i)->getInfo().getCoordinates().second);
+	}
+
+	sort(latitudes.begin(), latitudes.end());
+	sort(longitudes.begin(), longitudes.end());
+
+	int med = (int)latitudes.size()/2;
+
+	int i = 0;
+	int k = med;
+	bool found = false;
+	do{
+		if(map.getLocal(latitudes.at(k))->getCoordinates().second == longitudes.at(k)
+				|| map.getLocal(latitudes.at(k))->getCoordinates().second == longitudes.at(k-1)
+				|| map.getLocal(latitudes.at(k))->getCoordinates().second == longitudes.at(k+1)){
+			cityCenter1 = map.getLocal(latitudes.at(k));
+			found = true;
+		}
+		else if(map.getLocal(latitudes.at(k-1))->getCoordinates().second == longitudes.at(k)){
+			cityCenter1 = map.getLocal(latitudes.at(k-1));
+			found = true;
+		}
+		else if(map.getLocal(latitudes.at(k+1))->getCoordinates().second == longitudes.at(k)){
+			cityCenter1 = map.getLocal(latitudes.at(k+1));
+			found = true;
+
+		}
+		k++;
+	}while(found == false && k < latitudes.size() - 1);
+
+
+	int j = 0;
+	k = med-1;
+	found = false;
+	do{
+//copiar o de cima
+		k--;
+	}while(found == false && k > 0);
+
+	//casos se chegar aos extremos
+
+	//ver qual qhile tem menos iteraçoes
+	//selecionar qual dos citycenters
+	//alterar propriedade do node
 }
 
 #endif UTILS_H	/* UTILS_H */
