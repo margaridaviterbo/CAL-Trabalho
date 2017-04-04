@@ -16,8 +16,8 @@ private:
 	long long id;
 	pair<float, float> coordinates;		//latitude, longitude
 	float diffDistCenter;
-	int height;
-	int diffHeightCenter;
+	int height = 0;
+	int diffHeightCenter = 0;
 	map<long long, string> roads;		//idRoad, roadName
 	pair<bool, int> sharingPoint = pair<bool, int>(false, 0);	// is/is not sharingpoint, spots available
 	bool userLocation = false;
