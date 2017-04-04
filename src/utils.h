@@ -126,7 +126,7 @@ void setCityCenter(Graph<Local> &map){
 	double sumLat = 0;
 	double sumLon = 0;
 
-	for(size_t i; i < map.getVertexSet().size(); i++){
+	for(size_t i = 0; i < map.getVertexSet().size(); i++){
 		latitudes.push_back(map.getVertexSet().at(i)->getInfo().getCoordinates().first);
 		longitudes.push_back(map.getVertexSet().at(i)->getInfo().getCoordinates().second);
 		sumLat = sumLat + map.getVertexSet().at(i)->getInfo().getCoordinates().first;
@@ -136,21 +136,29 @@ void setCityCenter(Graph<Local> &map){
 	double medLat = sumLat/latitudes.size();
 	double medLon = sumLon/longitudes.size();
 
-	for(size_t i; i < map.getVertexSet().size(); i++){
+	for(size_t i = 0; i < map.getVertexSet().size(); i++){
 		diffLatitudes.push_back(abs(map.getVertexSet().at(i)->getInfo().getCoordinates().first - medLat));
 		diffLongitudes.push_back(abs(map.getVertexSet().at(i)->getInfo().getCoordinates().second - medLon));
+		cout << "AQUI" << endl;
 		diffTotal.push_back(diffLatitudes.at(i) + diffLongitudes.at(i));
 	}
+
+	cout << "DIFFTOTAL.SIZE(): " << diffTotal.size() << endl;
 
 	vector<double>::iterator it = min_element(diffTotal.begin(), diffTotal.end());
 	size_t i;
 	for(i = 0; i < diffTotal.size(); i++){
-		if(diffTotal.at(i) == *(it))
+		cout << "diffTotal: " << diffTotal.at(i) << endl;
+		if(diffTotal.at(i) == *(it)){
+			cout << "I NO MIN_DIFF " << i << endl;
 			break;
+		}
 	}
 
+	cout << "CHECKING I: " << i << "vertexsetsize: " << map.getVertexSet().size() << endl;
 	Local lC = map.getVertexSet().at(i)->getInfo();
 	map.getVertexSet().at(i)->getInfo().setCityCenter();
+	cout << "centrodolocaldevido: " << map.getVertexSet().at(i)->getInfo().getCityCenter() << endl;
 	cout << "PUS CENTRO" << endl;
 
 	for(size_t i = 0; i < map.getVertexSet().size(); i++){
