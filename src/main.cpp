@@ -9,21 +9,12 @@
 #include "utils.h"
 using namespace std;
 
-//TODO depois começar a ver as opçoes que tenho de ter no menu e como usar a informaçao guardada no grafo
+Graph<Local> cityMap;
 
 int main(){
 
-	//TODO isto vai ser chamado só quando o user escolher o criterio para se construir o grafo com os pesos de acorda com a suas prioridades
-	Graph<Local> map;
-	readLocals(map);
-	readStreets(map, SHORTEST_DIST);
-	readRoadsDirections(map);
-	vector<int> sharingPoints = setRegionSharingPoints(map);	//TODO isto e o vetor debaixo vai ser atribuido apenas quando o programa for iniciado e depois é usado sempre o mesmo vetor de sharing points (var global??) para todas as iteraçoes do grafo
-	vector<int> heights = setHeights(map);
-
-	//TODO isto vai ser primeiro
 	cout << "Welcome to this BikeSharing Platform!";
-	displayMainMenu(map);
+	displayMainMenu(cityMap);
 
 
 	// teste de graph

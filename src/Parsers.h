@@ -14,14 +14,16 @@
 
 using namespace std;
 
-void readLocals(Graph<Local> &map){
+void readLocals(Graph<Local> &map, vector<int> heights, vector<pair<int, int> > sharingPoints){
+
 	string line, data;
 	long long id;
 	float lat, longi;
 	int height;
-	ifstream localsFile("files/A.txt");		//TODO mudar para receber ficheiro com a regiao a analizar
+	ifstream localsFile("files/A2.txt");		//TODO mudar para receber ficheiro com a regiao a analizar
 
 	if(localsFile.is_open()){
+		int i = 0;
 		while(getline(localsFile, line)){
 			stringstream ss(line);
 			getline(ss, data, ';');
@@ -30,10 +32,18 @@ void readLocals(Graph<Local> &map){
 			lat = atof(data.c_str());
 			getline(ss, data, ';');
 			longi = atof(data.c_str());
-			height = rand() % 1001;		//TODO altura vai ser para ir buscar ao vetor de heights caso nao seja a primeira vez que o grafo é desenhado, se for a primeira vez é par inicializar o vetor e atribuir os valores a height(tal como vai acontecer com os sharing points
+			if(heights.size() == 0)
+				height = rand() % 11;
+			else
+				height = heights.at(i);
 			pair<float, float> coord(lat, longi);
 			Local local(id, coord, height);
+			if(sharingPoints.size() != 0){
+				if(sharingPoints.at(i).first == 1)
+					local.setSharingPoint(pair<bool, int>(true, sharingPoints.at(i).second));
+			}
 			map.addVertex(local);
+			i++;
 		}
 	}
 	else
@@ -47,7 +57,7 @@ void readStreets(Graph<Local> &mapa, searchOptions op){
 	long long roadId, local1Id, local2Id;
 	bool exists;
 
-	ifstream roadsFile("files/C.txt");		//TODO mudar para receber ficheiro com a regiao a analizar
+	ifstream roadsFile("files/C2.txt");		//TODO mudar para receber ficheiro com a regiao a analizar
 
 	if(roadsFile.is_open()){
 		while(getline(roadsFile, line)){
@@ -80,7 +90,7 @@ void readRoadsDirections(Graph<Local> &mapa){
 	string roadName;
 	bool connection;
 
-	ifstream directionsFile("files/B.txt");		//TODO mudar para receber ficheiro com a regiao a analizar
+	ifstream directionsFile("files/B2.txt");		//TODO mudar para receber ficheiro com a regiao a analizar
 
 	if(directionsFile.is_open()){
 		while(getline(directionsFile, line)){

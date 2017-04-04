@@ -5,6 +5,7 @@
 #include <iostream>
 #include "Graph.h"
 #include "Local.h"
+#include "Parsers.h"
 #include "graphviewer.h"
 #include "math.h"
 
@@ -18,6 +19,9 @@ using namespace std;
 #define WIN_HEIGHT 3000
 
 const double PI  =3.141592653589793238463;
+
+vector<int> heights;
+vector<pair<int, int> > sharingPoints;
 
 void printMap(Graph<Local> &map){
 
@@ -70,24 +74,26 @@ void printMap(Graph<Local> &map){
 	Sleep(20000);
 }
 
-vector<int> setRegionSharingPoints(Graph<Local> &map){
+vector<pair<int, int> > setRegionSharingPoints(Graph<Local> &map){
 
 	int numLocals = map.getNumVertex();
 	size_t numSharingPoints = (int)(0.1*numLocals);
-	vector<int> sp;
+	vector<pair<int, int> > sp;
 	int pos;
+	int freeSpots;
 	bool b = false;
 
 	for(int i = 0; i < numLocals; i++){
-		sp.push_back(0);
+		freeSpots = rand() % 15;
+		sp.push_back(pair<int, int>(0, freeSpots));
 	}
 
 	for(; numSharingPoints > 0; numSharingPoints--){
 		do{
 			pos = rand() % numLocals;
 			b = false;
-			if(sp.at(pos) == 0)
-				sp.at(pos) = 1;
+			if(sp.at(pos).first == 0)
+				sp.at(pos).first = 1;
 			else
 				b = true;
 		}while(b == true);
@@ -145,14 +151,37 @@ void setCityCenter(Graph<Local> &map){
 
 	Local lC = map.getVertexSet().at(i)->getInfo();
 	map.getVertexSet().at(i)->getInfo().setCityCenter();
+	cout << "PUS CENTRO" << endl;
 
 	for(size_t i = 0; i < map.getVertexSet().size(); i++){
 		map.getVertexSet().at(i)->getInfo().setDiffDistCenter(map.getVertexSet().at(i)->getInfo().getWeight(lC, SHORTEST_DIST));
 		map.getVertexSet().at(i)->getInfo().setDiffHeightCenter(map.getVertexSet().at(i)->getInfo().getWeight(lC, SHORTEST_HEIGHT));
+		cout << "PUS DISTS HEIGHTS  " << map.getVertexSet().at(i)->getInfo().getDiffDistCenter() << "  " << map.getVertexSet().at(i)->getInfo().getDiffHeightCenter() << endl;
 	}
 
 
 
 }
+
+void builtGraph(Graph<Local> &map){			//TODO isto vai ser chamado só quando o user escolher o criterio para se construir o grafo com os pesos de acorda com a suas prioridades
+
+
+	if(heights.size() == 0){
+		readLocals(map, heights, sharingPoints);
+		heights = setHeights(map);
+		sharingPoints = setRegionSharingPoints(map);
+	}
+
+	readLocals(map, heights, sharingPoints);
+	readStreets(map, SHORTEST_DIST);	//criterio de pesquisa é enciado aqui mas tem de chegar ate esta funçao
+	readRoadsDirections(map);
+	setCityCenter(map);
+
+	for (size_t i = 0; i < map.getVertexSet().size(); i++){
+		cout << "cityCenter: " << map.getVertexSet().at(i)->getInfo().getCityCenter() << " diffdist: " << map.getVertexSet().at(i)->getInfo().getDiffDistCenter() << " diffhei: " << map.getVertexSet().at(i)->getInfo().getDiffHeightCenter() << endl;
+	}
+}
+
+
 
 #endif UTILS_H	/* UTILS_H */

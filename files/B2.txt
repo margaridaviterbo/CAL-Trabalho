@@ -1,0 +1,38 @@
+26697169;Avenida Altino Coelho;False
+26697170;Rua de São Romão;False
+26697172;Rua Fernando Almeida;False
+26697173;Rua de São Romão;False
+26697174;Rua de Macau;True
+26697175;Rua de São Romão;True
+26944757;Avenida Vasco da Gama;True
+128006485;Rua de São Tomé e Princípe;True
+128006486;Rua da Guiné;True
+128006488;Rua de Santo António;False
+138657275;Rua São Romão;False
+138657434;Rua Fernando Pessoa;False
+138657623;Avenida Eurico Thomaz de Lima;False
+138657701;Rua de Moçambique;False
+144973720;Rua de Angola;False
+211483921;Rua de São Romão;False
+212371343;Rua da Lage;False
+298496961;Rua de António Joaquim da Silva;False
+298875920;Rua da Índia;False
+298888962;Avenida Vasco da Gama;False
+298888964;Avenida Vasco da Gama;False
+298992610;Rua de Macau;False
+298992611;Rua de Macau;False
+298992741;Praceta de Macau;False
+298998619;Rua Altino Coelho;False
+298998620;Rua Altino Coelho;False
+298998621;Rua Altino Coelho;False
+298998622;Rua São Romão;False
+298998623;Rua de São Romão;False
+298998624;Rua de São Romão;True
+298998625;Rua de São Romão;False
+298998626;Rua de São Romão;False
+298998627;Rua de São Romão;True
+298998628;Avenida Eurico Thomaz de Lima;False
+299041062;Rua da Madeira;False
+305757091;Rua Vitorino Nemésio;False
+307599361;;False
+311502835;;False
