@@ -20,7 +20,7 @@ using namespace std;
 
 const double PI  =3.141592653589793238463;
 
-vector<int> heights;
+vector<float> heights;
 vector<pair<int, int> > sharingPoints;
 
 void printMap(Graph<Local> &map){
@@ -102,19 +102,16 @@ vector<pair<int, int> > setRegionSharingPoints(Graph<Local> &map){
 	return sp;
 }
 
-vector<int> setHeights(Graph<Local> &map){
+vector<float> setHeights(Graph<Local> &map){
 
 	int numLocals = map.getNumVertex();
-	vector<int> heights;
-	int h;
+	vector<float> heights;
+	float h;
 
-	cout << "numlocals: " << numLocals << endl;
 	for(int i = 0; i < numLocals; i++){
-		h = (rand() % 11) / 100;	//TODO height vai ter de ser float em todo o lado
+		h = (float)(rand() % 11) / 1000.0;
 		heights.push_back(h);
-		cout << "h: " << h << endl;
 	}
-	cout << "size das heights: " << heights.size() << endl;
 	return heights;
 }
 
@@ -166,11 +163,11 @@ void setCityCenter(Graph<Local> &map){
 
 void builtGraph(Graph<Local> &map){			//TODO isto vai ser chamado só quando o user escolher o criterio para se construir o grafo com os pesos de acorda com a suas prioridades
 
-
+	Graph<Local> temp;
 	if(heights.size() == 0){
-		readLocals(map, heights, sharingPoints);
-		heights = setHeights(map);
-		sharingPoints = setRegionSharingPoints(map);
+		readLocals(temp, heights, sharingPoints);
+		heights = setHeights(temp);
+		sharingPoints = setRegionSharingPoints(temp);
 	}
 
 	readLocals(map, heights, sharingPoints);
@@ -178,9 +175,6 @@ void builtGraph(Graph<Local> &map){			//TODO isto vai ser chamado só quando o us
 	readRoadsDirections(map);
 	setCityCenter(map);
 
-	for (size_t i = 0; i < map.getVertexSet().size(); i++){
-		cout << "cityCenter: " << map.getVertexSet().at(i)->getInfo().getCityCenter() << " diffdist: " << map.getVertexSet().at(i)->getInfo().getDiffDistCenter() << " diffhei: " << map.getVertexSet().at(i)->getInfo().getDiffHeightCenter() << " height: " << map.getVertexSet().at(i)->getInfo().getHeight() << endl;
-	}
 }
 
 

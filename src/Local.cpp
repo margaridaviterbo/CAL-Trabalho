@@ -1,6 +1,6 @@
 #include "Local.h"
 
-Local::Local(long long id, pair<float, float> coord, int height){
+Local::Local(long long id, pair<float, float> coord, float height){
 	this->id = id;
 	this->coordinates = coord;
 	this->height = height;
@@ -18,11 +18,11 @@ float Local::getDiffDistCenter() const{
 	return diffDistCenter;
 }
 
-int Local::getHeight() const{
+float Local::getHeight() const{
 	return height;
 }
 
-int Local::getDiffHeightCenter() const{
+float Local::getDiffHeightCenter() const{
 	return diffHeightCenter;
 }
 
@@ -83,7 +83,7 @@ void Local::setDiffDistCenter(float diff){
 	diffDistCenter = diff;
 }
 
-void Local::setDiffHeightCenter(int diff){
+void Local::setDiffHeightCenter(float diff){
 	diffHeightCenter = diff;
 }
 

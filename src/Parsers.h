@@ -14,19 +14,13 @@
 
 using namespace std;
 
-void readLocals(Graph<Local> &map, vector<int> heights, vector<pair<int, int> > sharingPoints){
+void readLocals(Graph<Local> &map, vector<float> heights, vector<pair<int, int> > sharingPoints){
 
 	string line, data;
 	long long id;
 	float lat, longi;
-	int height;
+	float height;
 	ifstream localsFile("files/A2.txt");		//TODO mudar para receber ficheiro com a regiao a analizar
-
-	// Definir o centro da cidade aqui:
-	// 1. Antes de começar a ler do ficheiro escolher um numero aleatorio.
-	//    O Local com esse índice vai ser o centro
-	// 2. Quando chegar a essa linha ao criar o local definir cityCenter = true
-	// 3. Adicionar o local ao grafo
 
 	if(localsFile.is_open()){
 		int i = 0;
@@ -38,8 +32,9 @@ void readLocals(Graph<Local> &map, vector<int> heights, vector<pair<int, int> > 
 			lat = atof(data.c_str());
 			getline(ss, data, ';');
 			longi = atof(data.c_str());
-			if(heights.size() == 0)
+			if(heights.size() == 0){
 				height = rand() % 11;
+			}
 			else
 				height = heights.at(i);
 			pair<float, float> coord(lat, longi);
