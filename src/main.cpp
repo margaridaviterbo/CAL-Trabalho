@@ -9,12 +9,11 @@
 #include "utils.h"
 using namespace std;
 
-Graph<Local> cityMap;
 
 int main(){
 
 	cout << "\n\n\t\t\t\tWelcome to this BikeSharing Platform!\n\n\n";
-	displayMainMenu(cityMap);
+	displayMainMenu();
 
 
 

@@ -28,6 +28,7 @@ void printMap(Graph<Local> &map){
 	//TODO melhorar coordenadas x,y (so multiplicar lat e lon para aparecer logo mais afastado)
 	//TODO definir com formas, icons, texto, cores diferentes nós especiais
 	//TODO mudar id's dos nodes para um sequencial (tenho de criar outro id sequencial nos nodes)
+	//TODO localizar localizaçao do user e distinguir locais de partilha (por tmb visivel os lugares disponiveis)
 
 	int idEdge = 0;
 	GraphViewer gv(600, 600, false);
@@ -46,13 +47,13 @@ void printMap(Graph<Local> &map){
 	for(size_t i = 0; i < vertexes.size(); i++){
 		int x = (int)((MAX_LON - vertexes.at(i)->getInfo().getCoordinates().second)/(lonDiff) * WIN_WIDTH);
 		int y = (int)((MAX_LAT - vertexes.at(i)->getInfo().getCoordinates().first)/(latDiff) * WIN_HEIGHT);
-		gv.addNode(vertexes.at(i)->getInfo().getId(), x - 600, y - 600);
+		gv.addNode(vertexes.at(i)->getInfo().getUXid(), x - 600, y - 600);
 	}
 
 	for(size_t i = 0; i < vertexes.size(); i++){
 		vector<Edge<Local> > edges = vertexes.at(i)->getAdj();
 		for(size_t j = 0; j < edges.size(); j++){
-			gv.addEdge(idEdge, vertexes.at(i)->getInfo().getId(), edges.at(j).getDest()->getInfo().getId(), EdgeType::DIRECTED);
+			gv.addEdge(idEdge, vertexes.at(i)->getInfo().getUXid(), edges.at(j).getDest()->getInfo().getUXid(), EdgeType::DIRECTED);
 			idEdge++;
 		}
 	}
