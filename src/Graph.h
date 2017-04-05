@@ -396,7 +396,6 @@ void Graph<T>::findShortestPath(T lc){
 	for(size_t i=0; i < getPath(getVertexSet().at(j)).size(); i++) {
 		cout << getPath(getVertexSet().at(j)).at(i).getId() << " - ";
 	}
-
 }
 
 
