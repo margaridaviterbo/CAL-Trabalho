@@ -1,12 +1,12 @@
 #include "Local.h"
 
-Local::Local(long long id, pair<float, float> coord, float height){
+Local::Local(unsigned long long id, pair<float, float> coord, float height){
 	this->id = id;
 	this->coordinates = coord;
 	this->height = height;
 }
 
-long long Local::getId() const{
+unsigned long long Local::getId() const{
 	return id;
 }
 
@@ -59,7 +59,7 @@ double Local::getWeight(const Local nd, searchOptions op) const{
 	}
 }
 
-map<long long, string> Local::getRoads(){
+map<unsigned long long, string> Local::getRoads(){
 	return roads;
 }
 
@@ -111,7 +111,7 @@ void Local::addRoad(pair<long long, string> road) {
 }
 
 bool Local::setRoadName(long long roadId, string roadName){
-	map<long long, string>::iterator it;
+	map<unsigned long long, string>::iterator it;
 	it = roads.find(roadId);
 	if(it != roads.end()) {
 		it->second = roadName;

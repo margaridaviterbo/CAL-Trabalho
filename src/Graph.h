@@ -105,7 +105,7 @@ public:
 	bool addEdge(const T &sourc, const T &dest, double w);
 	bool removeVertex(const T &in);
 	Vertex<T>* getVertex(const T &in);
-	T* getLocal(long long id);
+	T* getLocal(unsigned long long id);
 	T* getLocal(double lat);
 	T* getLocal(int i);
 	void setCityCenter(int i);
@@ -172,7 +172,7 @@ Vertex<T>* Graph<T>::getVertex(const T &in){
 }
 
 template <class T>
-T* Graph<T>::getLocal(long long id){
+T* Graph<T>::getLocal(unsigned long long id){
 	typename vector<Vertex<T>*>::iterator it= vertexSet.begin();
 	typename vector<Vertex<T>*>::iterator ite= vertexSet.end();
 	for (; it!=ite; it++) {
