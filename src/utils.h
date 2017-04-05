@@ -8,6 +8,7 @@
 #include "Parsers.h"
 #include "graphviewer.h"
 #include "math.h"
+#include "string"
 
 using namespace std;
 
@@ -25,15 +26,14 @@ vector<pair<int, int> > sharingPoints;
 
 void printMap(Graph<Local> &map){
 
-	//TODO melhorar coordenadas x,y (so multiplicar lat e lon para aparecer logo mais afastado)
 	//TODO definir com formas, icons, texto, cores diferentes nós especiais
-	//TODO mudar id's dos nodes para um sequencial (tenho de criar outro id sequencial nos nodes)
 	//TODO localizar localizaçao do user e distinguir locais de partilha (por tmb visivel os lugares disponiveis)
+	//TODO nos pequenos nas ruas, nos maiores nas interseçoes das ruas, nos especiais nos sharing points, no diferente na localizaçao do gajo
 
 	int idEdge = 0;
-	GraphViewer gv(600, 600, false);
+	GraphViewer gv(1800, 1200, false);
 	gv.setBackground("background.jpg"); //TODO por no background print do bocado do mapa original correspondente às infos do ficheiro
-	gv.createWindow(600, 600);
+	gv.createWindow(1800, 1200);
 
 	float lonDiff = MAX_LON - MIN_LON;
 	float latDiff = MAX_LAT - MIN_LAT;
@@ -45,9 +45,18 @@ void printMap(Graph<Local> &map){
 
 	vector<Vertex<Local>* > vertexes = map.getVertexSet();
 	for(size_t i = 0; i < vertexes.size(); i++){
-		int x = (int)((MAX_LON - vertexes.at(i)->getInfo().getCoordinates().second)/(lonDiff) * WIN_WIDTH);
-		int y = (int)((MAX_LAT - vertexes.at(i)->getInfo().getCoordinates().first)/(latDiff) * WIN_HEIGHT);
-		gv.addNode(vertexes.at(i)->getInfo().getUXid(), x - 600, y - 600);
+		int x = (int)((MAX_LON - vertexes.at(i)->getInfo().getCoordinates().second)/(lonDiff) * WIN_WIDTH)*6;
+		int y = (int)((MAX_LAT - vertexes.at(i)->getInfo().getCoordinates().first)/(latDiff) * WIN_HEIGHT)*6;
+		gv.addNode(vertexes.at(i)->getInfo().getUXid(), x - 1000*6, y - 1100*6);
+
+		if(vertexes.at(i)->getInfo().getSharingPoint().first){
+
+			//TODO contruir label para por nos nodes sharing points
+			stringstream sstm;
+			sstm << "Available spots: " << vertexes.at(i)->getInfo().getSharingPoint().second;
+			string label = sstm;
+			gv.setVertexLabel(vertexes.at(i)->getInfo().getUXid(), label);
+		}
 	}
 
 	for(size_t i = 0; i < vertexes.size(); i++){
@@ -62,7 +71,7 @@ void printMap(Graph<Local> &map){
 
 
 
-	/*gv.setVertexLabel(1, "Isto e O PRIMEIRO NO");
+	/*
 	gv.setEdgeLabel(1, "Isto e a segunda aresta");
 
 	gv.setVertexColor(2, "green");
