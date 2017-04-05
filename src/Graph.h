@@ -107,6 +107,8 @@ public:
 	Vertex<T>* getVertex(const T &in);
 	T* getLocal(long long id);
 	T* getLocal(double lat);
+	T* getLocal(int i);
+	void setCityCenter(int i);
 	bool removeEdge(const T &sourc, const T &dest);
 	vector<T> dfs() const;
 	vector<T> bfs(Vertex<T> *v) const;
@@ -190,6 +192,17 @@ T* Graph<T>::getLocal(double lat){
 		}
 	}
 	return NULL;
+}
+
+template <class T>
+T* Graph<T>::getLocal(int i) {
+	typename vector<Vertex<T>*>::iterator it = vertexSet.begin();
+	int count = 0;
+	while (count < i) {
+		it++;
+		count++;
+	}
+	return &((*it)->info);
 }
 
 template <class T>

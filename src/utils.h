@@ -20,7 +20,7 @@ using namespace std;
 
 const double PI  =3.141592653589793238463;
 
-vector<int> heights;
+vector<float> heights;
 vector<pair<int, int> > sharingPoints;
 
 void printMap(Graph<Local> &map){
@@ -102,17 +102,16 @@ vector<pair<int, int> > setRegionSharingPoints(Graph<Local> &map){
 	return sp;
 }
 
-vector<int> setHeights(Graph<Local> &map){
+vector<float> setHeights(Graph<Local> &map){
 
 	int numLocals = map.getNumVertex();
-	vector<int> heights;
-	int h;
+	vector<float> heights;
+	float h;
 
 	for(int i = 0; i < numLocals; i++){
-		h = (rand() % 11) / 100;
+		h = (float)(rand() % 11) / 1000.0;
 		heights.push_back(h);
 	}
-
 	return heights;
 }
 
@@ -126,7 +125,7 @@ void setCityCenter(Graph<Local> &map){
 	double sumLat = 0;
 	double sumLon = 0;
 
-	for(size_t i; i < map.getVertexSet().size(); i++){
+	for(size_t i = 0; i < map.getVertexSet().size(); i++){
 		latitudes.push_back(map.getVertexSet().at(i)->getInfo().getCoordinates().first);
 		longitudes.push_back(map.getVertexSet().at(i)->getInfo().getCoordinates().second);
 		sumLat = sumLat + map.getVertexSet().at(i)->getInfo().getCoordinates().first;
@@ -136,7 +135,7 @@ void setCityCenter(Graph<Local> &map){
 	double medLat = sumLat/latitudes.size();
 	double medLon = sumLon/longitudes.size();
 
-	for(size_t i; i < map.getVertexSet().size(); i++){
+	for(size_t i = 0; i < map.getVertexSet().size(); i++){
 		diffLatitudes.push_back(abs(map.getVertexSet().at(i)->getInfo().getCoordinates().first - medLat));
 		diffLongitudes.push_back(abs(map.getVertexSet().at(i)->getInfo().getCoordinates().second - medLon));
 		diffTotal.push_back(diffLatitudes.at(i) + diffLongitudes.at(i));
@@ -145,18 +144,17 @@ void setCityCenter(Graph<Local> &map){
 	vector<double>::iterator it = min_element(diffTotal.begin(), diffTotal.end());
 	size_t i;
 	for(i = 0; i < diffTotal.size(); i++){
-		if(diffTotal.at(i) == *(it))
+		if(diffTotal.at(i) == *(it)){
 			break;
+		}
 	}
 
-	Local lC = map.getVertexSet().at(i)->getInfo();
-	map.getVertexSet().at(i)->getInfo().setCityCenter();
-	cout << "PUS CENTRO" << endl;
+	Local *lC = map.getLocal((int)i);
+	lC->setCityCenter();
 
 	for(size_t i = 0; i < map.getVertexSet().size(); i++){
-		map.getVertexSet().at(i)->getInfo().setDiffDistCenter(map.getVertexSet().at(i)->getInfo().getWeight(lC, SHORTEST_DIST));
-		map.getVertexSet().at(i)->getInfo().setDiffHeightCenter(map.getVertexSet().at(i)->getInfo().getWeight(lC, SHORTEST_HEIGHT));
-		cout << "PUS DISTS HEIGHTS  " << map.getVertexSet().at(i)->getInfo().getDiffDistCenter() << "  " << map.getVertexSet().at(i)->getInfo().getDiffHeightCenter() << endl;
+		map.getLocal((int)i)->setDiffDistCenter(map.getVertexSet().at(i)->getInfo().getWeight(*lC, SHORTEST_DIST));
+		map.getLocal((int)i)->setDiffHeightCenter(map.getVertexSet().at(i)->getInfo().getWeight(*lC, SHORTEST_HEIGHT));
 	}
 
 
@@ -165,11 +163,11 @@ void setCityCenter(Graph<Local> &map){
 
 void builtGraph(Graph<Local> &map){			//TODO isto vai ser chamado só quando o user escolher o criterio para se construir o grafo com os pesos de acorda com a suas prioridades
 
-
+	Graph<Local> temp;
 	if(heights.size() == 0){
-		readLocals(map, heights, sharingPoints);
-		heights = setHeights(map);
-		sharingPoints = setRegionSharingPoints(map);
+		readLocals(temp, heights, sharingPoints);
+		heights = setHeights(temp);
+		sharingPoints = setRegionSharingPoints(temp);
 	}
 
 	readLocals(map, heights, sharingPoints);
@@ -177,9 +175,6 @@ void builtGraph(Graph<Local> &map){			//TODO isto vai ser chamado só quando o us
 	readRoadsDirections(map);
 	setCityCenter(map);
 
-	for (size_t i = 0; i < map.getVertexSet().size(); i++){
-		cout << "cityCenter: " << map.getVertexSet().at(i)->getInfo().getCityCenter() << " diffdist: " << map.getVertexSet().at(i)->getInfo().getDiffDistCenter() << " diffhei: " << map.getVertexSet().at(i)->getInfo().getDiffHeightCenter() << endl;
-	}
 }
 
 

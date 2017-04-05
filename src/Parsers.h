@@ -14,12 +14,12 @@
 
 using namespace std;
 
-void readLocals(Graph<Local> &map, vector<int> heights, vector<pair<int, int> > sharingPoints){
+void readLocals(Graph<Local> &map, vector<float> heights, vector<pair<int, int> > sharingPoints){
 
 	string line, data;
 	long long id;
 	float lat, longi;
-	int height;
+	float height;
 	ifstream localsFile("files/A2.txt");		//TODO mudar para receber ficheiro com a regiao a analizar
 
 	if(localsFile.is_open()){
@@ -32,8 +32,9 @@ void readLocals(Graph<Local> &map, vector<int> heights, vector<pair<int, int> > 
 			lat = atof(data.c_str());
 			getline(ss, data, ';');
 			longi = atof(data.c_str());
-			if(heights.size() == 0)
+			if(heights.size() == 0){
 				height = rand() % 11;
+			}
 			else
 				height = heights.at(i);
 			pair<float, float> coord(lat, longi);
