@@ -72,7 +72,7 @@ void printMap(Graph<Local> &map){
 
 	gv.setEdgeDashed(1, false);*/
 
-	Sleep(20000);
+	//Sleep(20000);
 }
 
 vector<pair<int, int> > setRegionSharingPoints(Graph<Local> &map){
