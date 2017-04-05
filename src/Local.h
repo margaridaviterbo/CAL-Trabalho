@@ -13,28 +13,28 @@ enum searchOptions {SHORTEST_DIST, SHORTEST_HEIGHT, CLOSEST, DIST_DISCOUNT, HEIG
 
 class Local{
 private:
-	long long id;
+	unsigned long long id;
 	pair<float, float> coordinates;		//latitude, longitude
 	float diffDistCenter;
 	float height = 0;
 	float diffHeightCenter = 0;
-	map<long long, string> roads;		//idRoad, roadName
+	map<unsigned long long, string> roads;		//idRoad, roadName
 	pair<bool, int> sharingPoint = pair<bool, int>(false, 0);	// is/is not sharingpoint, spots available
 	bool userLocation = false;
 	bool cityCenter = false;
 public:
 	Local(){};
-	Local(long long id, pair<float, float> coord, float height);
-	long long getId() const;
+	Local(unsigned long long id, pair<float, float> coord, float height);
+	unsigned long long getId() const;
 	pair<float, float> getCoordinates() const;
 	float getDiffDistCenter() const;
 	float getHeight() const;
 	float getDiffHeightCenter() const;
-	float getWeight(const Local nd, searchOptions op) const;
+	double getWeight(const Local nd, searchOptions op) const;
 	pair<bool, int> getSharingPoint();
 	bool getUserLocation();
 	bool getCityCenter();
-	map<long long, string> getRoads();
+	map<unsigned long long, string> getRoads();
 	bool operator ==(const Local & nd);
 	void print();
 	void setSharingPoint(pair<bool, int> sp);

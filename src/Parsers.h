@@ -17,7 +17,7 @@ using namespace std;
 void readLocals(Graph<Local> &map, vector<float> heights, vector<pair<int, int> > sharingPoints){
 
 	string line, data;
-	long long id;
+	unsigned long long id;
 	float lat, longi;
 	float height;
 	ifstream localsFile("files/A2.txt");		//TODO mudar para receber ficheiro com a regiao a analizar
@@ -27,7 +27,7 @@ void readLocals(Graph<Local> &map, vector<float> heights, vector<pair<int, int> 
 		while(getline(localsFile, line)){
 			stringstream ss(line);
 			getline(ss, data, ';');
-			id = atoll(data.c_str());
+			id = strtoull(data.c_str(), NULL, 10);
 			getline(ss, data, ';');
 			lat = atof(data.c_str());
 			getline(ss, data, ';');
@@ -55,7 +55,7 @@ void readLocals(Graph<Local> &map, vector<float> heights, vector<pair<int, int> 
 void readStreets(Graph<Local> &mapa, searchOptions op){
 
 	string line, data;
-	long long roadId, local1Id, local2Id;
+	unsigned long long roadId, local1Id, local2Id;
 	bool exists;
 
 	ifstream roadsFile("files/C2.txt");		//TODO mudar para receber ficheiro com a regiao a analizar
@@ -64,20 +64,20 @@ void readStreets(Graph<Local> &mapa, searchOptions op){
 		while(getline(roadsFile, line)){
 			stringstream ss(line);
 			getline(ss, data, ';');
-			roadId = atoll(data.c_str());
+			roadId = strtoull(data.c_str(), NULL, 10);
 			getline(ss, data, ';');
-			local1Id = atoll(data.c_str());
+			local1Id = strtoull(data.c_str(), NULL, 10);
 			getline(ss, data, ';');
-			local2Id = atoll(data.c_str());
+			local2Id = strtoull(data.c_str(), NULL, 10);
 			Local *l1 = mapa.getLocal(local1Id);
 			Local *l2 = mapa.getLocal(local2Id);
 			mapa.addEdge(*(l1), *(l2), l1->getWeight(*l2, op));
 
 			if(l1->getRoads().count(roadId) == 0) {
-				l1->addRoad(pair<long long, string>(roadId, ""));
+				l1->addRoad(pair<unsigned long long, string>(roadId, ""));
 			}
 			if(l2->getRoads().count(roadId) == 0){
-				l2->addRoad(pair<long long, string>(roadId, ""));
+				l2->addRoad(pair<unsigned long long, string>(roadId, ""));
 			}
 		}
 	}
@@ -85,9 +85,9 @@ void readStreets(Graph<Local> &mapa, searchOptions op){
 		cout << "Could not open C.txt!\n";	//TODO mudar mensagem para especificar ficheiro direito
 }
 
-void readRoadsDirections(Graph<Local> &mapa){
+void readRoadsDirections(Graph<Local> &mapa, searchOptions op){
 	string line, data;
-	long long roadId;
+	unsigned long long roadId;
 	string roadName;
 	bool connection;
 
@@ -97,13 +97,13 @@ void readRoadsDirections(Graph<Local> &mapa){
 		while(getline(directionsFile, line)){
 			stringstream ss(line);
 			getline(ss, data, ';');
-			roadId = atoll(data.c_str());
+			roadId = strtoull(data.c_str(), NULL, 10);
 			getline(ss, data, ';');
 			roadName = data;
 			getline(ss, data, '\n');
 
 			for (size_t i = 0; i < mapa.getVertexSet().size(); i++){
-				long long localId = mapa.getVertexSet().at(i)->getInfo().getId();
+				unsigned long long localId = mapa.getVertexSet().at(i)->getInfo().getId();
 				Local *l1 = mapa.getLocal(localId);
 				l1->setRoadName(roadId, roadName);
 

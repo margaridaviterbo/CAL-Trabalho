@@ -25,8 +25,9 @@ vector<pair<int, int> > sharingPoints;
 
 void printMap(Graph<Local> &map){
 
-	//TODO melhorar coordenadas x,y
+	//TODO melhorar coordenadas x,y (so multiplicar lat e lon para aparecer logo mais afastado)
 	//TODO definir com formas, icons, texto, cores diferentes nós especiais
+	//TODO apagar id dos nodes da visualizaçao porque fica confuso e imprime overflow
 
 	int idEdge = 0;
 	GraphViewer gv(600, 600, false);
@@ -161,7 +162,7 @@ void setCityCenter(Graph<Local> &map){
 
 }
 
-void builtGraph(Graph<Local> &map){			//TODO isto vai ser chamado só quando o user escolher o criterio para se construir o grafo com os pesos de acorda com a suas prioridades
+void builtGraph(Graph<Local> &map, searchOptions op){
 
 	Graph<Local> temp;
 	if(heights.size() == 0){
@@ -171,8 +172,8 @@ void builtGraph(Graph<Local> &map){			//TODO isto vai ser chamado só quando o us
 	}
 
 	readLocals(map, heights, sharingPoints);
-	readStreets(map, SHORTEST_DIST);	//criterio de pesquisa é enciado aqui mas tem de chegar ate esta funçao
-	readRoadsDirections(map);
+	readStreets(map, op);
+	readRoadsDirections(map, op);
 	setCityCenter(map);
 
 }
