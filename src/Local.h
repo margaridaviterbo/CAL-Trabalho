@@ -30,7 +30,7 @@ public:
 	float getDiffDistCenter() const;
 	float getHeight() const;
 	float getDiffHeightCenter() const;
-	double getWeight(const Local nd, searchOptions op) const;
+	double getWeight(const Local nd, searchOptions op);
 	pair<bool, int> getSharingPoint();
 	bool getUserLocation();
 	bool getCityCenter();

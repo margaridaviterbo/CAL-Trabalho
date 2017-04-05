@@ -26,7 +26,7 @@ float Local::getDiffHeightCenter() const{
 	return diffHeightCenter;
 }
 
-double Local::getWeight(const Local nd, searchOptions op) const{
+double Local::getWeight(const Local nd, searchOptions op){
 
 	switch (op) {
 
@@ -57,6 +57,7 @@ double Local::getWeight(const Local nd, searchOptions op) const{
 		}
 		return 1/(sqrt(pow(nd.getDiffDistCenter() - getDiffDistCenter(), 2) + pow(nd.getDiffHeightCenter() - diffHeightCenter, 2)));
 	}
+	return -1;
 }
 
 map<unsigned long long, string> Local::getRoads(){

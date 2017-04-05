@@ -116,6 +116,7 @@ public:
 	vector<Vertex<T> * > getVertexSet() const;
 	int getNumVertex() const;
 	void dijkstraShortestPath(const T &s);
+	void findShortestPath(T lc);
 	vector<T> getPath(Vertex<T> *dest);
 };
 
@@ -376,6 +377,26 @@ void Graph<T>::dijkstraShortestPath(const T &s) {
 			}
 		}
 	}
+}
+
+template<class T>
+void Graph<T>::findShortestPath(T lc){
+	dijkstraShortestPath(lc);
+	int min = 123871;
+	int id = -1;
+	size_t j;
+	for(j = 0; j < getVertexSet().size(); j++){
+		if(getVertexSet().at(j)->getInfo().getSharingPoint().first && (getVertexSet().at(j)->getInfo().getSharingPoint().second > 0) && getVertexSet().at(j)->getDist() < min){
+			min = getVertexSet().at(j)->getDist();
+			id = getVertexSet().at(j)->getInfo().getId();
+			break;
+		}
+	}
+
+	for(size_t i=0; i < getPath(getVertexSet().at(j)).size(); i++) {
+		cout << getPath(getVertexSet().at(j)).at(i).getId() << " - ";
+	}
+
 }
 
 
