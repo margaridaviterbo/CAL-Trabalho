@@ -13,7 +13,7 @@ Graph<Local> cityMap;
 
 int main(){
 
-	cout << "Welcome to this BikeSharing Platform!";
+	cout << "\n\n\t\t\t\tWelcome to this BikeSharing Platform!\n\n\n";
 	displayMainMenu(cityMap);
 
 

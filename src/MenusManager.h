@@ -9,7 +9,44 @@
 
 using namespace std;
 
+void findSharingPointMenu(Graph<Local> &map);
+
 void displayMainMenu(Graph<Local> &map){
+	int op;
+
+	cout << "\t\t\t====================================================" << endl;
+	cout << "\t\t\t|		(1) SEE CITY MAP		   |" << endl;
+	cout << "\t\t\t====================================================" << endl << endl << endl;
+	cout << "\t\t\t====================================================" << endl;
+	cout << "\t\t\t|	(2) SEARCH BIKE SHARING POINT	    	   |" << endl;
+	cout << "\t\t\t====================================================" << endl << endl << endl;
+	cout << "Please chose an option(press 0 to exit): ";
+	do{
+		cin >> op;
+		cout << endl;
+		if(op < 0 || op > 2)
+			cout << "Invalid option, chose between 1 or 2: ";
+	}while(op < 0 || op >2);
+
+	if(op == 1){
+		cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
+		builtGraph(map, SHORTEST_DIST);
+		printMap(map);
+	}
+	else if(op == 2){
+		cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
+		findSharingPointMenu(map);
+	}
+	else{
+		cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
+		exit(0);
+	}
+
+	cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
+	displayMainMenu(map);
+}
+
+void findSharingPointMenu(Graph<Local> &map){
 	int op;
 	searchOptions option;
 
@@ -57,6 +94,7 @@ void displayMainMenu(Graph<Local> &map){
 
 	builtGraph(map, option);
 	map.findShortestPath(map.getVertexSet().at(1)->getInfo());		//passar aqui node da loclizaçao do user
+	cout << "parar aqui";		//TODO parar para ver cominho impresso
 	printMap(map);
 }
 
