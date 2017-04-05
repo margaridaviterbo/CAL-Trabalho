@@ -26,7 +26,7 @@ float Local::getDiffHeightCenter() const{
 	return diffHeightCenter;
 }
 
-float Local::getWeight(const Local nd, searchOptions op) const{
+double Local::getWeight(const Local nd, searchOptions op) const{
 
 	switch (op) {
 
@@ -40,14 +40,22 @@ float Local::getWeight(const Local nd, searchOptions op) const{
 		return sqrt(pow(nd.getCoordinates().first - coordinates.first, 2) + pow(nd.getCoordinates().second - coordinates.second, 2) + pow(nd.getHeight() - height,2));
 
 	case DIST_DISCOUNT:
+		if(abs(nd.getDiffDistCenter() - diffDistCenter) == 0){
+			return 10000;
+		}
 		return 1/(abs(nd.getDiffDistCenter() - diffDistCenter));
 
 	case HEIGHT_DISCOUNT:
+		if(abs(nd.getDiffHeightCenter() - diffHeightCenter) == 0){
+			return 10000;
+		}
 		return 1/(abs(nd.getDiffHeightCenter() - diffHeightCenter));
 
 	case BIGGEST_DISCOUNT:
+		if(sqrt(pow(nd.getDiffDistCenter() - getDiffDistCenter(), 2) + pow(nd.getDiffHeightCenter() - diffHeightCenter, 2)) == 0){
+			return 10000;
+		}
 		return 1/(sqrt(pow(nd.getDiffDistCenter() - getDiffDistCenter(), 2) + pow(nd.getDiffHeightCenter() - diffHeightCenter, 2)));
-
 	}
 }
 
