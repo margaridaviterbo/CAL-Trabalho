@@ -27,7 +27,7 @@ void printMap(Graph<Local> &map){
 
 	//TODO melhorar coordenadas x,y (so multiplicar lat e lon para aparecer logo mais afastado)
 	//TODO definir com formas, icons, texto, cores diferentes nós especiais
-	//TODO apagar id dos nodes da visualizaçao porque fica confuso e imprime overflow
+	//TODO mudar id's dos nodes para um sequencial (tenho de criar outro id sequencial nos nodes)
 
 	int idEdge = 0;
 	GraphViewer gv(600, 600, false);
