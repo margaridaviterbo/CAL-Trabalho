@@ -1,13 +1,18 @@
 #include "Local.h"
 
-Local::Local(unsigned long long id, pair<float, float> coord, float height){
+Local::Local(unsigned long long id, int UXid, pair<float, float> coord, float height){
 	this->id = id;
+	this-> UXid = UXid;
 	this->coordinates = coord;
 	this->height = height;
 }
 
 unsigned long long Local::getId() const{
 	return id;
+}
+
+int Local::getUXid(){
+	return UXid;
 }
 
 pair<float, float> Local::getCoordinates() const{

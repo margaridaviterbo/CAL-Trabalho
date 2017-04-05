@@ -13,6 +13,7 @@ enum searchOptions {SHORTEST_DIST, SHORTEST_HEIGHT, CLOSEST, DIST_DISCOUNT, HEIG
 
 class Local{
 private:
+	int UXid;
 	unsigned long long id;
 	pair<float, float> coordinates;		//latitude, longitude
 	float diffDistCenter;
@@ -24,8 +25,9 @@ private:
 	bool cityCenter = false;
 public:
 	Local(){};
-	Local(unsigned long long id, pair<float, float> coord, float height);
+	Local(unsigned long long id, int UXid, pair<float, float> coord, float height);
 	unsigned long long getId() const;
+	int getUXid();
 	pair<float, float> getCoordinates() const;
 	float getDiffDistCenter() const;
 	float getHeight() const;

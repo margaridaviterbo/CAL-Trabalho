@@ -15,7 +15,7 @@
 using namespace std;
 
 void readLocals(Graph<Local> &map, vector<float> heights, vector<pair<int, int> > sharingPoints){
-
+	int UXid = 1;
 	string line, data;
 	unsigned long long id;
 	float lat, longi;
@@ -38,7 +38,8 @@ void readLocals(Graph<Local> &map, vector<float> heights, vector<pair<int, int> 
 			else
 				height = heights.at(i);
 			pair<float, float> coord(lat, longi);
-			Local local(id, coord, height);
+			Local local(id, UXid, coord, height);
+			UXid++;
 			if(sharingPoints.size() != 0){
 				if(sharingPoints.at(i).first == 1)
 					local.setSharingPoint(pair<bool, int>(true, sharingPoints.at(i).second));

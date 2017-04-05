@@ -7,11 +7,13 @@
 #include "Graph.h"
 #include "graphviewer.h"
 
+Graph<Local> map;
+
 using namespace std;
 
 void findSharingPointMenu(Graph<Local> &map);
 
-void displayMainMenu(Graph<Local> &map){
+void displayMainMenu(){
 	int op;
 
 	cout << "\t\t\t====================================================" << endl;
@@ -28,14 +30,16 @@ void displayMainMenu(Graph<Local> &map){
 			cout << "Invalid option, chose between 1 or 2: ";
 	}while(op < 0 || op >2);
 
+	Graph<Local> tempMap;
+
 	if(op == 1){
 		cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
-		builtGraph(map, SHORTEST_DIST);
-		printMap(map);
+		builtGraph(tempMap, SHORTEST_DIST);
+		printMap(tempMap);
 	}
 	else if(op == 2){
 		cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
-		findSharingPointMenu(map);
+		findSharingPointMenu(tempMap);
 	}
 	else{
 		cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
@@ -43,59 +47,82 @@ void displayMainMenu(Graph<Local> &map){
 	}
 
 	cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
-	displayMainMenu(map);
+	displayMainMenu();
 }
 
 void findSharingPointMenu(Graph<Local> &map){
 	int op;
 	searchOptions option;
+	int id;
+	Graph<Local> tempMap;
+	builtGraph(tempMap, SHORTEST_DIST);
 
-	cout << "Chose your criteria to find a Sharing Point:" << endl << endl;
-	cout << "1 - Least plain distance\n";
-	cout << "2 - Least vertical distance\n";
-	cout << "3 - Closest to me\n";
-	cout << "4 - With discount (based on distance to center)\n";
-	cout << "5 - With discount (based on difference of height from center)\n";
-	cout << "6 - Biggest discount\n";
-	cout << "Option: ";
-	cin >> op;
+	cout << "Enter the ID of your location (to see the map with IDs press 0): ";
+	cin >> id;
 
-	do{
-		switch (op){
-		case 1:
-			option = SHORTEST_DIST;
-			break;
+	if(id == 0){
 
-		case 2:
-			option = SHORTEST_HEIGHT;
-			break;
+		printMap(tempMap);
+		cout << "Enter the ID of your location: ";
+		cin >> id;
+	}
 
-		case 3:
-			option = CLOSEST;
-			break;
+	if(id > 0 && id < (int)tempMap.getVertexSet().size()){
 
-		case 4:
-			option = DIST_DISCOUNT;
-			break;
+		cout << "Chose your criteria to find a Sharing Point:" << endl << endl;
+		cout << "1 - Least plain distance\n";
+		cout << "2 - Least vertical distance\n";
+		cout << "3 - Closest to me\n";
+		cout << "4 - With discount (based on distance to center)\n";
+		cout << "5 - With discount (based on difference of height from center)\n";
+		cout << "6 - Biggest discount\n";
+		cout << "Option: ";
+		cin >> op;
 
-		case 5:
-			option = HEIGHT_DISCOUNT;
-			break;
+		do{
+			switch (op){
+			case 1:
+				option = SHORTEST_DIST;
+				break;
 
-		case 6:
-			option = BIGGEST_DISCOUNT;
-			break;
+			case 2:
+				option = SHORTEST_HEIGHT;
+				break;
 
-		default:
-			cout << "INVALID OPTION! Please try again: ";
-			cin >> op;
-		}
-	}while (op < 1 || op > 6);
+			case 3:
+				option = CLOSEST;
+				break;
 
-	builtGraph(map, option);
-	map.findShortestPath(map.getVertexSet().at(1)->getInfo());		//passar aqui node da loclizaçao do user
-	cout << "parar aqui";		//TODO parar para ver cominho impresso
-	printMap(map);
+			case 4:
+				option = DIST_DISCOUNT;
+				break;
+
+			case 5:
+				option = HEIGHT_DISCOUNT;
+				break;
+
+			case 6:
+				option = BIGGEST_DISCOUNT;
+				break;
+
+			default:
+				cout << "INVALID OPTION! Please try again: ";
+				cin >> op;
+				break;
+			}
+
+		}while (op < 1 || op > 6);
+
+		builtGraph(map, option);
+		map.findShortestPath(*map.getLocal(id - 1));		//passar aqui node da loclizaçao do user
+		cout << "parar aqui";		//TODO parar para ver cominho impresso
+		printMap(map);
+
+
+	}
+	else{
+		cout << "That local does not exist.\n";
+		//system("pause");		TODO esta porra faz pause antes de cout tal como acontecia para imprimir caminho
+	}
 }
-
 #endif MENUSMANAGER	/* MENUSMANAGER */
