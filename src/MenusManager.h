@@ -23,7 +23,7 @@ void displayMainMenu(Graph<Local> &map){
 	cout << "Option: ";
 	cin >> op;
 
-	while (op < 1 || op > 6){
+	do{
 		switch (op){
 		case 1:
 			option = SHORTEST_DIST;
@@ -53,9 +53,10 @@ void displayMainMenu(Graph<Local> &map){
 			cout << "INVALID OPTION! Please try again: ";
 			cin >> op;
 		}
-	}
+	}while (op < 1 || op > 6);
 
 	builtGraph(map, option);
+	map.findShortestPath(map.getVertexSet().at(1)->getInfo());		//passar aqui node da loclizaçao do user
 	printMap(map);
 }
 
