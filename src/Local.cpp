@@ -68,7 +68,6 @@ bool Local::getUserLocation(){
 }
 
 bool Local::getCityCenter(){
-	cout << "fui fucking chamado no get, city center: " << cityCenter << endl;
 	return cityCenter;
 }
 
@@ -78,7 +77,6 @@ void Local::setUserLocation(){
 
 void Local::setCityCenter(){
 	cityCenter = true;
-	cout << "fui fucking chamado, sity center: " << cityCenter << endl;
 }
 
 void Local::setDiffDistCenter(float diff){

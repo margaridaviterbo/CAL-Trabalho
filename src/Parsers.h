@@ -22,6 +22,12 @@ void readLocals(Graph<Local> &map, vector<int> heights, vector<pair<int, int> > 
 	int height;
 	ifstream localsFile("files/A2.txt");		//TODO mudar para receber ficheiro com a regiao a analizar
 
+	// Definir o centro da cidade aqui:
+	// 1. Antes de começar a ler do ficheiro escolher um numero aleatorio.
+	//    O Local com esse índice vai ser o centro
+	// 2. Quando chegar a essa linha ao criar o local definir cityCenter = true
+	// 3. Adicionar o local ao grafo
+
 	if(localsFile.is_open()){
 		int i = 0;
 		while(getline(localsFile, line)){

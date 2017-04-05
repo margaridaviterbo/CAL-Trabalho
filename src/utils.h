@@ -108,11 +108,13 @@ vector<int> setHeights(Graph<Local> &map){
 	vector<int> heights;
 	int h;
 
+	cout << "numlocals: " << numLocals << endl;
 	for(int i = 0; i < numLocals; i++){
-		h = (rand() % 11) / 100;
+		h = (rand() % 11) / 100;	//TODO height vai ter de ser float em todo o lado
 		heights.push_back(h);
+		cout << "h: " << h << endl;
 	}
-
+	cout << "size das heights: " << heights.size() << endl;
 	return heights;
 }
 
@@ -139,32 +141,23 @@ void setCityCenter(Graph<Local> &map){
 	for(size_t i = 0; i < map.getVertexSet().size(); i++){
 		diffLatitudes.push_back(abs(map.getVertexSet().at(i)->getInfo().getCoordinates().first - medLat));
 		diffLongitudes.push_back(abs(map.getVertexSet().at(i)->getInfo().getCoordinates().second - medLon));
-		cout << "AQUI" << endl;
 		diffTotal.push_back(diffLatitudes.at(i) + diffLongitudes.at(i));
 	}
-
-	cout << "DIFFTOTAL.SIZE(): " << diffTotal.size() << endl;
 
 	vector<double>::iterator it = min_element(diffTotal.begin(), diffTotal.end());
 	size_t i;
 	for(i = 0; i < diffTotal.size(); i++){
-		cout << "diffTotal: " << diffTotal.at(i) << endl;
 		if(diffTotal.at(i) == *(it)){
-			cout << "I NO MIN_DIFF " << i << endl;
 			break;
 		}
 	}
 
-	cout << "CHECKING I: " << i << "vertexsetsize: " << map.getVertexSet().size() << endl;
-	Local lC = map.getVertexSet().at(i)->getInfo();
-	map.getVertexSet().at(i)->getInfo().setCityCenter();
-	cout << "centrodolocaldevido: " << map.getVertexSet().at(i)->getInfo().getCityCenter() << endl;
-	cout << "PUS CENTRO" << endl;
+	Local *lC = map.getLocal((int)i);
+	lC->setCityCenter();
 
 	for(size_t i = 0; i < map.getVertexSet().size(); i++){
-		map.getVertexSet().at(i)->getInfo().setDiffDistCenter(map.getVertexSet().at(i)->getInfo().getWeight(lC, SHORTEST_DIST));
-		map.getVertexSet().at(i)->getInfo().setDiffHeightCenter(map.getVertexSet().at(i)->getInfo().getWeight(lC, SHORTEST_HEIGHT));
-		cout << "PUS DISTS HEIGHTS  " << map.getVertexSet().at(i)->getInfo().getDiffDistCenter() << "  " << map.getVertexSet().at(i)->getInfo().getDiffHeightCenter() << endl;
+		map.getLocal((int)i)->setDiffDistCenter(map.getVertexSet().at(i)->getInfo().getWeight(*lC, SHORTEST_DIST));
+		map.getLocal((int)i)->setDiffHeightCenter(map.getVertexSet().at(i)->getInfo().getWeight(*lC, SHORTEST_HEIGHT));
 	}
 
 
@@ -186,7 +179,7 @@ void builtGraph(Graph<Local> &map){			//TODO isto vai ser chamado só quando o us
 	setCityCenter(map);
 
 	for (size_t i = 0; i < map.getVertexSet().size(); i++){
-		cout << "cityCenter: " << map.getVertexSet().at(i)->getInfo().getCityCenter() << " diffdist: " << map.getVertexSet().at(i)->getInfo().getDiffDistCenter() << " diffhei: " << map.getVertexSet().at(i)->getInfo().getDiffHeightCenter() << endl;
+		cout << "cityCenter: " << map.getVertexSet().at(i)->getInfo().getCityCenter() << " diffdist: " << map.getVertexSet().at(i)->getInfo().getDiffDistCenter() << " diffhei: " << map.getVertexSet().at(i)->getInfo().getDiffHeightCenter() << " height: " << map.getVertexSet().at(i)->getInfo().getHeight() << endl;
 	}
 }
 
