@@ -116,7 +116,7 @@ public:
 	vector<Vertex<T> * > getVertexSet() const;
 	int getNumVertex() const;
 	void dijkstraShortestPath(const T &s);
-	vector<int> findShortestPath(T lc);
+	vector<int> findShortestPath(T lc, int op);
 	vector<T> getPath(Vertex<T> *dest);
 };
 
@@ -380,17 +380,34 @@ void Graph<T>::dijkstraShortestPath(const T &s) {
 }
 
 template<class T>
-vector<int> Graph<T>::findShortestPath(T lc){
+vector<int> Graph<T>::findShortestPath(T lc, int op){
 	dijkstraShortestPath(lc);
-	float min = 123871;
-	int id = -1;
-	size_t j;
+
 	int dest = -1;
-	for(j = 0; j < getVertexSet().size(); j++){
-		if(getVertexSet().at(j)->getInfo().getSharingPoint().first && (getVertexSet().at(j)->getInfo().getSharingPoint().second > 0) && getVertexSet().at(j)->getDist() < min) {
-			min = getVertexSet().at(j)->getDist();
-			id = getVertexSet().at(j)->getInfo().getId();
-			dest = j;
+
+	if(op == 1 || op == 2 || op == 3){
+		float min = 123871;
+		int id = -1;
+		size_t j;
+		for(j = 0; j < getVertexSet().size(); j++){
+			if(getVertexSet().at(j)->getInfo().getSharingPoint().first && (getVertexSet().at(j)->getInfo().getSharingPoint().second > 0) && getVertexSet().at(j)->getDist() < min) {
+				min = getVertexSet().at(j)->getDist();
+				id = getVertexSet().at(j)->getInfo().getId();
+				dest = j;
+			}
+		}
+	}
+
+	if(op == 4 || op == 5 || op == 6){
+		float max = 0;
+		int id = -1;
+		size_t j;
+		for(j = 0; j < getVertexSet().size(); j++){
+			if(getVertexSet().at(j)->getInfo().getSharingPoint().first && (getVertexSet().at(j)->getInfo().getSharingPoint().second > 0) && getVertexSet().at(j)->getDist() > max) {
+				max = getVertexSet().at(j)->getDist();
+				id = getVertexSet().at(j)->getInfo().getId();
+				dest = j;
+			}
 		}
 	}
 

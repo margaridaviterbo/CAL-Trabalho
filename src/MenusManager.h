@@ -117,7 +117,7 @@ void findSharingPointMenu(Graph<Local> &map){
 		}while (op < 1 || op > 6);
 
 		builtGraph(map, option);
-		vector<int> path = map.findShortestPath(*map.getLocal(id - 1));		//passar aqui node da loclizaçao do user
+		vector<int> path = map.findShortestPath(*map.getLocal(id - 1), op);		//passar aqui node da loclizaçao do user
 		cout << "parar aqui";		//TODO parar para ver cominho impresso
 		printMap(map, id, path);
 

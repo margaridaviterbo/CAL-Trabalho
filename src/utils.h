@@ -20,18 +20,18 @@ using namespace std;
 #define WIN_WIDTH 3000
 #define WIN_HEIGHT 3000
 
-const double PI  =3.141592653589793238463;
+const double PI = 3.141592653589793238463;
 
 vector<float> heights;
 vector<pair<int, int> > sharingPoints;
 
 void printMap(Graph<Local> &mapa, int id, vector<int> path){
 
-	//TODO pintar ruas do caminho
+	//TODO marcar centro com estrela
 
 	int idEdge = 0;
 	GraphViewer gv(1800, 1200, false);
-	gv.setBackground("background.jpg");
+	gv.setBackground("map.png");
 	gv.createWindow(1800, 1200);
 
 	float lonDiff = MAX_LON - MIN_LON;
@@ -63,7 +63,7 @@ void printMap(Graph<Local> &mapa, int id, vector<int> path){
 		}
 
 		vector<int>::iterator it = find(path.begin(), path.end(), vertexes.at(i)->getInfo().getUXid());
-		if(it != path.end()){
+		if(it != path.end() && !vertexes.at(i)->getInfo().getSharingPoint().first) {
 			gv.setVertexSize(vertexes.at(i)->getInfo().getUXid(), 40);
 			gv.setVertexIcon(vertexes.at(i)->getInfo().getUXid(), "path.png");
 		}
@@ -91,8 +91,15 @@ void printMap(Graph<Local> &mapa, int id, vector<int> path){
 				it1++;
 			}
 			string road = it2->second;
-
 			gv.setEdgeLabel(idEdge, road);
+
+			vector<int>::iterator node1 = find(path.begin(), path.end(), vertexes.at(i)->getInfo().getUXid());
+			vector<int>::iterator node2 = find(path.begin(), path.end(), edges.at(j).getDest()->getInfo().getUXid());
+			if((node1 != path.end() || vertexes.at(i)->getInfo().getUXid() == id) && (node2 != path.end() || edges.at(j).getDest()->getInfo().getUXid() == id)){
+				gv.setEdgeColor(idEdge, "green");
+			}
+
+
 			gv.setEdgeThickness(idEdge, 10);
 			idEdge++;
 		}
