@@ -16,6 +16,10 @@ template <class T> class Edge;
 template <class T> class Graph;
 
 template <class T>
+
+/**
+ * Classe que armazena informaçao sobre os vertices usados no grafo
+ */
 class Vertex {
 	T info;
 	vector<Edge<T>  > adj;
@@ -25,11 +29,36 @@ class Vertex {
 	void addEdge(Vertex<T> *dest, double w);
 	bool removeEdgeTo(Vertex<T> *d);
 public:
+	/**
+	 * Construtor que cria um vértice de um grafo
+	 * @param info guarda o objeto alojado no vertice
+	 * @param adj guarda todas as conexões do vertice com outros vertices
+	 * @param visited  usado na pesquisa de caminhos
+	 * @param processed usado na pesquisa de caminhos
+	 * @param dist usado na pesquisa de caminhos
+	 */
 	Vertex(T in);
+
 	friend class Graph<T>;
+
+	/**
+	 * Função que devolve o parametro dist
+	 */
 	double getDist() const;
+
+	/**
+	 * Função que devolve o parametro info
+	 */
 	T getInfo();
+
+	/**
+	 * Função que devolve o parametro adj
+	 */
 	vector<Edge<T> > getAdj();
+
+	/**
+	 * @param publico usado na criaçao de caminhos
+	 */
 	Vertex* prev;
 };
 
@@ -72,13 +101,32 @@ void Vertex<T>::addEdge(Vertex<T> *dest, double w) {
 }
 
 template <class T>
+
+/**
+ * Classe que guarda a informaçao sobre as conexões do grafo
+ */
 class Edge {
 	Vertex<T> * dest;
 	double weight;
 public:
+
+	/**
+	 * construtor que cria um edge que liga dois vertices
+	 * @param d guarda o vertice de destino da ligação
+	 * @param w guarda o peso da aresta
+	 */
 	Edge(Vertex<T> *d, double w);
+
+	/**
+	 * Função que devolve o parametro weight
+	 */
 	double getWeight();
+
+	/**
+	 * Função que devolve o parametro dest
+	 */
 	Vertex<T>* getDest();
+
 	friend class Graph<T>;
 	friend class Vertex<T>;
 };
@@ -97,26 +145,105 @@ Vertex<T>* Edge<T>::getDest(){
 }
 
 template <class T>
+
+/**
+ * Classe que cria e guarda informaçoes de grafos
+ */
 class Graph {
 	vector<Vertex<T> *> vertexSet;
 	void dfs(Vertex<T> *v, vector<T> &res) const;
 public:
+
+	/**
+	 * Função que adiciona um vertice ao grafo
+	 * @param in guarda o objeto a inserir no vertice
+	 */
 	bool addVertex(const T &in);
+
+	/**
+	 * Função que adiciona uma conexao ao grafo
+	 * @param sourc guarda o vertice onde começa a aresta
+	 * @param dest guarda o vertive onde acaba a aresta
+	 * @param w guarda o peso da aresta
+	 */
 	bool addEdge(const T &sourc, const T &dest, double w);
+
+	/**
+	 * Função que remove um vertice do grafo
+	 * @param in guarda informaçao do objeto alojado no vertice a eliminar
+	 */
 	bool removeVertex(const T &in);
+
+	/**
+	 * Função que devolve vertice procurado
+	 * @param in guarda o objeto a procurar nos vertices do grafo
+	 */
 	Vertex<T>* getVertex(const T &in);
+
+	/**
+	 * Funçao que procura e devolve um objeto guardado num vertice
+	 * @param id quarda o id do objeto a procurar
+	 */
 	T* getLocal(unsigned long long id);
+
+	/**
+	 * Funçao que procura e devolve um objeto guardado num vertice
+	 * @param lat quarda a latitude do objeto a procurar
+	 */
 	T* getLocal(double lat);
+
+	/**
+	 * Funçao que procura e devolve um objeto guardado num vertice
+	 * @param id quarda a posiçao no vetor de vertices do vertice a procurar
+	 */
 	T* getLocal(int i);
-	void setCityCenter(int i);
+
+	/**
+	 * Função que elimina uma conexão entre dois vertices do grafo
+	 * @param sourc guarda objeto do primeiro vertice da ligaçao
+	 * @param dest guarda informaçao do segundo vertice da ligaçao
+	 */
 	bool removeEdge(const T &sourc, const T &dest);
+
+	/**
+	 * Função que faz pesquisa em profundidade no grafo
+	 */
 	vector<T> dfs() const;
+
+	/**
+	 * funçao que faz pesquisa em largura no grafo
+	 */
 	vector<T> bfs(Vertex<T> *v) const;
+
 	int maxNewChildren(Vertex<T> *v, T &inf) const;
+
+	/**
+	 * Função que devolve o vetor de todos os vertices do grafo
+	 */
 	vector<Vertex<T> * > getVertexSet() const;
+
+	/**
+	 *Função que devolve o numero de vertices do grafo
+	 */
 	int getNumVertex() const;
+
+	/**
+	 * Funçao que implementa o algoritmo de Dijkstra
+	 * @param s objeto alojado no vertice de partida para procurar caminho
+	 */
 	void dijkstraShortestPath(const T &s);
+
+	/**
+	 * Função que encontra caminho mais curto entre dois vertices usando o algoritmo de Dijkstra
+	 * @param lc objeto alojado no vertice de partida para procurar caminho
+	 * @param op inteiro que define a forma de pesquisa do caminho mais curto
+	 */
 	vector<int> findShortestPath(T lc, int op);
+
+	/**
+	 * Função que devolve vetor de objetos alojados nos vertices que fazem parte do caminho encontrado
+	 * @param dest vertice de destino
+	 */
 	vector<T> getPath(Vertex<T> *dest);
 };
 
