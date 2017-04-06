@@ -35,7 +35,9 @@ void displayMainMenu(){
 	if(op == 1){
 		cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
 		builtGraph(tempMap, SHORTEST_DIST);
-		printMap(tempMap);
+		vector<int> p;
+		p.push_back(-1);
+		printMap(tempMap, -1, p);
 	}
 	else if(op == 2){
 		cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
@@ -61,8 +63,9 @@ void findSharingPointMenu(Graph<Local> &map){
 	cin >> id;
 
 	if(id == 0){
-
-		printMap(tempMap);
+		vector<int> p;
+		p.push_back(-1);
+		printMap(tempMap, -1, p);
 		cout << "Enter the ID of your location: ";
 		cin >> id;
 	}
@@ -114,9 +117,9 @@ void findSharingPointMenu(Graph<Local> &map){
 		}while (op < 1 || op > 6);
 
 		builtGraph(map, option);
-		map.findShortestPath(*map.getLocal(id - 1));		//passar aqui node da loclizaçao do user
+		vector<int> path = map.findShortestPath(*map.getLocal(id - 1));		//passar aqui node da loclizaçao do user
 		cout << "parar aqui";		//TODO parar para ver cominho impresso
-		printMap(map);
+		printMap(map, id, path);
 
 
 	}

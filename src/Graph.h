@@ -116,7 +116,7 @@ public:
 	vector<Vertex<T> * > getVertexSet() const;
 	int getNumVertex() const;
 	void dijkstraShortestPath(const T &s);
-	void findShortestPath(T lc);
+	vector<int> findShortestPath(T lc);
 	vector<T> getPath(Vertex<T> *dest);
 };
 
@@ -380,7 +380,7 @@ void Graph<T>::dijkstraShortestPath(const T &s) {
 }
 
 template<class T>
-void Graph<T>::findShortestPath(T lc){
+vector<int> Graph<T>::findShortestPath(T lc){
 	dijkstraShortestPath(lc);
 	int min = 123871;
 	int id = -1;
@@ -393,10 +393,13 @@ void Graph<T>::findShortestPath(T lc){
 		}
 	}
 
+	vector<int> path;
 	cout << getPath(getVertexSet().at(j)).at(0).getUXid();
 	for(size_t i=1; i < getPath(getVertexSet().at(j)).size(); i++) {
 		cout << "  ==>  " << getPath(getVertexSet().at(j)).at(i).getUXid();
+		path.push_back(getPath(getVertexSet().at(j)).at(i).getUXid());
 	}
+	return path;
 }
 
 
