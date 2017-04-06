@@ -9,6 +9,7 @@
 #include "graphviewer.h"
 #include "math.h"
 #include "string"
+#include "algorithm"
 
 using namespace std;
 
@@ -24,15 +25,13 @@ const double PI  =3.141592653589793238463;
 vector<float> heights;
 vector<pair<int, int> > sharingPoints;
 
-void printMap(Graph<Local> &map){
+void printMap(Graph<Local> &map, int id, vector<int> path){
 
-	//TODO definir com formas, icons, texto, cores diferentes nós especiais
-	//TODO localizar localizaçao do user e distinguir locais de partilha (por tmb visivel os lugares disponiveis)
-	//TODO nos pequenos nas ruas, nos maiores nas interseçoes das ruas, nos especiais nos sharing points, no diferente na localizaçao do gajo
+	//TODO ruas com nomes e mais decentes; depois dos edges grafo está pronto
 
 	int idEdge = 0;
 	GraphViewer gv(1800, 1200, false);
-	gv.setBackground("background.jpg"); //TODO por no background print do bocado do mapa original correspondente às infos do ficheiro
+	gv.setBackground("background.jpg");
 	gv.createWindow(1800, 1200);
 
 	float lonDiff = MAX_LON - MIN_LON;
@@ -50,12 +49,23 @@ void printMap(Graph<Local> &map){
 		gv.addNode(vertexes.at(i)->getInfo().getUXid(), x - 1000*6, y - 1100*6);
 
 		if(vertexes.at(i)->getInfo().getSharingPoint().first){
-
-			//TODO contruir label para por nos nodes sharing points
 			stringstream sstm;
 			sstm << "Available spots: " << vertexes.at(i)->getInfo().getSharingPoint().second;
-			string label = sstm;
+			string label = sstm.str();
 			gv.setVertexLabel(vertexes.at(i)->getInfo().getUXid(), label);
+			gv.setVertexSize(vertexes.at(i)->getInfo().getUXid(), 40);
+			gv.setVertexIcon(vertexes.at(i)->getInfo().getUXid(), "bike.png");
+		}
+
+		if(vertexes.at(i)->getInfo().getUXid() == id){
+			gv.setVertexSize(vertexes.at(i)->getInfo().getUXid(), 80);
+			gv.setVertexIcon(vertexes.at(i)->getInfo().getUXid(), "here.png");
+		}
+
+		vector<int>::iterator it = find(path.begin(), path.end(), vertexes.at(i)->getInfo().getUXid());
+		if(it != path.end()){
+			gv.setVertexSize(vertexes.at(i)->getInfo().getUXid(), 40);
+			gv.setVertexIcon(vertexes.at(i)->getInfo().getUXid(), "path.png");
 		}
 	}
 
@@ -63,26 +73,23 @@ void printMap(Graph<Local> &map){
 		vector<Edge<Local> > edges = vertexes.at(i)->getAdj();
 		for(size_t j = 0; j < edges.size(); j++){
 			gv.addEdge(idEdge, vertexes.at(i)->getInfo().getUXid(), edges.at(j).getDest()->getInfo().getUXid(), EdgeType::DIRECTED);
+
+			string road;
+			for(size_t k = 0; k < vertexes.at(i)->getInfo().getRoads().size(); k++){
+				for(size_t l = 0; l < edges.at(j).getDest()->getInfo().getRoads().size(); l++){
+					if(vertexes.at(i)->getInfo().getRoads().at(k) == edges.at(j).getDest()->getInfo().getRoads().at(l)){
+						road = vertexes.at(i)->getInfo().getRoads().at(k).	//TODO retirar nome da rua;
+					}
+				}
+			}
+
+			gv.setEdgeLabel(idEdge, road);
+			gv.setEdgeColor(idEdge, "yellow");
 			idEdge++;
 		}
 	}
 
 
-
-
-
-	/*
-	gv.setEdgeLabel(1, "Isto e a segunda aresta");
-
-	gv.setVertexColor(2, "green");
-	gv.setEdgeColor(1, "yellow");
-
-	gv.setVertexSize(2, 40);
-	gv.setVertexIcon(0, "icon.gif");
-
-	gv.setEdgeDashed(1, false);*/
-
-	//Sleep(20000);
 }
 
 vector<pair<int, int> > setRegionSharingPoints(Graph<Local> &map){
