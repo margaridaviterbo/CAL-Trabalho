@@ -25,7 +25,7 @@ const double PI  =3.141592653589793238463;
 vector<float> heights;
 vector<pair<int, int> > sharingPoints;
 
-void printMap(Graph<Local> &map, int id, vector<int> path){
+void printMap(Graph<Local> &mapa, int id, vector<int> path){
 
 	//TODO ruas com nomes e mais decentes; depois dos edges grafo está pronto
 
@@ -37,12 +37,12 @@ void printMap(Graph<Local> &map, int id, vector<int> path){
 	float lonDiff = MAX_LON - MIN_LON;
 	float latDiff = MAX_LAT - MIN_LAT;
 
-	gv.defineEdgeDashed(true);
+	gv.defineEdgeDashed(false);
 	gv.defineVertexColor("blue");
-	gv.defineEdgeColor("black");
+	gv.defineEdgeColor("yellow");
 
 
-	vector<Vertex<Local>* > vertexes = map.getVertexSet();
+	vector<Vertex<Local>* > vertexes = mapa.getVertexSet();
 	for(size_t i = 0; i < vertexes.size(); i++){
 		int x = (int)((MAX_LON - vertexes.at(i)->getInfo().getCoordinates().second)/(lonDiff) * WIN_WIDTH)*6;
 		int y = (int)((MAX_LAT - vertexes.at(i)->getInfo().getCoordinates().first)/(latDiff) * WIN_HEIGHT)*6;
@@ -74,17 +74,28 @@ void printMap(Graph<Local> &map, int id, vector<int> path){
 		for(size_t j = 0; j < edges.size(); j++){
 			gv.addEdge(idEdge, vertexes.at(i)->getInfo().getUXid(), edges.at(j).getDest()->getInfo().getUXid(), EdgeType::DIRECTED);
 
-			string road;
-			for(size_t k = 0; k < vertexes.at(i)->getInfo().getRoads().size(); k++){
-				for(size_t l = 0; l < edges.at(j).getDest()->getInfo().getRoads().size(); l++){
-					if(vertexes.at(i)->getInfo().getRoads().at(k) == edges.at(j).getDest()->getInfo().getRoads().at(l)){
-						road = vertexes.at(i)->getInfo().getRoads().at(k).	//TODO retirar nome da rua;
-					}
+			map<unsigned long long, string>::iterator it1 = vertexes.at(i)->getInfo().getRoads().begin();
+			map<unsigned long long, string>::iterator it1_e = vertexes.at(i)->getInfo().getRoads().end();
+			map<unsigned long long, string>::iterator it2 = edges.at(j).getDest()->getInfo().getRoads().begin();
+			map<unsigned long long, string>::iterator it2_e = edges.at(j).getDest()->getInfo().getRoads().end();
+
+			while((it1 != it1_e) && (it2 != it2_e) && (it1->first != it2->first)){
+
+				if(edges.at(j).getDest()->getInfo().getRoads().find(it1->first != it1_e){
+
 				}
+
+				cout << "aqui1\n";
+				while((it1 != it1_e) && (it2 != it2_e) && (it1->first != it2->first)){
+					it2++;
+					cout << "aqui2\n";
+				}
+				it1++;
 			}
+			string road = it2->second;
 
 			gv.setEdgeLabel(idEdge, road);
-			gv.setEdgeColor(idEdge, "yellow");
+			gv.setEdgeThickness(idEdge, 10);
 			idEdge++;
 		}
 	}
