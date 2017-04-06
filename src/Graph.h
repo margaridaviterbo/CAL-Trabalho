@@ -382,22 +382,23 @@ void Graph<T>::dijkstraShortestPath(const T &s) {
 template<class T>
 vector<int> Graph<T>::findShortestPath(T lc){
 	dijkstraShortestPath(lc);
-	int min = 123871;
+	float min = 123871;
 	int id = -1;
 	size_t j;
+	int dest = -1;
 	for(j = 0; j < getVertexSet().size(); j++){
-		if(getVertexSet().at(j)->getInfo().getSharingPoint().first && (getVertexSet().at(j)->getInfo().getSharingPoint().second > 0) && getVertexSet().at(j)->getDist() < min){
+		if(getVertexSet().at(j)->getInfo().getSharingPoint().first && (getVertexSet().at(j)->getInfo().getSharingPoint().second > 0) && getVertexSet().at(j)->getDist() < min) {
 			min = getVertexSet().at(j)->getDist();
 			id = getVertexSet().at(j)->getInfo().getId();
-			break;
+			dest = j;
 		}
 	}
 
 	vector<int> path;
-	cout << getPath(getVertexSet().at(j)).at(0).getUXid();
-	for(size_t i=1; i < getPath(getVertexSet().at(j)).size(); i++) {
-		cout << "  ==>  " << getPath(getVertexSet().at(j)).at(i).getUXid();
-		path.push_back(getPath(getVertexSet().at(j)).at(i).getUXid());
+	cout << getPath(getVertexSet().at(dest)).at(0).getUXid();
+	for(size_t i=1; i < getPath(getVertexSet().at(dest)).size(); i++) {
+		cout << "  ==>  " << getPath(getVertexSet().at(dest)).at(i).getUXid();
+		path.push_back(getPath(getVertexSet().at(dest)).at(i).getUXid());
 	}
 	return path;
 }

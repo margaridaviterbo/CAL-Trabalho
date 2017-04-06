@@ -7,7 +7,7 @@
 #include "Graph.h"
 #include "graphviewer.h"
 
-Graph<Local> map;
+Graph<Local> mapa;
 
 using namespace std;
 
