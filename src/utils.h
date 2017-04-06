@@ -27,7 +27,7 @@ vector<pair<int, int> > sharingPoints;
 
 void printMap(Graph<Local> &mapa, int id, vector<int> path){
 
-	//TODO ruas com nomes e mais decentes; depois dos edges grafo está pronto
+	//TODO pintar ruas do caminho
 
 	int idEdge = 0;
 	GraphViewer gv(1800, 1200, false);
@@ -74,21 +74,19 @@ void printMap(Graph<Local> &mapa, int id, vector<int> path){
 		for(size_t j = 0; j < edges.size(); j++){
 			gv.addEdge(idEdge, vertexes.at(i)->getInfo().getUXid(), edges.at(j).getDest()->getInfo().getUXid(), EdgeType::DIRECTED);
 
-			map<unsigned long long, string>::iterator it1 = vertexes.at(i)->getInfo().getRoads().begin();
-			map<unsigned long long, string>::iterator it1_e = vertexes.at(i)->getInfo().getRoads().end();
-			map<unsigned long long, string>::iterator it2 = edges.at(j).getDest()->getInfo().getRoads().begin();
-			map<unsigned long long, string>::iterator it2_e = edges.at(j).getDest()->getInfo().getRoads().end();
+			map<unsigned long long, string> roads = vertexes.at(i)->getInfo().getRoads();
+			map<unsigned long long, string>::const_iterator it1 = roads.begin();
+			map<unsigned long long, string>::const_iterator it1_e = roads.end();
+			map<unsigned long long, string>::const_iterator it2 = roads.begin();
+			map<unsigned long long, string>::const_iterator it2_e = roads.end();
 
 			while((it1 != it1_e) && (it2 != it2_e) && (it1->first != it2->first)){
 
-				if(edges.at(j).getDest()->getInfo().getRoads().find(it1->first != it1_e){
+				it2 = roads.begin();
+				it2_e = roads.end();
 
-				}
-
-				cout << "aqui1\n";
 				while((it1 != it1_e) && (it2 != it2_e) && (it1->first != it2->first)){
 					it2++;
-					cout << "aqui2\n";
 				}
 				it1++;
 			}
@@ -99,8 +97,6 @@ void printMap(Graph<Local> &mapa, int id, vector<int> path){
 			idEdge++;
 		}
 	}
-
-
 }
 
 vector<pair<int, int> > setRegionSharingPoints(Graph<Local> &map){
