@@ -20,18 +20,16 @@ using namespace std;
 #define WIN_WIDTH 3000
 #define WIN_HEIGHT 3000
 
-const double PI  =3.141592653589793238463;
+const double PI = 3.141592653589793238463;
 
 vector<float> heights;
 vector<pair<int, int> > sharingPoints;
 
 void printMap(Graph<Local> &mapa, int id, vector<int> path){
 
-	//TODO pintar ruas do caminho
-
 	int idEdge = 0;
 	GraphViewer gv(1800, 1200, false);
-	gv.setBackground("background.jpg");
+	gv.setBackground("background.png");
 	gv.createWindow(1800, 1200);
 
 	float lonDiff = MAX_LON - MIN_LON;
@@ -57,13 +55,18 @@ void printMap(Graph<Local> &mapa, int id, vector<int> path){
 			gv.setVertexIcon(vertexes.at(i)->getInfo().getUXid(), "bike.png");
 		}
 
+		if(vertexes.at(i)->getInfo().getCityCenter()){
+			gv.setVertexSize(vertexes.at(i)->getInfo().getUXid(), 80);
+			gv.setVertexIcon(vertexes.at(i)->getInfo().getUXid(), "center.png");
+		}
+
 		if(vertexes.at(i)->getInfo().getUXid() == id){
 			gv.setVertexSize(vertexes.at(i)->getInfo().getUXid(), 80);
 			gv.setVertexIcon(vertexes.at(i)->getInfo().getUXid(), "here.png");
 		}
 
 		vector<int>::iterator it = find(path.begin(), path.end(), vertexes.at(i)->getInfo().getUXid());
-		if(it != path.end()){
+		if(it != path.end() && !vertexes.at(i)->getInfo().getSharingPoint().first) {
 			gv.setVertexSize(vertexes.at(i)->getInfo().getUXid(), 40);
 			gv.setVertexIcon(vertexes.at(i)->getInfo().getUXid(), "path.png");
 		}
@@ -91,8 +94,15 @@ void printMap(Graph<Local> &mapa, int id, vector<int> path){
 				it1++;
 			}
 			string road = it2->second;
-
 			gv.setEdgeLabel(idEdge, road);
+
+			vector<int>::iterator node1 = find(path.begin(), path.end(), vertexes.at(i)->getInfo().getUXid());
+			vector<int>::iterator node2 = find(path.begin(), path.end(), edges.at(j).getDest()->getInfo().getUXid());
+			if((node1 != path.end() || vertexes.at(i)->getInfo().getUXid() == id) && (node2 != path.end() || edges.at(j).getDest()->getInfo().getUXid() == id)){
+				gv.setEdgeColor(idEdge, "green");
+			}
+
+
 			gv.setEdgeThickness(idEdge, 10);
 			idEdge++;
 		}
@@ -186,18 +196,38 @@ void setCityCenter(Graph<Local> &map){
 
 }
 
-void builtGraph(Graph<Local> &map, searchOptions op){
+void builtGraph(Graph<Local> &map, searchOptions op, int city){
+
+	string file1, file2, file3;
+
+	switch (city){
+	case 1:
+		file1 = "files/A.txt";
+		file2 = "files/C.txt";
+		file3 = "files/B.txt";
+		break;
+	case 2:
+		file1 = "files/A1.txt";
+		file2 = "files/C1.txt";
+		file3 = "files/B1.txt";
+		break;
+	case 3:
+		file1 = "files/A2.txt";
+		file2 = "files/C2.txt";
+		file3 = "files/B2.txt";
+		break;
+	}
 
 	Graph<Local> temp;
 	if(heights.size() == 0){
-		readLocals(temp, heights, sharingPoints);
+		readLocals(temp, heights, sharingPoints, file1);
 		heights = setHeights(temp);
 		sharingPoints = setRegionSharingPoints(temp);
 	}
 
-	readLocals(map, heights, sharingPoints);
-	readStreets(map, op);
-	readRoadsDirections(map, op);
+	readLocals(map, heights, sharingPoints, file1);
+	readStreets(map, op, file2);
+	readRoadsDirections(map, op, file3);
 	setCityCenter(map);
 
 }

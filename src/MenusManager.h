@@ -11,9 +11,9 @@ Graph<Local> mapa;
 
 using namespace std;
 
-void findSharingPointMenu(Graph<Local> &map);
+void findSharingPointMenu(Graph<Local> &map, int city);
 
-void displayMainMenu(){
+void displayMainMenu(int city){
 	int op;
 
 	cout << "\t\t\t====================================================" << endl;
@@ -34,14 +34,14 @@ void displayMainMenu(){
 
 	if(op == 1){
 		cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
-		builtGraph(tempMap, SHORTEST_DIST);
+		builtGraph(tempMap, SHORTEST_DIST, city);
 		vector<int> p;
 		p.push_back(-1);
 		printMap(tempMap, -1, p);
 	}
 	else if(op == 2){
 		cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
-		findSharingPointMenu(tempMap);
+		findSharingPointMenu(tempMap, city);
 	}
 	else{
 		cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
@@ -49,15 +49,15 @@ void displayMainMenu(){
 	}
 
 	cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
-	displayMainMenu();
+	displayMainMenu(city);
 }
 
-void findSharingPointMenu(Graph<Local> &map){
+void findSharingPointMenu(Graph<Local> &map, int city){
 	int op;
 	searchOptions option;
 	int id;
 	Graph<Local> tempMap;
-	builtGraph(tempMap, SHORTEST_DIST);
+	builtGraph(tempMap, SHORTEST_DIST, city);
 
 	cout << "Enter the ID of your location (to see the map with IDs press 0): ";
 	cin >> id;
@@ -116,16 +116,14 @@ void findSharingPointMenu(Graph<Local> &map){
 
 		}while (op < 1 || op > 6);
 
-		builtGraph(map, option);
-		vector<int> path = map.findShortestPath(*map.getLocal(id - 1));		//passar aqui node da loclizaçao do user
-		cout << "parar aqui";		//TODO parar para ver cominho impresso
+		builtGraph(map, option, city);
+		vector<int> path = map.findShortestPath(*map.getLocal(id - 1), op);		//passar aqui node da loclizaçao do user
 		printMap(map, id, path);
 
 
 	}
 	else{
 		cout << "That local does not exist.\n";
-		//system("pause");		TODO esta porra faz pause antes de cout tal como acontecia para imprimir caminho
 	}
 }
 #endif MENUSMANAGER	/* MENUSMANAGER */

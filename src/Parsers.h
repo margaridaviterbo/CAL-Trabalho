@@ -14,13 +14,13 @@
 
 using namespace std;
 
-void readLocals(Graph<Local> &map, vector<float> heights, vector<pair<int, int> > sharingPoints){
+void readLocals(Graph<Local> &map, vector<float> heights, vector<pair<int, int> > sharingPoints, string file){
 	int UXid = 1;
 	string line, data;
 	unsigned long long id;
 	float lat, longi;
 	float height;
-	ifstream localsFile("files/A2.txt");		//TODO mudar para receber ficheiro com a regiao a analizar
+	ifstream localsFile(file.c_str());
 
 	if(localsFile.is_open()){
 		int i = 0;
@@ -49,17 +49,17 @@ void readLocals(Graph<Local> &map, vector<float> heights, vector<pair<int, int> 
 		}
 	}
 	else
-		cout << "Could not open A.txt!\n";	//TODO mudar mensagem para especificar ficheiro direito
+		cout << "Could not open " << file << " !\n";
 
 }
 
-void readStreets(Graph<Local> &mapa, searchOptions op){
+void readStreets(Graph<Local> &mapa, searchOptions op, string file){
 
 	string line, data;
 	unsigned long long roadId, local1Id, local2Id;
 	bool exists;
 
-	ifstream roadsFile("files/C2.txt");		//TODO mudar para receber ficheiro com a regiao a analizar
+	ifstream roadsFile(file.c_str());
 
 	if(roadsFile.is_open()){
 		while(getline(roadsFile, line)){
@@ -83,16 +83,16 @@ void readStreets(Graph<Local> &mapa, searchOptions op){
 		}
 	}
 	else
-		cout << "Could not open C.txt!\n";	//TODO mudar mensagem para especificar ficheiro direito
+		cout << "Could not open " << file << " !\n";
 }
 
-void readRoadsDirections(Graph<Local> &mapa, searchOptions op){
+void readRoadsDirections(Graph<Local> &mapa, searchOptions op, string file){
 	string line, data;
 	unsigned long long roadId;
 	string roadName;
 	bool connection;
 
-	ifstream directionsFile("files/B2.txt");		//TODO mudar para receber ficheiro com a regiao a analizar
+	ifstream directionsFile(file.c_str());
 
 	if(directionsFile.is_open()){
 		while(getline(directionsFile, line)){
@@ -128,7 +128,6 @@ void readRoadsDirections(Graph<Local> &mapa, searchOptions op){
 		}
 	}
 	else
-		cout << "Could not open B.txt!\n";	//TODO mudar mensagem para especificar ficheiro direito
-
+		cout << "Could not open " << file << " !\n";
 }
 #endif PARSERS_H	/* PARSERS_H */
