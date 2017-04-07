@@ -14,6 +14,13 @@
 
 using namespace std;
 
+/**
+ * função que faz parsing das informações sobre os nodes que estão no ficheiro txt
+ * @param map refere se ao grafo que representa o mapa da cidade
+ * @param heights é o vetor com alturas random para os locais pre-definidas
+ * @param sharingPoints é o vetor que é utilizado para atribuir aleatoriamente os pontos de partilha
+ * @file é o parametro que contem o nome do ficheiro a partir do qual ler a informaçao
+ */
 void readLocals(Graph<Local> &map, vector<float> heights, vector<pair<int, int> > sharingPoints, string file){
 	int UXid = 1;
 	string line, data;
@@ -53,6 +60,13 @@ void readLocals(Graph<Local> &map, vector<float> heights, vector<pair<int, int> 
 
 }
 
+
+/**
+ * função que faz parsing das informações sobre as conexões entre os nodes que estão no ficheiro txt
+ * @param map refere se ao grafo que representa o mapa da cidade
+ * @param op contem o identificador da opçao de pesquisa escolhida pelo user
+ * @file é o parametro que contem o nome do ficheiro a partir do qual ler a informaçao
+ */
 void readStreets(Graph<Local> &mapa, searchOptions op, string file){
 
 	string line, data;
@@ -86,6 +100,12 @@ void readStreets(Graph<Local> &mapa, searchOptions op, string file){
 		cout << "Could not open " << file << " !\n";
 }
 
+/**
+ * função que faz parsing das informações sobre os sentidos das conexoes e nomes das ruas que estão no ficheiro txt
+ * @param map refere se ao grafo que representa o mapa da cidade
+ * @param op contem o identificador da opçao de pesquisa escolhida pelo user
+ * @file é o parametro que contem o nome do ficheiro a partir do qual ler a informaçao
+ */
 void readRoadsDirections(Graph<Local> &mapa, searchOptions op, string file){
 	string line, data;
 	unsigned long long roadId;
