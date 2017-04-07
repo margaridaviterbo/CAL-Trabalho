@@ -13,6 +13,11 @@ using namespace std;
 
 void findSharingPointMenu(Graph<Local> &map, int city);
 
+
+/**
+ * função que faz o display do menu principal
+ * @param city é o identificador da cidade sobre a qual deve ser gerado o mapa
+ */
 void displayMainMenu(int city){
 	int op;
 
@@ -52,6 +57,12 @@ void displayMainMenu(int city){
 	displayMainMenu(city);
 }
 
+
+/**
+ * função que faz o display do menu com as opçoes para encontrar um ponto de partinha
+ * @param map é o grafo que representa o mapa da cidade
+ * @param city é o identificador da cidade sobre a qual se vao construir o grafo
+ */
 void findSharingPointMenu(Graph<Local> &map, int city){
 	int op;
 	searchOptions option;

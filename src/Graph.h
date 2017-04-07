@@ -42,17 +42,17 @@ public:
 	friend class Graph<T>;
 
 	/**
-	 * Função que devolve o parametro dist
+	 * Função que devolve o atributo dist
 	 */
 	double getDist() const;
 
 	/**
-	 * Função que devolve o parametro info
+	 * Função que devolve o atributo info
 	 */
 	T getInfo();
 
 	/**
-	 * Função que devolve o parametro adj
+	 * Função que devolve o atributo adj
 	 */
 	vector<Edge<T> > getAdj();
 
@@ -118,12 +118,12 @@ public:
 	Edge(Vertex<T> *d, double w);
 
 	/**
-	 * Função que devolve o parametro weight
+	 * Função que devolve o atributo weight
 	 */
 	double getWeight();
 
 	/**
-	 * Função que devolve o parametro dest
+	 * Função que devolve o atributo dest
 	 */
 	Vertex<T>* getDest();
 

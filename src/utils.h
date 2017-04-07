@@ -25,6 +25,12 @@ const double PI = 3.141592653589793238463;
 vector<float> heights;
 vector<pair<int, int> > sharingPoints;
 
+/**
+ * função que implementa o graphViewer para desenhar o grafo
+ * @param mapa é o grafo a representar
+ * @param id é o id do local onde se encontra o user
+ * @param path é o vetor de ids do caminho encontrado
+ */
 void printMap(Graph<Local> &mapa, int id, vector<int> path){
 
 	int idEdge = 0;
@@ -109,6 +115,10 @@ void printMap(Graph<Local> &mapa, int id, vector<int> path){
 	}
 }
 
+/**
+ * funçao que elabora um vetor com informaçoes sobre os pontos de partilha
+ * @param map é o grafo que representa o mapa
+ */
 vector<pair<int, int> > setRegionSharingPoints(Graph<Local> &map){
 
 	int numLocals = map.getNumVertex();
@@ -137,6 +147,10 @@ vector<pair<int, int> > setRegionSharingPoints(Graph<Local> &map){
 	return sp;
 }
 
+/**
+ * funçao que cria um vetor com valores de alturas para locais
+ * @param map é o grafo que representa o mapa
+ */
 vector<float> setHeights(Graph<Local> &map){
 
 	int numLocals = map.getNumVertex();
@@ -150,6 +164,10 @@ vector<float> setHeights(Graph<Local> &map){
 	return heights;
 }
 
+/**
+ * funçao que define o centro geografico da cidade
+ * @param map é o grafo que representa a cidade
+ */
 void setCityCenter(Graph<Local> &map){
 
 	vector<double> latitudes;
@@ -196,6 +214,11 @@ void setCityCenter(Graph<Local> &map){
 
 }
 
+/**
+ * funçao que constroi o grafo
+ * @param op é a opçao de pesquisa escolhida pelo user
+ * @param city é a cidade sobre a qual se vai construir o grafo
+ */
 void builtGraph(Graph<Local> &map, searchOptions op, int city){
 
 	string file1, file2, file3;
