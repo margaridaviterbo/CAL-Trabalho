@@ -27,13 +27,16 @@ void displayMainMenu(int city){
 	cout << "\t\t\t====================================================" << endl;
 	cout << "\t\t\t|	(2) SEARCH BIKE SHARING POINT	    	   |" << endl;
 	cout << "\t\t\t====================================================" << endl << endl << endl;
+	cout << "\t\t\t====================================================" << endl;
+	cout << "\t\t\t|		(3) SEARCH BY STREET	   |" << endl;
+	cout << "\t\t\t====================================================" << endl << endl << endl;
 	cout << "Please chose an option(press 0 to exit): ";
 	do{
 		cin >> op;
 		cout << endl;
-		if(op < 0 || op > 2)
+		if(op < 0 || op > 3)
 			cout << "Invalid option, chose between 1 or 2: ";
-	}while(op < 0 || op >2);
+	}while(op < 0 || op > 3);
 
 	Graph<Local> tempMap;
 
@@ -48,6 +51,10 @@ void displayMainMenu(int city){
 		cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
 		findSharingPointMenu(tempMap, city);
 	}
+	else if(op == 3){
+			cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
+			//TODO funçao menu pesquisa por nomes de ruas (opçao pesquisa exata e opçao pesquisa aproximada
+		}
 	else{
 		cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
 		exit(0);

@@ -10,6 +10,10 @@
 using namespace std;
 
 
+//TODO ver o que é preciso fazer para
+//Avalie a complexidade (teórica e empiricamente) dos algoritmos implementados em função dos dados de input usados.
+
+
 int main(){
 
 	int city;
