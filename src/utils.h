@@ -122,7 +122,7 @@ void printMap(Graph<Local> &mapa, int id, vector<int> path){
 vector<pair<int, int> > setRegionSharingPoints(Graph<Local> &map){
 
 	int numLocals = map.getNumVertex();
-	size_t numSharingPoints = (int)(0.1*numLocals);
+	size_t numSharingPoints = (int)(0.5*numLocals);
 	vector<pair<int, int> > sp;
 	int pos;
 	int freeSpots;
@@ -145,6 +145,17 @@ vector<pair<int, int> > setRegionSharingPoints(Graph<Local> &map){
 	}
 
 	return sp;
+}
+
+void adjustSharingPoints(Graph<Local> &map){
+	for(size_t i = 0; i < map.getVertexSet().size(); i++){
+
+		if(map.getLocal((int)i)->getSharingPoint().first){
+			if(map.getLocal((int)i)->getRoads().size() < 2){
+				map.getLocal((int)i)->setSharingPoint(pair<bool, int>(false, 0));
+			}
+		}
+	}
 }
 
 /**
@@ -251,6 +262,7 @@ void builtGraph(Graph<Local> &map, searchOptions op, int city){
 	readLocals(map, heights, sharingPoints, file1);
 	readStreets(map, op, file2);
 	readRoadsDirections(map, op, file3);
+	adjustSharingPoints(map);
 	setCityCenter(map);
 
 }

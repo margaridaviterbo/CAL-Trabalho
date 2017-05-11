@@ -562,5 +562,9 @@ vector<T> Graph<T>::getPath(Vertex<T> *dest){
 	return path;
 }
 
+//TODO algoritmos de pesquisa de strings
+
+//TODO função que usa os algoritmos de pesquisa de string e devolve os resultados desejados
+
 
 #endif /* GRAPH_H_ */
