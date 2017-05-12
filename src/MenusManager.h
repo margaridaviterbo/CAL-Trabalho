@@ -13,7 +13,7 @@ Graph<Local> mapa;
 using namespace std;
 
 void findSharingPointMenu(Graph<Local> &map, int city);
-void searchByStreetName(Graph<Local> &map, int city);
+void searchByStreetName(int city);
 
 
 /**
@@ -30,7 +30,7 @@ void displayMainMenu(int city){
 	cout << "\t\t\t|	(2) SEARCH BIKE SHARING POINT	    	   |" << endl;
 	cout << "\t\t\t====================================================" << endl << endl << endl;
 	cout << "\t\t\t====================================================" << endl;
-	cout << "\t\t\t|		(3) SEARCH BY STREET	   |" << endl;
+	cout << "\t\t\t|		(3) SEARCH BY STREET	   	   |" << endl;
 	cout << "\t\t\t====================================================" << endl << endl << endl;
 	cout << "Please chose an option(press 0 to exit): ";
 	do{
@@ -155,28 +155,69 @@ void searchByStreetName(int city){
 	builtGraph(tempMap, SHORTEST_DIST, city);
 	vector<string> strings;
 	vector<string> streets;
-
-	cout << "Chose the type of search you want to use:" << endl << endl;
-	cout << "1 - Exact Search (searches for the exact expression you use - CASE SENSITIVE)\n";
-	cout << "2 - Approximate Search (searches for similar expressions to the one you use)\n";
-	cout << "Option: ";
-	cin >> op;
-
-	while (op < 1 || op > 2){
-		cout << endl << endl <<"INVALID OPTION! Please try again: ";
-		cin >> op;
-	}
+	char option;
 
 	for(int i = 0; i < 2; i++){
+
+		cout << "Chose the type of search you want to use for street " << i+1 << ":" << endl << endl;
+		cout << "1 - Exact Search (searches for the exact expression you use - CASE SENSITIVE)\n";
+		cout << "2 - Approximate Search (searches for similar expressions to the one you use)\n";
+		cout << "Option: ";
+		cin >> op;
+
+		while (op < 1 || op > 2){
+			cout << endl << endl <<"INVALID OPTION! Please try again: ";
+			cin >> op;
+		}
+
 
 		cout << "Enter street " << i+1 << " name: ";
 		cin >> streetName;
 
+
+		//TODO VER A PARTIR DAQUI ONDE DÁ ERRO!!!!!!!!!!!!
+
 		if(op == 1){
+
 			strings = exactSearch(streetName, tempMap);
-			//TODO tratar strings para obter uma street then
-			//streets.push_back(street);
+
+			while(strings.size() == 0){
+				cout << endl << "Unknown street." << endl;
+				cout << endl << "Press 0 to return main menu (use any other key to re-enter street name): ";
+				cin >> op;
+				if(op == 0){
+					return;
+				}
+				cout << "Enter street " << i+1 << " name: ";
+				cin >> streetName;
+				strings = exactSearch(streetName, tempMap);
+
+			}
+
+
+			do{
+				cout << endl << "Which of the following streets are you looking for? (enter number) " << endl << "0 - No street matches my search\n";
+
+				for(int j = 0; j < (int)strings.size(); j++){
+					cout << j + 1 << " - " << strings.at(j) << endl;
+				}
+				cout << "Option: ";
+				cin >> option;
+
+				if(option < 0 || option > (int)strings.size()){
+					cout << "INVALID OPTION!" << endl;
+				}
+
+			}while(option < 0 || option > (int)strings.size());
+
+			if(option == 0){
+				return;
+			}
+			else{
+				streets.push_back(strings.at(option - 1));
+			}
 		}
+
 
 		else{
 			strings = approximateSearch();

@@ -26,10 +26,6 @@ using namespace std;
 int main(){
 
 
-	cout << kmp("Travessa Fernando Namora", "Fernando");
-
-	/*
-
 	int city;
 
 	cout << "\n\n\t\t\t\tWelcome to this BikeSharing Platform!\n\n";
@@ -47,7 +43,7 @@ int main(){
 	cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
 	displayMainMenu(city);
 
-	*/
+
 
 	return 0;
 }

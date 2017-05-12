@@ -35,3 +35,33 @@ int kmp(string text, string pattern){
 	return num;
 }
 
+vector<string> exactSearch(string streetName, Graph<Local> &mapa){
+	vector<string> result;
+
+	for(int i = 0; i < mapa.getNumVertex(); i++){
+		map<unsigned long long, string> localStreets = mapa.getVertexSet().at(i)->getInfo().getRoads();
+		map<unsigned long long, string>::iterator it = localStreets.begin();
+		map<unsigned long long, string>::iterator it_e = localStreets.end();
+		while(it != it_e){
+			string street = it->second;
+			if(kmp(street ,streetName) > 0){
+				bool found = false;
+				for(int j = 0; j < result.size(); j++){
+					if(street == result.at(j)){
+						found = true;
+					}
+					if(found == false){
+						result.push_back(street);
+					}
+				}
+			}
+		}
+	}
+
+	return result;
+}
+
+vector<string> approximateSearch(){
+	vector<string> v;
+	return v;
+}
