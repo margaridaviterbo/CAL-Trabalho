@@ -6,12 +6,14 @@
 #include "utils.h"
 #include "Graph.h"
 #include "graphviewer.h"
+#include "Matcher.h"
 
 Graph<Local> mapa;
 
 using namespace std;
 
 void findSharingPointMenu(Graph<Local> &map, int city);
+void searchByStreetName(Graph<Local> &map, int city);
 
 
 /**
@@ -52,9 +54,9 @@ void displayMainMenu(int city){
 		findSharingPointMenu(tempMap, city);
 	}
 	else if(op == 3){
-			cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
-			//TODO funçao menu pesquisa por nomes de ruas (opçao pesquisa exata e opçao pesquisa aproximada
-		}
+		cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
+		searchByStreetName(city);
+	}
 	else{
 		cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
 		exit(0);
@@ -144,4 +146,49 @@ void findSharingPointMenu(Graph<Local> &map, int city){
 		cout << "That local does not exist.\n";
 	}
 }
+
+
+void searchByStreetName(int city){
+	int op;
+	string streetName, street;
+	Graph<Local> tempMap;
+	builtGraph(tempMap, SHORTEST_DIST, city);
+	vector<string> strings;
+	vector<string> streets;
+
+	cout << "Chose the type of search you want to use:" << endl << endl;
+	cout << "1 - Exact Search (searches for the exact expression you use - CASE SENSITIVE)\n";
+	cout << "2 - Approximate Search (searches for similar expressions to the one you use)\n";
+	cout << "Option: ";
+	cin >> op;
+
+	while (op < 1 || op > 2){
+		cout << endl << endl <<"INVALID OPTION! Please try again: ";
+		cin >> op;
+	}
+
+	for(int i = 0; i < 2; i++){
+
+		cout << "Enter street " << i+1 << " name: ";
+		cin >> streetName;
+
+		if(op == 1){
+			strings = exactSearch(streetName, tempMap);
+			//TODO tratar strings para obter uma street then
+			//streets.push_back(street);
+		}
+
+		else{
+			strings = approximateSearch();
+			//TODO tratar strings para obter uma street then
+			//streets.push_back(street);
+		}
+
+	}
+
+	//findCrossRoad(streets.at(0), streets.at(1));
+
+}
+
+
 #endif MENUSMANAGER	/* MENUSMANAGER */

@@ -7,14 +7,28 @@
 #include "Local.h"
 #include "graphviewer.h"
 #include "utils.h"
+#include "Matcher.h"
 using namespace std;
 
 
 //TODO ver o que é preciso fazer para
 //Avalie a complexidade (teórica e empiricamente) dos algoritmos implementados em função dos dados de input usados.
 
+/*
+ *  estenda o trabalho realizado com funcionalidades apropriadas que permitem a consulta da existência ou não de um ponto (recolha ou entrega)
+ *  num determinado cruzamento entre ruas. Implemente esta funcionalidade, considerando tanto pesquisa exata, assim como pesquisa aproximada,
+ *  das strings identificativas dos nomes das ruas fornecidas. Para pesquisa exata, caso os nomes de rua não existam,
+ *  deverá retornar mensagem de lugar desconhecido. Para a pesquisa aproximada, deverá retornar os nomes de ruas mais próximos,
+ *  ordenados por similaridade, onde poderá haver um ponto (recolha ou entrega).
+ * */
+
 
 int main(){
+
+
+	cout << kmp("Travessa Fernando Namora", "Fernando");
+
+	/*
 
 	int city;
 
@@ -33,7 +47,7 @@ int main(){
 	cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
 	displayMainMenu(city);
 
-
+	*/
 
 	return 0;
 }
