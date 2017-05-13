@@ -43,21 +43,22 @@ vector<string> exactSearch(string streetName, Graph<Local> &mapa){
 		map<unsigned long long, string>::iterator it = localStreets.begin();
 		map<unsigned long long, string>::iterator it_e = localStreets.end();
 		while(it != it_e){
+
 			string street = it->second;
-			if(kmp(street ,streetName) > 0){
+			if(kmp(street, streetName) > 0){
 				bool found = false;
-				for(int j = 0; j < result.size(); j++){
+				for(int j = 0; j < (int)result.size(); j++){
 					if(street == result.at(j)){
 						found = true;
 					}
-					if(found == false){
-						result.push_back(street);
-					}
+				}
+				if(found == false){
+					result.push_back(street);
 				}
 			}
+			it++;
 		}
 	}
-
 	return result;
 }
 

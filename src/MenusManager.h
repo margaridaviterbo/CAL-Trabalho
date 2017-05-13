@@ -149,16 +149,16 @@ void findSharingPointMenu(Graph<Local> &map, int city){
 
 
 void searchByStreetName(int city){
-	int op;
+	int op, option;
 	string streetName, street;
 	Graph<Local> tempMap;
 	builtGraph(tempMap, SHORTEST_DIST, city);
 	vector<string> strings;
 	vector<string> streets;
-	char option;
 
 	for(int i = 0; i < 2; i++){
 
+		cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
 		cout << "Chose the type of search you want to use for street " << i+1 << ":" << endl << endl;
 		cout << "1 - Exact Search (searches for the exact expression you use - CASE SENSITIVE)\n";
 		cout << "2 - Approximate Search (searches for similar expressions to the one you use)\n";
@@ -171,11 +171,14 @@ void searchByStreetName(int city){
 		}
 
 
-		cout << "Enter street " << i+1 << " name: ";
-		cin >> streetName;
+		cout << endl << "Enter street " << i+1 << " name: ";
 
+		getline(cin, streetName);
+		//cin.get();
+		//cin.ignore();
 
-		//TODO VER A PARTIR DAQUI ONDE DÁ ERRO!!!!!!!!!!!!
+		cout << "streetname" << streetName << endl;
+		system("pause");
 
 		if(op == 1){
 
@@ -183,7 +186,7 @@ void searchByStreetName(int city){
 
 			while(strings.size() == 0){
 				cout << endl << "Unknown street." << endl;
-				cout << endl << "Press 0 to return main menu (use any other key to re-enter street name): ";
+				cout << endl << "Press 0 to return main menu (press 1 to re-enter name): ";
 				cin >> op;
 				if(op == 0){
 					return;
