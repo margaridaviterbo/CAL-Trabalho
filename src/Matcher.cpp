@@ -73,21 +73,26 @@ int damerau_levenshtein_distance(string p_string1, string p_string2){
 	return d[l_string_length1][l_string_length2];
 }
 
-int countWords(const char* str){
+int countWords(string str){
 
-	bool inSpaces = true;
+	cout << "char* str " << str << endl;
+
 	int numWords = 0;
 
-	while (*str != NULL){
-		if (isspace(*str)){
-			inSpaces = true;
-		}
-		else if (inSpaces){
+	for(int i = 0; i < (int)str.length(); i++){
+
+		cout << "char '" << str.at(i) << "'\n";
+
+		if (str.at(i) == ' '){
+
+			cout << "contei espaço\n";
+
 			numWords++;
-			inSpaces = false;
 		}
-		++str;
 	}
+	numWords++;
+
+	cout << "numero palavras " << numWords << endl;
 
 	return numWords;
 }
@@ -121,10 +126,12 @@ vector<string> exactSearch(string streetName, Graph<Local> &mapa){
 
 vector<string> approximateSearch(string streetName, Graph<Local> &mapa){
 
+	//TODO verificar se a pesquisa aproximada já dá resultados satizfatorios e testar com muitas coisas e no fim limpar os cout's todos daqui
+
 	cout << "entrei\n";
+	vector<string> result;
 
 	map <string, float> matches;
-	vector<string> result;
 	float max_dist = 0.0;
 
 	do{
@@ -142,9 +149,18 @@ vector<string> approximateSearch(string streetName, Graph<Local> &mapa){
 
 				string street = it->second;
 				int dist = damerau_levenshtein_distance(street, streetName);
-				int nWords = countWords(street.c_str());
 
-				float final_dist = dist/nWords;
+				cout << "strind street " << street << endl;
+
+				//int nWords = countWords(street);
+				int strLen = street.length();
+
+				cout << "STRLEN!!! " << strLen << endl;
+
+				float final_dist = dist/100/*strLen*/;		//TODO corrigir atribuiçao dos nomes às ruas para porder fazer aqui divisao por strLen
+															//porque ha algumas que nao tem nome e dá zero, alem disso a fazer o cruzamentos
+															//tmb nao vai funcionar porque os nomes estao todos mal
+															//(se houver ruas que o ficheiro nas diz o nome tenho de por aqui um if para nao dividir por zero
 
 				if( final_dist < max_dist){
 					map<string, float>::iterator found = matches.find(street);

@@ -221,6 +221,8 @@ void searchByStreetName(int city){
 
 		else{
 
+			cout << "AQUI!!!!!!!!\n";
+
 			strings = approximateSearch(streetName, tempMap);
 
 			do{

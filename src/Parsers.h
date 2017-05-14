@@ -125,8 +125,7 @@ void readRoadsDirections(Graph<Local> &mapa, searchOptions op, string file){
 
 			for (size_t i = 0; i < mapa.getVertexSet().size(); i++){
 				unsigned long long localId = mapa.getVertexSet().at(i)->getInfo().getId();
-				Local *l1 = mapa.getLocal(localId);
-				l1->setRoadName(roadId, roadName);
+				mapa.getLocal(localId)->setRoadName(roadId, roadName);
 
 				if(data == "True"){
 					vector<Edge<Local> > adjacents_origin = mapa.getVertexSet().at(i)->getAdj();
