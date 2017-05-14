@@ -149,16 +149,16 @@ void findSharingPointMenu(Graph<Local> &map, int city){
 
 
 void searchByStreetName(int city){
-	int op;
+	int op, option;
 	string streetName, street;
 	Graph<Local> tempMap;
 	builtGraph(tempMap, SHORTEST_DIST, city);
 	vector<string> strings;
 	vector<string> streets;
-	char option;
 
 	for(int i = 0; i < 2; i++){
 
+		cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
 		cout << "Chose the type of search you want to use for street " << i+1 << ":" << endl << endl;
 		cout << "1 - Exact Search (searches for the exact expression you use - CASE SENSITIVE)\n";
 		cout << "2 - Approximate Search (searches for similar expressions to the one you use)\n";
@@ -171,11 +171,11 @@ void searchByStreetName(int city){
 		}
 
 
-		cout << "Enter street " << i+1 << " name: ";
-		cin >> streetName;
+		cout << endl << "Enter street " << i+1 << " name: ";
 
-
-		//TODO VER A PARTIR DAQUI ONDE DÁ ERRO!!!!!!!!!!!!
+		cin.clear();
+		cin.ignore(256, '\n');
+		getline(cin, streetName);
 
 		if(op == 1){
 
@@ -183,7 +183,7 @@ void searchByStreetName(int city){
 
 			while(strings.size() == 0){
 				cout << endl << "Unknown street." << endl;
-				cout << endl << "Press 0 to return main menu (use any other key to re-enter street name): ";
+				cout << endl << "Press 0 to return main menu (press 1 to re-enter name): ";
 				cin >> op;
 				if(op == 0){
 					return;
@@ -220,9 +220,31 @@ void searchByStreetName(int city){
 
 
 		else{
-			strings = approximateSearch();
-			//TODO tratar strings para obter uma street then
-			//streets.push_back(street);
+
+			strings = approximateSearch(streetName, tempMap);
+
+			do{
+				cout << endl << "Search results are ordered by similarity to the data you entered." << endl;
+				cout << "Which of the following streets are you looking for? (enter number) " << endl << "0 - No street matches my search\n";
+
+				for(int j = 0; j < (int)strings.size(); j++){
+					cout << j + 1 << " - " << strings.at(j) << endl;
+				}
+				cout << "Option: ";
+				cin >> option;
+
+				if(option < 0 || option > (int)strings.size()){
+					cout << "INVALID OPTION!" << endl;
+				}
+
+			}while(option < 0 || option > (int)strings.size());
+
+			if(option == 0){
+				return;
+			}
+			else{
+				streets.push_back(strings.at(option - 1));
+			}
 		}
 
 	}
