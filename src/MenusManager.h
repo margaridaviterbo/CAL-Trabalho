@@ -173,12 +173,9 @@ void searchByStreetName(int city){
 
 		cout << endl << "Enter street " << i+1 << " name: ";
 
+		cin.clear();
+		cin.ignore(256, '\n');
 		getline(cin, streetName);
-		//cin.get();
-		//cin.ignore();
-
-		cout << "streetname" << streetName << endl;
-		system("pause");
 
 		if(op == 1){
 
@@ -223,9 +220,31 @@ void searchByStreetName(int city){
 
 
 		else{
-			strings = approximateSearch();
-			//TODO tratar strings para obter uma street then
-			//streets.push_back(street);
+
+			strings = approximateSearch(streetName, tempMap);
+
+			do{
+				cout << endl << "Search results are ordered by similarity to the data you entered." << endl;
+				cout << "Which of the following streets are you looking for? (enter number) " << endl << "0 - No street matches my search\n";
+
+				for(int j = 0; j < (int)strings.size(); j++){
+					cout << j + 1 << " - " << strings.at(j) << endl;
+				}
+				cout << "Option: ";
+				cin >> option;
+
+				if(option < 0 || option > (int)strings.size()){
+					cout << "INVALID OPTION!" << endl;
+				}
+
+			}while(option < 0 || option > (int)strings.size());
+
+			if(option == 0){
+				return;
+			}
+			else{
+				streets.push_back(strings.at(option - 1));
+			}
 		}
 
 	}
