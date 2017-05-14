@@ -126,7 +126,7 @@ vector<string> exactSearch(string streetName, Graph<Local> &mapa){
 
 vector<string> approximateSearch(string streetName, Graph<Local> &mapa){
 
-	//TODO verificar se a pesquisa aproximada já dá resultados satizfatorios e testar com muitas coisas e no fim limpar os cout's todos daqui
+	//TODO verificar se a pesquisa aproximada já dá resultados satisfatorios e testar com muitas coisas e no fim limpar os cout's todos daqui
 
 	cout << "entrei\n";
 	vector<string> result;
