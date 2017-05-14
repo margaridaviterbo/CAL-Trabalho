@@ -196,7 +196,7 @@ void searchByStreetName(int city){
 
 
 			do{
-				cout << endl << "Which of the following streets are you looking for? (enter number) " << endl << "0 - No street matches my search\n";
+				cout << endl << "Which of the following streets are you looking for? (enter number) " << endl << "0 - NO STREET MATCHES MY SEARCH\n\n";
 
 				for(int j = 0; j < (int)strings.size(); j++){
 					cout << j + 1 << " - " << strings.at(j) << endl;
@@ -221,11 +221,13 @@ void searchByStreetName(int city){
 
 		else{
 
+			cout << "AQUI!!!!!!!!\n";
+
 			strings = approximateSearch(streetName, tempMap);
 
 			do{
 				cout << endl << "Search results are ordered by similarity to the data you entered." << endl;
-				cout << "Which of the following streets are you looking for? (enter number) " << endl << "0 - No street matches my search\n";
+				cout << "Which of the following streets are you looking for? (enter number) " << endl << "0 - NO STREET MATCHES MY SEARCH\n\n";
 
 				for(int j = 0; j < (int)strings.size(); j++){
 					cout << j + 1 << " - " << strings.at(j) << endl;

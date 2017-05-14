@@ -29,6 +29,9 @@ void pre_kmp(string pattern, vector<int> & prefix);
 
 int kmp(string text, string pattern);
 
+int damerau_levenshtein_distance(string p_string1, string p_string2);
+
+int countWords(string str);
 
 vector<string> exactSearch(string streetName, Graph<Local> &mapa);
 
