@@ -35,8 +35,8 @@ int kmp(string text, string pattern){
 	return num;
 }
 
-int damerau_levenshtein_distance(string p_string1, string p_string2)
-{
+int damerau_levenshtein_distance(string p_string1, string p_string2){
+
 	int l_string_length1 = p_string1.length();
 	int l_string_length2 = p_string2.length();
 	int d[l_string_length1+1][l_string_length2+1];
@@ -73,6 +73,25 @@ int damerau_levenshtein_distance(string p_string1, string p_string2)
 	return d[l_string_length1][l_string_length2];
 }
 
+int countWords(const char* str){
+
+	bool inSpaces = true;
+	int numWords = 0;
+
+	while (*str != NULL){
+		if (isspace(*str)){
+			inSpaces = true;
+		}
+		else if (inSpaces){
+			numWords++;
+			inSpaces = false;
+		}
+		++str;
+	}
+
+	return numWords;
+}
+
 vector<string> exactSearch(string streetName, Graph<Local> &mapa){
 	vector<string> result;
 
@@ -102,17 +121,17 @@ vector<string> exactSearch(string streetName, Graph<Local> &mapa){
 
 vector<string> approximateSearch(string streetName, Graph<Local> &mapa){
 
+	cout << "entrei\n";
 
-	//TODO arranjar erro do primeiro ou segundo while infinitos
-
-	map <string, int> matches;
+	map <string, float> matches;
 	vector<string> result;
-	int max_dist = 0;
+	float max_dist = 0.0;
 
 	do{
-		max_dist += 50;
 
-		cout << "entrei primeiro while\n";
+		cout << "teste1\n";
+
+		max_dist += 5.0;
 
 		for(int i = 0; i < mapa.getNumVertex(); i++){
 
@@ -121,14 +140,16 @@ vector<string> approximateSearch(string streetName, Graph<Local> &mapa){
 
 			while(it != localStreets.end()){
 
-				cout << "entrei segundo while\n";
-
 				string street = it->second;
 				int dist = damerau_levenshtein_distance(street, streetName);
-				if( dist < max_dist){
-					map<string, int>::iterator found = matches.find(street);
-					if(found != matches.end()){
-						matches.insert(pair<string, int>(street, dist));
+				int nWords = countWords(street.c_str());
+
+				float final_dist = dist/nWords;
+
+				if( final_dist < max_dist){
+					map<string, float>::iterator found = matches.find(street);
+					if(found == matches.end()){
+						matches.insert(pair<string, float>(street, final_dist));
 					}
 				}
 				it++;
@@ -137,27 +158,26 @@ vector<string> approximateSearch(string streetName, Graph<Local> &mapa){
 
 	}while(matches.size() == 0);
 
-	int min = max_dist;
+	float min = max_dist;
 	string str;
-	map<string, int>::iterator aux;
+
 	while(matches.size() > 0){
 
-		cout << "entrei terceiro while\n";
+		cout << "teste2\n";
 
-		map<string, int>::iterator ite = matches.begin();
+		map<string, float>::iterator ite = matches.begin();
 		while(ite != matches.end()){
-
-			cout << "entrei quarto while\n";
 
 			if(ite->second <= min){
 				min = ite->second;
 				str = ite->first;
-				aux = ite;
 			}
 			ite++;
 		}
+
 		result.push_back(str);
-		matches.erase(aux);
+		matches.erase(matches.find(str));
+		min = max_dist;
 	}
 
 	return result;
