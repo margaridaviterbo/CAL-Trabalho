@@ -83,19 +83,28 @@ void printMap(Graph<Local> &mapa, int id, vector<int> path){
 		for(size_t j = 0; j < edges.size(); j++){
 			gv.addEdge(idEdge, vertexes.at(i)->getInfo().getUXid(), edges.at(j).getDest()->getInfo().getUXid(), EdgeType::DIRECTED);
 
-			map<unsigned long long, string> roads = vertexes.at(i)->getInfo().getRoads();
-			map<unsigned long long, string>::const_iterator it1 = roads.begin();
-			map<unsigned long long, string>::const_iterator it1_e = roads.end();
-			map<unsigned long long, string>::const_iterator it2 = roads.begin();
-			map<unsigned long long, string>::const_iterator it2_e = roads.end();
+			map<unsigned long long, string> roads1 = vertexes.at(i)->getInfo().getRoads();
+			map<unsigned long long, string> roads2 = edges.at(j).getDest()->getInfo().getRoads();
+			map<unsigned long long, string>::const_iterator it1 = roads1.begin();
+			map<unsigned long long, string>::const_iterator it1_e = roads1.end();
+			map<unsigned long long, string>::const_iterator it2 = roads2.begin();
+			map<unsigned long long, string>::const_iterator it2_e = roads2.end();
 
-			while((it1 != it1_e) && (it2 != it2_e) && (it1->first != it2->first)){
+			while((it1 != it1_e) && (it1->first != it2->first)){
 
-				it2 = roads.begin();
-				it2_e = roads.end();
+				cout << "while 1\n";
+				cout << "it1-first " << it1->first << "it2-first " << it2->first << endl;
+
+				it2 = roads2.begin();
+				it2_e = roads2.end();
 
 				while((it1 != it1_e) && (it2 != it2_e) && (it1->first != it2->first)){
+					cout << "while 2\n";
+					cout << "it1-first " << it1->first << "it2-first " << it2->first << endl;
 					it2++;
+				}
+				if(it1->first == it2->first){
+					break;
 				}
 				it1++;
 			}

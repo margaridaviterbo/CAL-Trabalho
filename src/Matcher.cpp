@@ -74,25 +74,16 @@ int damerau_levenshtein_distance(string p_string1, string p_string2){
 }
 
 int countWords(string str){
-
-	cout << "char* str " << str << endl;
-
 	int numWords = 0;
 
 	for(int i = 0; i < (int)str.length(); i++){
-
-		cout << "char '" << str.at(i) << "'\n";
-
 		if (str.at(i) == ' '){
-
-			cout << "contei espaço\n";
-
 			numWords++;
 		}
 	}
-	numWords++;
-
-	cout << "numero palavras " << numWords << endl;
+	if(numWords > 0){
+		numWords++;
+	}
 
 	return numWords;
 }
@@ -126,20 +117,12 @@ vector<string> exactSearch(string streetName, Graph<Local> &mapa){
 
 vector<string> approximateSearch(string streetName, Graph<Local> &mapa){
 
-	//TODO verificar se a pesquisa aproximada já dá resultados satisfatorios e testar com muitas coisas e no fim limpar os cout's todos daqui
-
-	cout << "entrei\n";
 	vector<string> result;
-
 	map <string, float> matches;
 	float max_dist = 0.0;
 
 	do{
-
-		cout << "teste1\n";
-
-		max_dist += 5.0;
-
+		max_dist += 3;
 		for(int i = 0; i < mapa.getNumVertex(); i++){
 
 			map<unsigned long long, string> localStreets = mapa.getVertexSet().at(i)->getInfo().getRoads();
@@ -149,18 +132,16 @@ vector<string> approximateSearch(string streetName, Graph<Local> &mapa){
 
 				string street = it->second;
 				int dist = damerau_levenshtein_distance(street, streetName);
+				int strLen = countWords(street);
 
-				cout << "strind street " << street << endl;
+				float final_dist;
 
-				//int nWords = countWords(street);
-				int strLen = street.length();
-
-				cout << "STRLEN!!! " << strLen << endl;
-
-				float final_dist = dist/100/*strLen*/;		//TODO corrigir atribuiçao dos nomes às ruas para porder fazer aqui divisao por strLen
-															//porque ha algumas que nao tem nome e dá zero, alem disso a fazer o cruzamentos
-															//tmb nao vai funcionar porque os nomes estao todos mal
-															//(se houver ruas que o ficheiro nas diz o nome tenho de por aqui um if para nao dividir por zero
+				if(strLen == 0){
+					final_dist = 99999999999;	//nao entra nas matches
+				}
+				else{
+					final_dist = dist/strLen;
+				}
 
 				if( final_dist < max_dist){
 					map<string, float>::iterator found = matches.find(street);
@@ -178,9 +159,6 @@ vector<string> approximateSearch(string streetName, Graph<Local> &mapa){
 	string str;
 
 	while(matches.size() > 0){
-
-		cout << "teste2\n";
-
 		map<string, float>::iterator ite = matches.begin();
 		while(ite != matches.end()){
 
@@ -195,6 +173,5 @@ vector<string> approximateSearch(string streetName, Graph<Local> &mapa){
 		matches.erase(matches.find(str));
 		min = max_dist;
 	}
-
 	return result;
 }
