@@ -156,7 +156,8 @@ void searchByStreetName(int city){
 	vector<string> strings;
 	vector<string> streets;
 
-	for(int i = 0; i < 2; i++){
+	int i = 0;
+	while(streets.size() < 2){
 
 		cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
 		cout << "Chose the type of search you want to use for street " << i+1 << ":" << endl << endl;
@@ -165,7 +166,9 @@ void searchByStreetName(int city){
 		cout << "Option: ";
 		cin >> op;
 
-		while (op < 1 || op > 2){
+		while (op != 1 && op != 2){
+			cin.clear();
+			cin.ignore(256, '\n');
 			cout << endl << endl <<"INVALID OPTION! Please try again: ";
 			cin >> op;
 		}
@@ -180,41 +183,37 @@ void searchByStreetName(int city){
 		if(op == 1){
 
 			strings = exactSearch(streetName, tempMap);
-
-			while(strings.size() == 0){
+			char opt;
+			if(strings.size() == 0){
 				cout << endl << "Unknown street." << endl;
-				cout << endl << "Press 0 to return main menu (press 1 to re-enter name): ";
-				cin >> op;
-				if(op == 0){
+				cout << endl << "Press 1 to search again (any other key to return to main menu): ";
+				cin >> opt;
+				if(opt != '1'){
 					return;
 				}
-				cout << "Enter street " << i+1 << " name: ";
-				cin >> streetName;
-				strings = exactSearch(streetName, tempMap);
-
 			}
 
+			if(strings.size() != 0){
 
-			do{
-				cout << endl << "Which of the following streets are you looking for? (enter number) " << endl << "0 - NO STREET MATCHES MY SEARCH\n\n";
+				do{
+					cout << endl << "Which of the following streets are you looking for? (enter number) " << endl << "0 - NO STREET MATCHES MY SEARCH\n\n";
 
-				for(int j = 0; j < (int)strings.size(); j++){
-					cout << j + 1 << " - " << strings.at(j) << endl;
+					for(int j = 0; j < (int)strings.size(); j++){
+						cout << j + 1 << " - " << strings.at(j) << endl;
+					}
+					cout << "Option: ";
+					cin >> option;
+
+					if(option < 0 || option > (int)strings.size()){
+						cout << "INVALID OPTION!" << endl;
+					}
+
+				}while(option < 0 || option > (int)strings.size());
+
+				if(option != 0){
+					streets.push_back(strings.at(option - 1));
+					i++;
 				}
-				cout << "Option: ";
-				cin >> option;
-
-				if(option < 0 || option > (int)strings.size()){
-					cout << "INVALID OPTION!" << endl;
-				}
-
-			}while(option < 0 || option > (int)strings.size());
-
-			if(option == 0){
-				return;
-			}
-			else{
-				streets.push_back(strings.at(option - 1));
 			}
 		}
 
@@ -238,11 +237,9 @@ void searchByStreetName(int city){
 
 			}while(option < 0 || option > (int)strings.size());
 
-			if(option == 0){
-				return;
-			}
-			else{
+			if(option != 0){
 				streets.push_back(strings.at(option - 1));
+				i++;
 			}
 		}
 

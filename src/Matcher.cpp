@@ -74,25 +74,16 @@ int damerau_levenshtein_distance(string p_string1, string p_string2){
 }
 
 int countWords(string str){
-
-	cout << "char* str " << str << endl;
-
 	int numWords = 0;
 
 	for(int i = 0; i < (int)str.length(); i++){
-
-		cout << "char '" << str.at(i) << "'\n";
-
 		if (str.at(i) == ' '){
-
-			cout << "contei espaço\n";
-
 			numWords++;
 		}
 	}
-	numWords++;
-
-	cout << "numero palavras " << numWords << endl;
+	if(numWords > 0){
+		numWords++;
+	}
 
 	return numWords;
 }
@@ -146,7 +137,7 @@ vector<string> approximateSearch(string streetName, Graph<Local> &mapa){
 				float final_dist;
 
 				if(strLen == 0){
-					final_dist = max_dist + 1;	//nao entra nas matches
+					final_dist = 99999999999;	//nao entra nas matches
 				}
 				else{
 					final_dist = dist/strLen;
