@@ -195,22 +195,10 @@ Local findCrossroad(vector<string> streets, Graph<Local> &mapa){
 			it++;
 		}
 		if(found1 && found2){
-			local = mapa.getVertexSet().at(i)->getInfo();
-			break;
+			return mapa.getVertexSet().at(i)->getInfo();
 		}
 	}
 
-	if(found1 && found2){
-		if(local.getSharingPoint().first){
-			return local;
-		}
-		else{
-			return Local(-1, 0, pair<float, float> (0, 0), 0);
-		}
-	}
-	else{
-		cout << endl << "The streets you searched do not cross. That is why:\n";
-		return Local(-1, 0, pair<float, float> (0, 0), 0);
-	}
+	return Local(-1, 0, pair<float, float> (0, 0), 0);
 
 }

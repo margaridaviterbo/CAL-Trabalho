@@ -36,9 +36,9 @@ void displayMainMenu(int city){
 	do{
 		cin >> op;
 		cout << endl;
-		if(op < 0 || op > 3)
+		if(op != 1 && op != 2 && op != 3)
 			cout << "Invalid option, chose between 1 or 2: ";
-	}while(op < 0 || op > 3);
+	}while(op != 1 && op != 2 && op != 3);
 
 	Graph<Local> tempMap;
 
@@ -247,11 +247,25 @@ void searchByStreetName(int city){
 
 	Local sharingPoint = findCrossroad(streets, tempMap);
 	if(sharingPoint.getId() != (unsigned long long)(-1)){
-		cout << endl << endl << "There is a Sharing Point with " << sharingPoint.getSharingPoint().second << " spots available in the crossroad between the streets you searched.\n";
+		if(sharingPoint.getSharingPoint().first){
+			cout << endl << endl << "There is a Sharing Point with " << sharingPoint.getSharingPoint().second << " spots available in the crossroad between the streets you searched.\n";
+		}
+		else{
+			cout << endl << endl << "There's not a Sharing Point in the crossroad between the streets you searched.\n";
+		}
 	}
 	else{
-		cout << endl << endl << "There's not a Sharing Point in the crossroad between the streets you searched.\n";
+		cout << endl << "The streets you searched do not cross.\n";
 	}
+
+
+	cout << "sharingPoint.getId() " << sharingPoint.getId() << "sharingPoint.getSharingPoint() " << sharingPoint.getSharingPoint().first << endl;
+
+	cin.clear();
+	cin.ignore(256, '\n');
+	do{
+		cout << '\n' << "Press enter to continue...";
+	} while (cin.get() != '\n');
 
 }
 
