@@ -37,6 +37,6 @@ vector<string> exactSearch(string streetName, Graph<Local> &mapa);
 
 vector<string> approximateSearch(string streetName, Graph<Local> &mapa);
 
-Local findCrossroad(string street1, string street2);
+Local findCrossroad(vector<string> streets, Graph<Local> &mapa);
 
 #endif /* MATCHER_H_ */

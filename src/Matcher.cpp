@@ -176,11 +176,41 @@ vector<string> approximateSearch(string streetName, Graph<Local> &mapa){
 	return result;
 }
 
-Local findCrossroad(string street1, string street2){
-	//procurar e devolver o local com o sharing point
+Local findCrossroad(vector<string> streets, Graph<Local> &mapa){
 
-	//se nao encontrar sharing point criar um Local com id = -1 e devolver esse
+	bool found1, found2;
+	Local local;
 
-	//se ruas nao se cruzarem
-	cout << endl << "The streets you searched do not cross. That is why:\n";
+	for (int i = 0; i < mapa.getNumVertex(); i++){
+		map<unsigned long long, string> roads = mapa.getVertexSet().at(i)->getInfo().getRoads();
+		map<unsigned long long, string>::iterator it = roads.begin();
+
+		while(it != roads.end()){
+			if(it->second == streets.at(0)){
+				found1 = true;
+			}
+			if(it->second == streets.at(1)){
+				found2 = true;
+			}
+			it++;
+		}
+		if(found1 && found2){
+			local = mapa.getVertexSet().at(i)->getInfo();
+			break;
+		}
+	}
+
+	if(found1 && found2){
+		if(local.getSharingPoint().first){
+			return local;
+		}
+		else{
+			return Local(-1, 0, pair<float, float> (0, 0), 0);
+		}
+	}
+	else{
+		cout << endl << "The streets you searched do not cross. That is why:\n";
+		return Local(-1, 0, pair<float, float> (0, 0), 0);
+	}
+
 }
