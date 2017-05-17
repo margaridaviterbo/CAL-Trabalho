@@ -37,6 +37,6 @@ vector<string> exactSearch(string streetName, Graph<Local> &mapa);
 
 vector<string> approximateSearch(string streetName, Graph<Local> &mapa);
 
-Local findCrossroad(string street1, string street2);	//TODO findcrossroad (encontra cruzamento entre as duas ruas e se tiver vê se tem sharing point e devolve string a informar destas duas cenas
+Local findCrossroad(string street1, string street2);
 
 #endif /* MATCHER_H_ */

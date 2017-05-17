@@ -180,4 +180,7 @@ Local findCrossroad(string street1, string street2){
 	//procurar e devolver o local com o sharing point
 
 	//se nao encontrar sharing point criar um Local com id = -1 e devolver esse
+
+	//se ruas nao se cruzarem
+	cout << endl << "The streets you searched do not cross. That is why:\n";
 }
