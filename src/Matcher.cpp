@@ -175,3 +175,9 @@ vector<string> approximateSearch(string streetName, Graph<Local> &mapa){
 	}
 	return result;
 }
+
+Local findCrossroad(string street1, string street2){
+	//procurar e devolver o local com o sharing point
+
+	//se nao encontrar sharing point criar um Local com id = -1 e devolver esse
+}

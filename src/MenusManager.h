@@ -245,7 +245,13 @@ void searchByStreetName(int city){
 
 	}
 
-	//findCrossRoad(streets.at(0), streets.at(1));
+	Local sharingPoint = findCrossroad(streets.at(0), streets.at(1));
+	if(sharingPoint.getId() != (unsigned long long)(-1)){
+		cout << endl << endl << "There is a Sharing Point with " << sharingPoint.getSharingPoint().second << " spots available in the crossroad between the streets you searched.\n";
+	}
+	else{
+		cout << endl << endl << "There's not a Sharing Point in the crossroad between the streets you searched.\n";
+	}
 
 }
 
