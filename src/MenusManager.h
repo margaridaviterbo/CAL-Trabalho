@@ -36,9 +36,9 @@ void displayMainMenu(int city){
 	do{
 		cin >> op;
 		cout << endl;
-		if(op != 1 && op != 2 && op != 3)
-			cout << "Invalid option, chose between 1 or 2: ";
-	}while(op != 1 && op != 2 && op != 3);
+		if(op != 0 && op != 1 && op != 2 && op != 3)
+			cout << "Invalid option, chose between 1, 2 or 3: ";
+	}while(op != 0 && op != 1 && op != 2 && op != 3);
 
 	Graph<Local> tempMap;
 
@@ -147,6 +147,11 @@ void findSharingPointMenu(Graph<Local> &map, int city){
 	}
 }
 
+
+/**
+ * função que faz o display do menu com as opçoes para encontrar um ponto de partilha atraves do nome de duas ruas
+ * @param city é o identificador da cidade sobre a qual se vai construir o grafo
+ */
 
 void searchByStreetName(int city){
 
