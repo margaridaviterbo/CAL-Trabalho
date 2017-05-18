@@ -149,6 +149,16 @@ void findSharingPointMenu(Graph<Local> &map, int city){
 
 
 void searchByStreetName(int city){
+
+	double time_spent_kmp = 0;
+	double time_spent_dld = 0;
+	double time_spent_exactSearch = 0;
+	double time_spent_approximateSearch = 0;
+	int num_exec_kmp = 0;
+	int num_exec_dld = 0;
+	int num_exec_exactSearch = 0;
+	int num_exec_approximateSearch = 0;
+
 	int op, option;
 	string streetName, street;
 	Graph<Local> tempMap;
@@ -181,8 +191,11 @@ void searchByStreetName(int city){
 		getline(cin, streetName);
 
 		if(op == 1){
-
-			strings = exactSearch(streetName, tempMap);
+			clock_t begin = clock();
+			strings = exactSearch(streetName, tempMap, time_spent_kmp, num_exec_kmp);
+			clock_t end = clock();
+			time_spent_exactSearch += ((double)(end - begin) / CLOCKS_PER_SEC)*pow(10, 3);
+			num_exec_exactSearch++;
 			char opt;
 			if(strings.size() == 0){
 				cout << endl << "Unknown street." << endl;
@@ -219,7 +232,11 @@ void searchByStreetName(int city){
 
 
 		else{
-			strings = approximateSearch(streetName, tempMap);
+			clock_t begin = clock();
+			strings = approximateSearch(streetName, tempMap, time_spent_dld, num_exec_dld);
+			clock_t end = clock();
+			time_spent_approximateSearch += ((double)(end - begin) / CLOCKS_PER_SEC)*pow(10, 3);
+			num_exec_approximateSearch++;
 
 			do{
 				cout << endl << "Search results are ordered by similarity to the data you entered." << endl;
@@ -257,6 +274,28 @@ void searchByStreetName(int city){
 	else{
 		cout << endl << "The streets you searched do not cross.\n";
 	}
+
+	cin.clear();
+	cin.ignore(256, '\n');
+	do{
+		cout << '\n' << "Press enter to see search statistics...";
+	} while (cin.get() != '\n');
+
+	cout << endl << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n________________________________________________________________________________" << endl;
+	cout << "SEARCH STATISTICS: " <<endl;
+	cout << "--------------------------------------------------------------------------------" << endl;
+	cout << "Number of executions of Exact Search Algorithm: " << num_exec_exactSearch << endl;
+	cout << "Total time consumed during Exact Search Algorithm executions: " << time_spent_exactSearch << "*e-3" << endl;
+	cout << "--------------------------------------------------------------------------------" << endl;
+	cout << "Number of executions of Knuth–Morris–Pratt Algorithm: " << num_exec_kmp << endl;
+	cout << "Total time consumed during Knuth–Morris–Pratt Algorithm executions: " << time_spent_kmp << "*e-3" << endl;
+	cout << "--------------------------------------------------------------------------------" << endl;
+	cout << "Number of executions of Approximate Search Algorithm: " << num_exec_approximateSearch << endl;
+	cout << "Total time consumed during Approximate Search Algorithm executions: " << time_spent_approximateSearch << "*e-3" << endl;
+	cout << "--------------------------------------------------------------------------------" << endl;
+	cout << "Number of executions of Damerau-Levenshtein-Distance Algorithm: " << num_exec_dld << endl;
+	cout << "Total time consumed during Damerau-Levenshtein-Distance Algorithm executions: " << time_spent_dld << "*e-3" << endl;
+	cout << "________________________________________________________________________________" << endl;
 
 	cin.clear();
 	cin.ignore(256, '\n');
