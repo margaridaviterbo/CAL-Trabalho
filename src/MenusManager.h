@@ -246,7 +246,7 @@ void searchByStreetName(int city){
 	}
 
 	Local sharingPoint = findCrossroad(streets, tempMap);
-	if(sharingPoint.getId() != (unsigned long long)(-1)){
+	if(sharingPoint.getId() != (unsigned long long)(0)){
 		if(sharingPoint.getSharingPoint().first){
 			cout << endl << endl << "There is a Sharing Point with " << sharingPoint.getSharingPoint().second << " spots available in the crossroad between the streets you searched.\n";
 		}
@@ -257,9 +257,6 @@ void searchByStreetName(int city){
 	else{
 		cout << endl << "The streets you searched do not cross.\n";
 	}
-
-
-	cout << "sharingPoint.getId() " << sharingPoint.getId() << "sharingPoint.getSharingPoint() " << sharingPoint.getSharingPoint().first << endl;
 
 	cin.clear();
 	cin.ignore(256, '\n');

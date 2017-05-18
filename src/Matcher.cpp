@@ -185,6 +185,8 @@ Local findCrossroad(vector<string> streets, Graph<Local> &mapa){
 		map<unsigned long long, string> roads = mapa.getVertexSet().at(i)->getInfo().getRoads();
 		map<unsigned long long, string>::iterator it = roads.begin();
 
+		found1 = false;
+		found2 = false;
 		while(it != roads.end()){
 			if(it->second == streets.at(0)){
 				found1 = true;
@@ -199,6 +201,6 @@ Local findCrossroad(vector<string> streets, Graph<Local> &mapa){
 		}
 	}
 
-	return Local(-1, 0, pair<float, float> (0, 0), 0);
+	return Local(0, 0, pair<float, float> (0, 0), 0);
 
 }
