@@ -92,15 +92,10 @@ void printMap(Graph<Local> &mapa, int id, vector<int> path){
 
 			while((it1 != it1_e) && (it1->first != it2->first)){
 
-				cout << "while 1\n";
-				cout << "it1-first " << it1->first << "it2-first " << it2->first << endl;
-
 				it2 = roads2.begin();
 				it2_e = roads2.end();
 
 				while((it1 != it1_e) && (it2 != it2_e) && (it1->first != it2->first)){
-					cout << "while 2\n";
-					cout << "it1-first " << it1->first << "it2-first " << it2->first << endl;
 					it2++;
 				}
 				if(it1->first == it2->first){
@@ -156,6 +151,11 @@ vector<pair<int, int> > setRegionSharingPoints(Graph<Local> &map){
 	return sp;
 }
 
+
+/**
+ * funçao que corrige os sharing points gerados de forma a que estes só se situem em cruzamentos entre ruas
+ * @param map é o grafo que representa o mapa
+ */
 void adjustSharingPoints(Graph<Local> &map){
 	for(size_t i = 0; i < map.getVertexSet().size(); i++){
 
