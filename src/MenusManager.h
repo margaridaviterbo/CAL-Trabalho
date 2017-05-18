@@ -149,6 +149,9 @@ void findSharingPointMenu(Graph<Local> &map, int city){
 
 
 void searchByStreetName(int city){
+
+	double time_spent_kmp;
+
 	int op, option;
 	string streetName, street;
 	Graph<Local> tempMap;
@@ -182,7 +185,7 @@ void searchByStreetName(int city){
 
 		if(op == 1){
 
-			strings = exactSearch(streetName, tempMap);
+			strings = exactSearch(streetName, tempMap, time_spent_kmp);
 			char opt;
 			if(strings.size() == 0){
 				cout << endl << "Unknown street." << endl;
@@ -257,6 +260,10 @@ void searchByStreetName(int city){
 	else{
 		cout << endl << "The streets you searched do not cross.\n";
 	}
+
+
+	cout << endl << "____________________________________________________________" << endl << "Time consumed by KMP algorithm: " << time_spent_kmp <<
+			endl << "____________________________________________________________";
 
 	cin.clear();
 	cin.ignore(256, '\n');

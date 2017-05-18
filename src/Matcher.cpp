@@ -13,7 +13,10 @@ void pre_kmp(string pattern, vector<int> & prefix){
 	}
 }
 
-int kmp(string text, string pattern){
+int kmp(string text, string pattern, double &time_spent_kmp){
+
+	clock_t begin = clock();
+
 	int num=0;
 	int m=pattern.length();
 	vector<int> prefix(m);
@@ -32,6 +35,10 @@ int kmp(string text, string pattern){
 			q=prefix[q];
 		}
 	}
+
+	clock_t end = clock();
+	time_spent_kmp = (double)(end - begin) / CLOCKS_PER_SEC;
+
 	return num;
 }
 
@@ -88,7 +95,7 @@ int countWords(string str){
 	return numWords;
 }
 
-vector<string> exactSearch(string streetName, Graph<Local> &mapa){
+vector<string> exactSearch(string streetName, Graph<Local> &mapa, double &time_spent_kmp){
 	vector<string> result;
 
 	for(int i = 0; i < mapa.getNumVertex(); i++){
@@ -98,7 +105,7 @@ vector<string> exactSearch(string streetName, Graph<Local> &mapa){
 		while(it != it_e){
 
 			string street = it->second;
-			if(kmp(street, streetName) > 0){
+			if(kmp(street, streetName, time_spent_kmp) > 0){
 				bool found = false;
 				for(int j = 0; j < (int)result.size(); j++){
 					if(street == result.at(j)){
